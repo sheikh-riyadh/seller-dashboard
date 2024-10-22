@@ -30,14 +30,14 @@ const LeftSide = () => {
             <Link
               className={`flex items-center gap-3 ${
                 !isExtend && "gap-6 py-3"
-              } px-4 py-2 duration-200 text-lg ${
+              } px-4 py-2 duration-200 text-sm text-slate ${
                 pathname == link ? "bg-stech text-white" : ""
               }`}
               to={`${link}`}
               title={name}
               key={name}
             >
-              <span>{icon}</span>
+              <span className="text-xl">{icon}</span>
               {isExtend && <span>{name}</span>}
             </Link>
           ))}

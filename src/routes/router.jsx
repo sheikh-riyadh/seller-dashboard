@@ -1,18 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Dashboard from "../pages/Dashbaord/Dashboard";
-import AccountTransaction from "../pages/AccountTransaction/AccountTransaction";
-import Address from "../pages/Address/Address";
-import Cart from "../pages/Cart/Cart";
 import ChangePassword from "../pages/ChangePassword/ChangePassword";
-import EditProfile from "../pages/EditProfile/EditProfile";
-import Order from "../pages/Order/Order";
-import Review from "../pages/Review/Review";
-import Wishlist from "../pages/Wishlist/Wishlist";
 import AddProduct from "../pages/AddProduct/AddProduct";
 import PersonalInformation from "../pages/Business/PersonalInformation";
 import BusinessInformation from "../pages/Business/BusinessInformation";
 import BannerInformation from "../pages/Business/BannerInformation";
+import BusinessLocation from "../pages/Business/BusinessLocation";
+import BrandInformation from "../pages/Business/BrandInformation";
+import ManageOrder from "../pages/OrderManagement/ManageOrder/ManageOrder";
+import ManageReviews from "../pages/OrderManagement/ManageReviews/ManageReviews";
+import ReturnPolicy from "../pages/ReturnPolicy/ReturnPolicy";
+import AboutBusiness from "../pages/Business/AboutBusiness";
+import IdentityVerification from "../pages/Business/IdentityVerification";
 
 const router = createBrowserRouter([
   {
@@ -24,18 +24,6 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "account-transaction",
-        element: <AccountTransaction />,
-      },
-      {
-        path: "address",
-        element: <Address />,
-      },
-      {
-        path: "my-cart",
-        element: <Cart />,
-      },
-      {
         path: "change-password",
         element: <ChangePassword />,
       },
@@ -44,20 +32,12 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "edit-profile",
-        element: <EditProfile />,
-      },
-      {
         path: "order",
-        element: <Order />,
+        element: <ManageOrder />,
       },
       {
-        path: "my-reviews",
-        element: <Review />,
-      },
-      {
-        path: "wishlist",
-        element: <Wishlist />,
+        path: "manage-reviews",
+        element: <ManageReviews />,
       },
       {
         path: "add-product",
@@ -72,8 +52,28 @@ const router = createBrowserRouter([
         element: <BusinessInformation />,
       },
       {
+        path: "business-location",
+        element: <BusinessLocation />,
+      },
+      {
         path: "banner-info",
-        element: <BannerInformation/>,
+        element: <BannerInformation />,
+      },
+      {
+        path: "add-brands",
+        element: <BrandInformation />,
+      },
+      {
+        path: "add-return-policy",
+        element: <ReturnPolicy />,
+      },
+      {
+        path: "about-business",
+        element: <AboutBusiness />,
+      },
+      {
+        path: "identity-verification",
+        element: <IdentityVerification />,
       },
     ],
   },

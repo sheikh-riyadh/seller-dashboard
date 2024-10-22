@@ -29,7 +29,7 @@ const ImageUpload = () => {
         ) : (
           <label
             htmlFor="upload_image_input"
-            className="flex justify-center items-center flex-col gap-2 text-gray-700 mb-3 size-full"
+            className="flex justify-center items-center flex-col gap-2 text-gray-700 mb-3 size-full cursor-pointer"
           >
             <input
               type="file"
@@ -39,7 +39,7 @@ const ImageUpload = () => {
               onChange={handleImageChange}
             />
             <FaUpload className="text-xl" />
-            <p>Drag a image here or click to upload</p>
+            <p>click to upload</p>
           </label>
         )}
       </div>

@@ -2,15 +2,18 @@ import PropTypes from "prop-types";
 import { useRef, useMemo } from "react";
 import JoditEditor from "jodit-react";
 
-const JoditTextArea = ({ content, setContent }) => {
+const JoditTextArea = ({ content, setContent, height, toolbarStickyOffset }) => {
   const editor = useRef(null);
 
   const config = useMemo(
     () => ({
       readonly: false,
       placeholder: "Start typings...",
+      required: true,
+      height,
+      toolbarStickyOffset,
     }),
-    []
+    [height, toolbarStickyOffset]
   );
   return (
     <JoditEditor
@@ -27,5 +30,7 @@ const JoditTextArea = ({ content, setContent }) => {
 JoditTextArea.propTypes = {
   content: PropTypes.string,
   setContent: PropTypes.func,
+  height: PropTypes.string,
+  toolbarStickyOffset: PropTypes.number,
 };
 export default JoditTextArea;

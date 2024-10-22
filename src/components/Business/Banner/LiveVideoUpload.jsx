@@ -1,22 +1,21 @@
+import PropTypes from "prop-types";
 import Input from "../../Common/Input";
 import ReactPlayer from "react-player";
 
-const LiveVideoUpload = () => {
-  const coverType = "",
-    liveUrl = "";
+const LiveVideoUpload = ({ register, watch }) => {
+  const liveUrl = watch("liveUrl");
 
   return (
     <div>
       <Input
         label={"Live URL"}
-        required={coverType === "live" && true}
+        required
         placeholder="https://www.youtube.com/live/WQh7zQQ_3i4"
-        message={""}
-        name={"live_url"}
+        {...register("liveUrl")}
       />
 
       {liveUrl ? (
-        <div className="flex justify-center items-center w-full">
+        <div className="flex justify-center items-center w-full mt-5">
           <ReactPlayer url={liveUrl} controls />
         </div>
       ) : (
@@ -24,6 +23,11 @@ const LiveVideoUpload = () => {
       )}
     </div>
   );
+};
+
+LiveVideoUpload.propTypes = {
+  register: PropTypes.func,
+  watch: PropTypes.func,
 };
 
 export default LiveVideoUpload;

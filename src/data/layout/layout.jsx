@@ -1,15 +1,18 @@
 import {
-  FaAddressCard,
   FaBoxOpen,
-  FaHeart,
+  FaBriefcase,
+  FaBuilding,
+  FaCertificate,
+  FaFingerprint,
+  FaLayerGroup,
   FaLock,
+  FaMapMarkerAlt,
+  FaReply,
   FaShoppingBag,
-  FaShoppingBasket,
-  FaStar,
-  FaUserCircle,
-  FaWallet,
+  FaUserFriends,
+  FaUserTie,
 } from "react-icons/fa";
-import { MdWindow } from "react-icons/md";
+import { MdReviews, MdWindow } from "react-icons/md";
 
 export const layout = {
   left_side: [
@@ -24,39 +27,9 @@ export const layout = {
       link: "/order",
     },
     {
-      name: "Edit Profile",
-      icon: <FaUserCircle />,
-      link: "/edit-profile",
-    },
-    {
       name: "Change Password",
       icon: <FaLock />,
       link: "/change-password",
-    },
-    {
-      name: "Address",
-      icon: <FaAddressCard />,
-      link: "/address",
-    },
-    {
-      name: "Wishlist",
-      icon: <FaHeart />,
-      link: "/wishlist",
-    },
-    {
-      name: "My Cart",
-      icon: <FaShoppingBasket />,
-      link: "/my-cart",
-    },
-    {
-      name: "Account Transaction",
-      icon: <FaWallet />,
-      link: "/account-transaction",
-    },
-    {
-      name: "My Reviews",
-      icon: <FaStar />,
-      link: "/my-reviews",
     },
     {
       name: "Add Product",
@@ -65,18 +38,53 @@ export const layout = {
     },
     {
       name: "Personal Information",
-      icon: <FaBoxOpen />,
+      icon: <FaUserTie />,
       link: "/personal-info",
     },
     {
       name: "Business Information",
-      icon: <FaBoxOpen />,
+      icon: <FaBriefcase />,
       link: "/business-info",
     },
     {
       name: "Banner Information",
-      icon: <FaBoxOpen />,
+      icon: <FaLayerGroup />,
       link: "/banner-info",
+    },
+    {
+      name: "Manage Reviews",
+      icon: <MdReviews />,
+      link: "/manage-reviews",
+    },
+    {
+      name: "Set Business Location",
+      icon: <FaMapMarkerAlt />,
+      link: "/business-location",
+    },
+    {
+      name: "Add Your Brands",
+      icon: <FaCertificate />,
+      link: "/add-brands",
+    },
+    {
+      name: "Add Your Return Policy",
+      icon: <FaReply />,
+      link: "/add-return-policy",
+    },
+    {
+      name: "About Business",
+      icon: <FaBuilding />,
+      link: "/about-business",
+    },
+    {
+      name: "Identity Verification",
+      icon: <FaFingerprint />,
+      link: "/identity-verification",
+    },
+    {
+      name: "Follower",
+      icon: <FaUserFriends />,
+      link: "/follower",
     },
   ],
 };
