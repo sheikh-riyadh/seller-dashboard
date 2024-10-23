@@ -6,6 +6,7 @@ import StockPriceAndQuantity from "../../components/AddProduct/StockPriceAndQuan
 import JoditTextArea from "../../components/Common/JoditTextArea";
 import DeliveryInfo from "../../components/AddProduct/DeliveryInfo";
 import toast from "react-hot-toast";
+import Button from "../../components/Common/Button";
 
 const AddProduct = () => {
   const [keyFeatures, setKeyFeatures] = useState([]);
@@ -46,9 +47,9 @@ const AddProduct = () => {
 
   return (
     <div>
-      <div className="h-40 bg-secondary w-full"></div>
+      <div className="h-40 bg-primary w-full"></div>
       <div className="my_container">
-        <div className="shadow w-full -mt-16 bg-white rounded-md overflow-hidden p-10">
+        <div className="shadow w-full -mt-24 bg-white rounded-md overflow-hidden p-10">
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
             onKeyDown={handleKeyDown}
@@ -103,7 +104,7 @@ const AddProduct = () => {
                 <DeliveryInfo register={register} watch={watch} />
               </div>
             </div>
-            <button>send</button>
+            <Button>Upload</Button>
           </form>
         </div>
       </div>

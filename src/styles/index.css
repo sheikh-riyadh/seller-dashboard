@@ -70,6 +70,24 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+
+
+.circle-progressbar::before{
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: var(--white);
+  border-radius: 50%;
+}
+
+
+
+
+
+
+
+
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
