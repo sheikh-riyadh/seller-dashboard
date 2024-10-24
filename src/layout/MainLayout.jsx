@@ -7,7 +7,7 @@ const MainLayout = () => {
   return (
     <div className="overflow-hidden">
       <div className={`flex`}>
-        <div>
+        <div className="bg-white">
           <LeftSide />
         </div>
         <div className="w-full h-[calc(100vh)] overflow-y-auto bar-hidden">

@@ -22,7 +22,7 @@ const OrderAndCancelletionGraph = () => {
     { name: "Dec", uv: 3490, pv: 4300, amt: 2100 },
   ];
   return (
-    <div className="w-full h-[500px] col-span-9 gap-5 shadow-md pb-28 rounded-md">
+    <div className="w-full bg-white h-[500px] col-span-9 gap-5 shadow-md pb-28 rounded-md border">
       <div className="flex gap-5 p-5 justify-between">
         <div className="flex flex-col gap-2">
           <span className="font-bold text-2xl">Welcome back Sheikh Riyadh</span>
