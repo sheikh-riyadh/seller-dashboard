@@ -12,7 +12,7 @@ const BusinessInformation = () => {
 
       <form
         onSubmit={handleSubmit()}
-        className="shadow-md m-10 p-7 -mt-28 bg-white rounded-md"
+        className="shadow-md m-10 p-7 -mt-28 bg-white border rounded-md"
       >
         <div className="grid grid-cols-2 gap-5">
           {business?.businessData?.map(

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ToCustomerTable from "../../../../components/OrderManagement/ManageOrder/ToCustomer/ToCustomerTable";
+import ToCustomerTable from "../../../../components/Pages/OrderManagement/ManageOrder/ToCustomer/ToCustomerTable";
 import Button from "../../../../components/Common/Button";
 
 const ToCustomer = () => {

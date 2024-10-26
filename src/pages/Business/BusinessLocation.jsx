@@ -21,7 +21,7 @@ const BusinessLocation = () => {
     <div>
       <div className="pb-8">
         <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-        <div className="-mt-28 bg-white shadow-md m-10 p-7 rounded-md">
+        <div className="-mt-28 bg-white shadow-md border m-10 p-5 rounded-md">
           <span className=" text-xl font-semibold text-blue">
             Upload your business location
           </span>

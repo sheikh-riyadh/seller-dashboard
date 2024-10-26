@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import JoditTextArea from "../Common/JoditTextArea";
-import TextArea from "../Common/TextArea";
+import TextArea from "../../Common/TextArea";
+import JoditTextArea from "../../Common/JoditTextArea";
+
 const DescriptionInfo = ({ register, content, setContent }) => {
   return (
     <div>

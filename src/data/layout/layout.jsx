@@ -82,9 +82,9 @@ export const layout = {
       link: "/identity-verification",
     },
     {
-      name: "Follower",
+      name: "Followers",
       icon: <FaUserFriends />,
-      link: "/follower",
+      link: "/followers",
     },
   ],
 };

@@ -22,7 +22,7 @@ const PersonalInformation = () => {
       <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
       <form
         onSubmit={handleSubmit()}
-        className="shadow-md m-10 p-7 -mt-28 bg-white rounded-md"
+        className="shadow-md m-10 p-7 -mt-28 bg-white border rounded-md"
       >
         <div className="rounded-full">
           <label

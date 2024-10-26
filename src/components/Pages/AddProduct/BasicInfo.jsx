@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import { FaPlus, FaTimes } from "react-icons/fa";
-import Input from "../Common/Input";
-import SelectInput from "../Common/SelectInput";
+import Input from "../../Common/Input";
+import SelectInput from "../../Common/SelectInput";
+
 
 const BasicInfo = ({
   register,

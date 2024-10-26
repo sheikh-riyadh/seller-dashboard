@@ -1,4 +1,5 @@
-import Table from "../../../Common/Table";
+import Table from "../../../../Common/Table";
+
 
 const ToCustomerTable = () => {
   return (

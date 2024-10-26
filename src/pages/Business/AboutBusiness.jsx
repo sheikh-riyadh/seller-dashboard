@@ -28,7 +28,7 @@ const AboutBusiness = () => {
 
       <form
         onSubmit={handleSubmit(handleOnSubmit)}
-        className="shadow-md m-10 p-7 -mt-28 bg-white rounded-md"
+        className="shadow-md m-10 p-5 -mt-28 bg-white border rounded-md"
       >
         <div className="mb-5 h-32 w-32 ">
           <label htmlFor="photo" className="rounded-full inline-block my-1">
@@ -86,8 +86,8 @@ const AboutBusiness = () => {
           />
         </div>
 
-        <div className="mt-5 flex flex-col">
-          <Button className="px-10 py-2">Save</Button>
+        <div className="mt-5 flex flex-col items-end">
+          <Button className="px-10 py-2 w-32">Save</Button>
         </div>
       </form>
     </div>

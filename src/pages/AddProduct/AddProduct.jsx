@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import BasicInfo from "../../components/AddProduct/BasicInfo";
-import DescriptionInfo from "../../components/AddProduct/DescriptionInfo";
-import StockPriceAndQuantity from "../../components/AddProduct/StockPriceAndQuantity";
+import BasicInfo from "../../components/Pages/AddProduct/BasicInfo";
+import DescriptionInfo from "../../components/Pages/AddProduct/DescriptionInfo";
+import StockPriceAndQuantity from "../../components/Pages/AddProduct/StockPriceAndQuantity";
 import JoditTextArea from "../../components/Common/JoditTextArea";
-import DeliveryInfo from "../../components/AddProduct/DeliveryInfo";
+import DeliveryInfo from "../../components/Pages/AddProduct/DeliveryInfo";
 import toast from "react-hot-toast";
 import Button from "../../components/Common/Button";
 

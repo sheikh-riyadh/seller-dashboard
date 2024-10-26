@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import SelectInput from "../Common/SelectInput";
-import Input from "../Common/Input";
+import SelectInput from "../../Common/SelectInput";
+import Input from "../../Common/Input";
+
 
 const DeliveryInfo = ({ register, watch }) => {
   const returnProductAvailable = watch("returnProductAvailable");

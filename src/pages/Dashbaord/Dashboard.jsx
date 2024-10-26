@@ -1,5 +1,5 @@
 import CircleProgressbar from "../../components/Common/CircleProgressbar";
-import OrderAndCancelletionGraph from "../../components/Dashboard/OrderAndCancelletionGraph";
+import OrderAndCancelletionGraph from "../../components/Pages/Dashboard/OrderAndCancelletionGraph";
 
 const Dashboard = () => {
   return (

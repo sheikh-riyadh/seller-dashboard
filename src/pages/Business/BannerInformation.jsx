@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ImageUpload from "../../components/Business/Banner/ImageUpload";
-import LiveVideoUpload from "../../components/Business/Banner/LiveVideoUpload";
+import ImageUpload from "../../components/Pages/Business/Banner/ImageUpload";
+import LiveVideoUpload from "../../components/Pages/Business/Banner/LiveVideoUpload";
 import Button from "../../components/Common/Button";
 import Input from "../../components/Common/Input";
 import TextArea from "../../components/Common/TextArea";
@@ -16,7 +16,7 @@ const BannerInformation = () => {
   return (
     <div className="pb-8">
       <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-      <div className="-mt-28 bg-white shadow-md m-10 p-7 rounded-md">
+      <div className="-mt-28 bg-white shadow-md m-10 p-5 border rounded-md">
         <div className="mb-10">
           <p className=" text-xl font-semibold text-blue">
             Which one you set as a cover?

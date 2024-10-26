@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import Button from "../../components/Common/Button";
 import Input from "../../components/Common/Input";
-import ImageUpload from "../../components/Business/Banner/ImageUpload";
+import ImageUpload from "../../components/Pages/Business/Banner/ImageUpload";
 
 const BrandInformation = () => {
   const { register, handleSubmit } = useForm();
@@ -11,7 +11,7 @@ const BrandInformation = () => {
   return (
     <div className="pb-8">
       <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-      <div className="-mt-28 bg-white shadow-md m-10 p-7 rounded-md">
+      <div className="-mt-28 bg-white shadow-md border m-10 p-7 rounded-md">
         <form
           onSubmit={handleSubmit(handleOnSubmit)}
           className="flex flex-col gap-3"

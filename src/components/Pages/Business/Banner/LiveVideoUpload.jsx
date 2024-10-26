@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import Input from "../../Common/Input";
+
 import ReactPlayer from "react-player";
+import Input from "../../../Common/Input";
 
 const LiveVideoUpload = ({ register, watch }) => {
   const liveUrl = watch("liveUrl");

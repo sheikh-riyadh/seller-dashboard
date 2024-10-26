@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import Input from "../Common/Input";
+import Input from "../../Common/Input";
+
 
 const StockPriceAndQuantity = ({ register }) => {
   return (

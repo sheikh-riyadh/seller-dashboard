@@ -13,6 +13,7 @@ import ManageReviews from "../pages/OrderManagement/ManageReviews/ManageReviews"
 import ReturnPolicy from "../pages/ReturnPolicy/ReturnPolicy";
 import AboutBusiness from "../pages/Business/AboutBusiness";
 import IdentityVerification from "../pages/Business/IdentityVerification";
+import Followers from "../pages/Followers/Followers";
 
 const router = createBrowserRouter([
   {
@@ -24,40 +25,8 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "change-password",
-        element: <ChangePassword />,
-      },
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "order",
-        element: <ManageOrder />,
-      },
-      {
-        path: "manage-reviews",
-        element: <ManageReviews />,
-      },
-      {
         path: "add-product",
         element: <AddProduct />,
-      },
-      {
-        path: "personal-info",
-        element: <PersonalInformation />,
-      },
-      {
-        path: "business-info",
-        element: <BusinessInformation />,
-      },
-      {
-        path: "business-location",
-        element: <BusinessLocation />,
-      },
-      {
-        path: "banner-info",
-        element: <BannerInformation />,
       },
       {
         path: "add-brands",
@@ -72,8 +41,44 @@ const router = createBrowserRouter([
         element: <AboutBusiness />,
       },
       {
+        path: "business-info",
+        element: <BusinessInformation />,
+      },
+      {
+        path: "business-location",
+        element: <BusinessLocation />,
+      },
+      {
+        path: "banner-info",
+        element: <BannerInformation />,
+      },
+      {
+        path: "change-password",
+        element: <ChangePassword />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "followers",
+        element: <Followers />,
+      },
+      {
         path: "identity-verification",
         element: <IdentityVerification />,
+      },
+      {
+        path: "manage-reviews",
+        element: <ManageReviews />,
+      },
+      {
+        path: "order",
+        element: <ManageOrder />,
+      },
+      {
+        path: "personal-info",
+        element: <PersonalInformation />,
       },
     ],
   },
