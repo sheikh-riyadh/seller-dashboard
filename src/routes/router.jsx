@@ -14,6 +14,8 @@ import ReturnPolicy from "../pages/ReturnPolicy/ReturnPolicy";
 import AboutBusiness from "../pages/Business/AboutBusiness";
 import IdentityVerification from "../pages/Business/IdentityVerification";
 import Followers from "../pages/Followers/Followers";
+import SignIn from "../pages/Login/SignIn";
+import SignUp from "../pages/Login/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +70,7 @@ const router = createBrowserRouter([
         path: "identity-verification",
         element: <IdentityVerification />,
       },
+
       {
         path: "manage-reviews",
         element: <ManageReviews />,
@@ -81,6 +84,14 @@ const router = createBrowserRouter([
         element: <PersonalInformation />,
       },
     ],
+  },
+  {
+    path: "sign-in",
+    element: <SignIn />,
+  },
+  {
+    path: "sign-up",
+    element: <SignUp />,
   },
 ]);
 
