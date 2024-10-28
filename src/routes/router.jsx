@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Dashboard from "../pages/Dashbaord/Dashboard";
-import ChangePassword from "../pages/ChangePassword/ChangePassword";
 import AddProduct from "../pages/AddProduct/AddProduct";
 import PersonalInformation from "../pages/Business/PersonalInformation";
 import BusinessInformation from "../pages/Business/BusinessInformation";
@@ -16,6 +15,7 @@ import IdentityVerification from "../pages/Business/IdentityVerification";
 import Followers from "../pages/Followers/Followers";
 import SignIn from "../pages/Login/SignIn";
 import SignUp from "../pages/Login/SignUp";
+import NotFound from "../pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -55,10 +55,6 @@ const router = createBrowserRouter([
         element: <BannerInformation />,
       },
       {
-        path: "change-password",
-        element: <ChangePassword />,
-      },
-      {
         path: "dashboard",
         element: <Dashboard />,
       },
@@ -92,6 +88,10 @@ const router = createBrowserRouter([
   {
     path: "sign-up",
     element: <SignUp />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 

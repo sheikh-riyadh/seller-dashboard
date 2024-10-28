@@ -5,7 +5,6 @@ import {
   FaCertificate,
   FaFingerprint,
   FaLayerGroup,
-  FaLock,
   FaMapMarkerAlt,
   FaReply,
   FaShoppingBag,
@@ -25,11 +24,6 @@ export const layout = {
       name: "Order",
       icon: <FaShoppingBag />,
       link: "/order",
-    },
-    {
-      name: "Change Password",
-      icon: <FaLock />,
-      link: "/change-password",
     },
     {
       name: "Add Product",
