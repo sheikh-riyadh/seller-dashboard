@@ -1,21 +1,32 @@
-import { useForm } from "react-hook-form";
-import { FaHome } from "react-icons/fa";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { FaHome } from "react-icons/fa";
 import Button from "../../Common/Button";
 import Input from "../../Common/Input";
 import { business } from "../../../data/business/business";
-import { useState } from "react";
 import BusinessInfo from "./BusinessInfo";
 import { checkValue } from "../../../utils/checkInputFieldValue";
-import toast from "react-hot-toast";
+import { auth } from "../../../firebase/firebase.config";
 
 const Registrastion = () => {
   const [isNext, setIsNext] = useState(false);
   const { handleSubmit, register, watch } = useForm();
   const values = watch(["fullName", "email", "phoneNumber", "password"]);
 
-  const handleRegistration = (data) => {
-    console.log(data);
+  const handleRegistration = async (data) => {
+    try {
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      console.log(result.user);
+    } catch (error) {
+      console.log("hello", error);
+    }
   };
 
   const handleNext = () => {
@@ -63,7 +74,11 @@ const Registrastion = () => {
                 )}
               </div>
             ) : (
-              <BusinessInfo register={register} setIsNext={setIsNext} watch={watch} />
+              <BusinessInfo
+                register={register}
+                setIsNext={setIsNext}
+                watch={watch}
+              />
             )}
           </div>
           {!isNext && (
