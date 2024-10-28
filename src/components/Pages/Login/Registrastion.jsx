@@ -6,17 +6,24 @@ import Input from "../../Common/Input";
 import { business } from "../../../data/business/business";
 import { useState } from "react";
 import BusinessInfo from "./BusinessInfo";
+import { checkValue } from "../../../utils/checkInputFieldValue";
+import toast from "react-hot-toast";
 
 const Registrastion = () => {
-  const { handleSubmit, register } = useForm();
   const [isNext, setIsNext] = useState(false);
+  const { handleSubmit, register, watch } = useForm();
+  const values = watch(["fullName", "email", "phoneNumber", "password"]);
 
   const handleRegistration = (data) => {
     console.log(data);
   };
 
   const handleNext = () => {
-    setIsNext(true);
+    if (checkValue(values)) {
+      setIsNext(true);
+    } else {
+      toast.error("All field are required", { id: "input_error" });
+    }
   };
 
   return (
@@ -42,7 +49,7 @@ const Registrastion = () => {
           <h1 className="font-bold text-3xl capitalize">Create Account</h1>
           <div className="w-full">
             {!isNext ? (
-              <div className="w-full flex flex-col gap-5 ltr-animation">
+              <div className="w-full flex flex-col gap-5 rtl-animation">
                 {business.registrationData.map(
                   ({ isRequired, placeholder, registerName, type }) => (
                     <Input
@@ -56,7 +63,7 @@ const Registrastion = () => {
                 )}
               </div>
             ) : (
-              <BusinessInfo register={register} setIsNext={setIsNext} />
+              <BusinessInfo register={register} setIsNext={setIsNext} watch={watch} />
             )}
           </div>
           {!isNext && (
