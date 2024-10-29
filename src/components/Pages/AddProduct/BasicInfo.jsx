@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import Input from "../../Common/Input";
 import SelectInput from "../../Common/SelectInput";
-
+import { ImSpinner9 } from "react-icons/im";
+import { useState } from "react";
 
 const BasicInfo = ({
   register,
@@ -10,34 +11,61 @@ const BasicInfo = ({
   handleDeleteKeyFeatures,
   productKeyFeatures,
 }) => {
+  const imageLoading = "";
+
+  const [logo, setLogo] = useState();
+
+  const handleImageChange = async (e, index) => {
+    const file = e.target.files[0];
+
+    console.log({ file, index });
+
+    if (file) {
+      setLogo("");
+    }
+  };
+
   return (
     <div className="flex flex-col gap-1 p-5">
       <span className="py-2 block font-medium">Product Image:</span>
-      <div className="flex gap-5">
-        <div className="flex items-center justify-center w-full h-36 border-2 border-dotted rounded-xl">
-          <FaPlus />
-        </div>
-        <div className="flex items-center justify-center w-full h-36 border-2 border-dotted rounded-xl">
-          <FaPlus />
-        </div>
-        <div className="flex items-center justify-center w-full h-36 border-2 border-dotted rounded-xl">
-          <FaPlus />
-        </div>
-        <div className="flex items-center justify-center w-full h-36 border-2 border-dotted rounded-xl">
-          <FaPlus />
-        </div>
-        <div className="flex items-center justify-center w-full h-36 border-2 border-dotted rounded-xl">
-          <FaPlus />
-        </div>
-      </div>
-      <div>
-        <Input
-          label={"Product Video URL"}
-          required
-          className={"bg-white border"}
-          {...register("productVideoURL")}
-          placeholder="Product video url"
-        />
+
+      <div className="grid grid-cols-4 gap-5">
+        {[...Array(4).keys()].map((imbBox, index) => (
+          <div key={imbBox} className="mb-5 h-32 ">
+            <label
+              htmlFor={`photo-${index}`}
+              className="rounded-full inline-block my-1 w-full"
+            >
+              <div className="h-32 border-2 border-primary border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ">
+                {logo ? (
+                  <img src={logo} alt="logo" />
+                ) : (
+                  <div>
+                    {!imageLoading && (
+                      <p className="text-4xl font-bold text-secondary">
+                        <FaPlus />
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {imageLoading && (
+                  <div className="absolute h-full w-full rounded">
+                    <ImSpinner9 className="h-full w-full animate-spin text-primary" />
+                  </div>
+                )}
+              </div>
+            </label>
+            <Input
+              onChange={(e) => handleImageChange(e, index+1)}
+              className="hidden"
+              id={`photo-${index}`}
+              type="file"
+              accept="image/*"
+              disabled={imageLoading}
+            />
+          </div>
+        ))}
       </div>
 
       <div>
