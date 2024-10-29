@@ -4,6 +4,7 @@ import Input from "../../Common/Input";
 import SelectInput from "../../Common/SelectInput";
 import { ImSpinner9 } from "react-icons/im";
 import { useState } from "react";
+import { useUploadImageMutation } from "../../../store/service/imageUpload/imageUploadAPI";
 
 const BasicInfo = ({
   register,
@@ -11,37 +12,53 @@ const BasicInfo = ({
   handleDeleteKeyFeatures,
   productKeyFeatures,
 }) => {
-  const imageLoading = "";
+  // States
+  const [images, setImages] = useState(Array(4).fill(null));
+  const [imageIndex, setImageIndex] = useState(0);
 
-  const [logo, setLogo] = useState();
+  // image upload function
+  const [uploadImage, { isLoading }] = useUploadImageMutation();
 
-  const handleImageChange = async (e, index) => {
-    const file = e.target.files[0];
+  const handleImageUpload = async (event, index) => {
+    setImageIndex(index);
+    // getting file from form
+    const file = event.target.files[0];
+    if (!file) return;
 
-    console.log({ file, index });
+    // add file
+    const formData = new FormData();
+    formData.append("image", file);
 
-    if (file) {
-      setLogo("");
-    }
+    const response = await uploadImage(formData).unwrap();
+    const newImages = [...images];
+    newImages[index] = response.data?.display_url;
+    setImages(newImages);
   };
+
+console.log(isLoading)
+
 
   return (
     <div className="flex flex-col gap-1 p-5">
       <span className="py-2 block font-medium">Product Image:</span>
 
       <div className="grid grid-cols-4 gap-5">
-        {[...Array(4).keys()].map((imbBox, index) => (
-          <div key={imbBox} className="mb-5 h-32 ">
+        {[...Array(4).keys()].map((_, index) => (
+          <div key={index} className="mb-5 h-32 ">
             <label
               htmlFor={`photo-${index}`}
               className="rounded-full inline-block my-1 w-full"
             >
-              <div className="h-32 border-2 border-primary border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ">
-                {logo ? (
-                  <img src={logo} alt="logo" />
+              <div className="h-32 border-2 border-primary border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer">
+                {images[index] ? (
+                  <img
+                    src={images[index]}
+                    alt={`Uploaded ${index}`}
+                    className="h-full w-full object-fill rounded-md"
+                  />
                 ) : (
                   <div>
-                    {!imageLoading && (
+                    {!isLoading && imageIndex === index && (
                       <p className="text-4xl font-bold text-secondary">
                         <FaPlus />
                       </p>
@@ -49,20 +66,20 @@ const BasicInfo = ({
                   </div>
                 )}
 
-                {imageLoading && (
-                  <div className="absolute h-full w-full rounded">
-                    <ImSpinner9 className="h-full w-full animate-spin text-primary" />
+                {isLoading && imageIndex === index && (
+                  <div className="absolute h-full w-full rounded flex items-center justify-center">
+                    <ImSpinner9 className="animate-spin text-primary text-4xl" />
                   </div>
                 )}
               </div>
             </label>
             <Input
-              onChange={(e) => handleImageChange(e, index+1)}
+              onChange={(e) => handleImageUpload(e, index)}
               className="hidden"
               id={`photo-${index}`}
               type="file"
               accept="image/*"
-              disabled={imageLoading}
+              disabled={isLoading}
             />
           </div>
         ))}
