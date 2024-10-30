@@ -1,11 +1,17 @@
 import PropTypes from "prop-types";
 import TextArea from "../../Common/TextArea";
 import JoditTextArea from "../../Common/JoditTextArea";
+import { handleDes } from "../../../store/features/product/productSlice";
+import { useSelector } from "react-redux";
 
-const DescriptionInfo = ({ register, content, setContent }) => {
+const DescriptionInfo = ({ register }) => {
+  const { description } = useSelector(
+    (state) => state.session.productReducer.value
+  );
+
   return (
     <div>
-      <div className="mb-5 bg-stech text-white p-2">
+      <div className="mb-5 bg-stech text-white p-3">
         <span>Description</span>
       </div>
       <div className="flex flex-col gap-1 p-5">
@@ -21,7 +27,7 @@ const DescriptionInfo = ({ register, content, setContent }) => {
           Product Description <span className="text-danger">*</span>
         </span>
         <div>
-          <JoditTextArea content={content} setContent={setContent} />
+          <JoditTextArea handleDescription={handleDes} content={description} />
         </div>
       </div>
     </div>

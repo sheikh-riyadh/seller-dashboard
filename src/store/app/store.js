@@ -13,7 +13,8 @@ import {
   persistReducer,
 } from "redux-persist";
 import { baseApi } from "../api/baseApi";
-import userReducer from "../features/userSlice";
+import userReducer from "../features/user/userSlice";
+import productReducer from "../features/product/productSlice";
 import { imgbbApi } from "../service/imageUpload/imageUploadAPI";
 
 const persistConfig = {
@@ -34,7 +35,7 @@ const rootPersistReducers = combineReducers({
 });
 
 const sessionReducers = combineReducers({
-  userReducer,
+  productReducer,
 });
 
 const persistedReducers = persistReducer(persistConfig, rootPersistReducers);

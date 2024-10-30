@@ -1,28 +1,20 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import BasicInfo from "../../components/Pages/AddProduct/BasicInfo";
 import DescriptionInfo from "../../components/Pages/AddProduct/DescriptionInfo";
 import StockPriceAndQuantity from "../../components/Pages/AddProduct/StockPriceAndQuantity";
 import JoditTextArea from "../../components/Common/JoditTextArea";
 import DeliveryInfo from "../../components/Pages/AddProduct/DeliveryInfo";
-import toast from "react-hot-toast";
 import Button from "../../components/Common/Button";
+import { handleAdditionalInfo } from "../../store/features/product/productSlice";
 
 const AddProduct = () => {
-  const [keyFeatures, setKeyFeatures] = useState([]);
-  const [description, setDescription] = useState("");
-  const [additionalInfo, setAdditionalInfo] = useState("");
-  const { handleSubmit, register, setValue, watch } = useForm();
+  const { keyFeatures, description, additionalInfo } = useSelector(
+    (state) => state.session.productReducer.value
+  );
 
-  const handleProductKeyFeature = (event) => {
-    if (event.key === "Enter") {
-      const data = event.target.value;
-      if (!keyFeatures.includes(data)) {
-        setKeyFeatures((prev) => [...prev, data]);
-        setValue("keyFeatures");
-      }
-    }
-  };
+  const { handleSubmit, register, setValue, watch } = useForm();
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -38,17 +30,10 @@ const AddProduct = () => {
     console.log({ ...data, keyFeatures, description, additionalInfo });
   };
 
-  const handleDeleteKeyFeatures = (deleteFeatureItem) => {
-    const restFeatures = keyFeatures.filter(
-      (feature) => feature != deleteFeatureItem
-    );
-    setKeyFeatures(restFeatures);
-  };
-
   return (
     <div>
       <div className="h-40 bg-primary w-full"></div>
-      <div className="my_container">
+      <div className="p-5">
         <div className="shadow w-full -mt-24 bg-white rounded-md overflow-hidden p-10">
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
@@ -56,27 +41,18 @@ const AddProduct = () => {
             className="overflow-hidden flex flex-col gap-5"
           >
             <div className="border rounded-md overflow-hidden">
-              <div className="mb-5 bg-stech text-white p-2">
+              <div className="mb-5 bg-stech text-white p-3">
                 <span>Basic Information</span>
               </div>
-              <BasicInfo
-                handleDeleteKeyFeatures={handleDeleteKeyFeatures}
-                handleProductKeyFeature={handleProductKeyFeature}
-                productKeyFeatures={keyFeatures}
-                register={register}
-              />
+              <BasicInfo register={register} setValue={setValue} />
             </div>
 
             <div className="border rounded-md overflow-hidden">
-              <DescriptionInfo
-                content={description}
-                register={register}
-                setContent={setDescription}
-              />
+              <DescriptionInfo register={register} />
             </div>
 
             <div className="border rounded-md overflow-hidden">
-              <div className="mb-5 bg-stech text-white p-2">
+              <div className="mb-5 bg-stech text-white p-3">
                 <span>Price and quantity</span>
               </div>
               <div className="flex flex-col gap-1 p-5">
@@ -85,26 +61,26 @@ const AddProduct = () => {
             </div>
 
             <div className="border rounded-md overflow-hidden">
-              <div className="mb-5 bg-stech text-white p-2">
+              <div className="mb-5 bg-stech text-white p-3">
                 <span>Additional Information</span>
               </div>
               <div className="flex flex-col gap-1 p-5">
                 <JoditTextArea
                   content={additionalInfo}
-                  setContent={setAdditionalInfo}
+                  handleAdditional={handleAdditionalInfo}
                 />
               </div>
             </div>
 
             <div className="border rounded-md overflow-hidden">
-              <div className="mb-5 bg-stech text-white p-2">
+              <div className="mb-5 bg-stech text-white p-3">
                 <span>Delivery Information</span>
               </div>
               <div className="flex flex-col gap-1 p-5">
                 <DeliveryInfo register={register} watch={watch} />
               </div>
             </div>
-            <Button>Upload</Button>
+            <Button className="w-32">Upload</Button>
           </form>
         </div>
       </div>

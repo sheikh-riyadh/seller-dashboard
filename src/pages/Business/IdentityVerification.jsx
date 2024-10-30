@@ -13,11 +13,12 @@ const IdentityVerification = () => {
     <div>
       <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
       <form onSubmit={handleSubmit(handleOnSubmit)}>
-        <div className="shadow-md m-10 p-5 -mt-28 bg-white border rounded-md flex flex-col">
+        <div className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md flex flex-col">
           <SelectInput
             {...register("type")}
             required
             label={"Select Document types"}
+            className="border bg-transparent"
           >
             {["NID", "Passport", " TradeLicense"].map((option) => (
               <option key={option} value={option}>

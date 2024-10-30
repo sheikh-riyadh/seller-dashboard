@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 
 const BannerInformation = () => {
   const [coverType, setCoverType] = useState("image");
+  const [images, setImages] = useState(Array(4).fill(null));
 
   const { register, handleSubmit, watch } = useForm();
 
@@ -16,7 +17,7 @@ const BannerInformation = () => {
   return (
     <div className="pb-8">
       <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-      <div className="-mt-28 bg-white shadow-md m-10 p-5 border rounded-md">
+      <div className="-mt-28 bg-white shadow-md m-5 p-5 border rounded-md">
         <div className="mb-10">
           <p className=" text-xl font-semibold text-blue">
             Which one you set as a cover?
@@ -58,7 +59,7 @@ const BannerInformation = () => {
             className={"bg-transparent border"}
           />
           {coverType == "image" ? (
-            <ImageUpload />
+            <ImageUpload images={images} setImages={setImages} />
           ) : (
             <LiveVideoUpload register={register} watch={watch} />
           )}

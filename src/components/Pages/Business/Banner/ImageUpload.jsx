@@ -1,73 +1,82 @@
 import { useState } from "react";
-import { FaTrash, FaUpload } from "react-icons/fa";
-import { ImSpinner10 } from "react-icons/im";
+import { FaPlus } from "react-icons/fa";
+import { ImSpinner9 } from "react-icons/im";
+import { useUploadImageMutation } from "../../../../store/service/imageUpload/imageUploadAPI";
+import Input from "../../../Common/Input";
+import { useDispatch, useSelector } from "react-redux";
+import { handleImages } from "../../../../store/features/product/productSlice";
 
 const ImageUpload = () => {
-  const [images, setImages] = useState([]);
-  const [isHoverImage, setIsHoverImage] = useState(null);
-  const isLoading = "";
-  const handleImageChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      console.log("");
-    }
+  const [imageIndex, setImageIndex] = useState(0);
+
+  const dispatch = useDispatch();
+  const { images } = useSelector((state) => state.session.productReducer.value);
+
+  const [uploadImage, { isLoading }] = useUploadImageMutation();
+
+  const handleImageUpload = async (event, index) => {
+    setImageIndex(index);
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await uploadImage(formData).unwrap();
+
+    dispatch(
+      handleImages({
+        index,
+        data: {
+          display_url: response.data?.display_url,
+          delete_url: response.data?.delete_url,
+        },
+      })
+    );
   };
 
   return (
-    <div>
-      <div
-        className={`bg-sky-100 border border-dashed border-primary rounded-sm h-60 mt-5 flex justify-center items-center ${
-          isLoading && "cursor-wait"
-        }`}
-      >
-        {isLoading ? (
-          <div className=" grid grid-cols-1 justify-center">
-            {" "}
-            <ImSpinner10 className="animate-spin text-3xl mx-auto" />
-            <p className="mt-2">Uploading</p>
-          </div>
-        ) : (
+    <div className="grid grid-cols-4 gap-5 mt-3">
+      {[...Array(images.length).keys()].map((_, index) => (
+        <div key={index} className="mb-5 h-32 w-full">
           <label
-            htmlFor="upload_image_input"
-            className="flex justify-center items-center flex-col gap-2 text-gray-700 mb-3 size-full cursor-pointer"
+            htmlFor={`photo-${index}`}
+            className="rounded-full inline-block my-1 w-full"
           >
-            <input
-              type="file"
-              accept={"image/*"}
-              className="hidden size-0 overflow-hidden"
-              id="upload_image_input"
-              onChange={handleImageChange}
-            />
-            <FaUpload className="text-xl" />
-            <p>click to upload</p>
-          </label>
-        )}
-      </div>
-      <div className="flex flex-wrap items-center gap-3 mt-5">
-        {images?.map((image, index) => (
-          <div
-            key={index}
-            className="size-20 border flex justify-center items-center relative p-1 overflow-hidden"
-            onMouseEnter={() => setIsHoverImage(index)}
-          >
-            <img src={image} alt="Media Image" className="object-cover" />
+            <div
+              className={`h-32 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
+                isLoading && "cursor-wait"
+              }`}
+            >
+              {images[index] ? (
+                <img
+                  src={images[index].display_url}
+                  alt={`Uploaded ${index}`}
+                  className="h-full w-full object-fill rounded-md"
+                />
+              ) : (
+                <p className="flex flex-col items-center justify-center text-2xl font-bold text-stech w-full h-full">
+                  <FaPlus />
+                </p>
+              )}
 
-            {isHoverImage === index ? (
-              <div
-                onMouseLeave={() => setIsHoverImage(null)}
-                onClick={() =>
-                  setImages(images?.filter((_, idx) => idx !== index))
-                }
-                className="absolute backdrop-blur inset-0 text-red-500 flex justify-center items-center text-xl cursor-pointer"
-              >
-                <FaTrash />
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-        ))}
-      </div>
+              {isLoading && imageIndex === index && (
+                <div className="absolute h-full w-full rounded bg-white flex items-center justify-center">
+                  <ImSpinner9 className="animate-spin text-stech text-4xl" />
+                </div>
+              )}
+            </div>
+          </label>
+          <Input
+            onChange={(e) => handleImageUpload(e, index)}
+            className="hidden"
+            id={`photo-${index}`}
+            type="file"
+            accept="image/*"
+            disabled={isLoading}
+          />
+        </div>
+      ))}
     </div>
   );
 };

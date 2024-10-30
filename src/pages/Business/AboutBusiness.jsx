@@ -4,18 +4,22 @@ import { ImSpinner9 } from "react-icons/im";
 import Input from "../../components/Common/Input";
 import TextArea from "../../components/Common/TextArea";
 import Button from "../../components/Common/Button";
+import { useUploadImageMutation } from "../../store/service/imageUpload/imageUploadAPI";
 
 const AboutBusiness = () => {
   const [logo, setLogo] = useState();
   const { register, handleSubmit } = useForm();
 
-  const imageLoading = "";
+  const [uploadImage, { isLoading }] = useUploadImageMutation();
 
-  const handleImageChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setLogo("");
-    }
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("image", file);
+    const response = await uploadImage(formData).unwrap();
+    setLogo(response.data?.display_url);
   };
 
   const handleOnSubmit = () => {
@@ -28,38 +32,48 @@ const AboutBusiness = () => {
 
       <form
         onSubmit={handleSubmit(handleOnSubmit)}
-        className="shadow-md m-10 p-5 -mt-28 bg-white border rounded-md"
+        className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md"
       >
-        <div className="mb-5 h-32 w-32 ">
-          <label htmlFor="photo" className="rounded-full inline-block my-1">
-            <div className="h-32 w-32 border-2 border-primary rounded-full relative flex flex-col items-center justify-center cursor-pointer ">
+        <div className="rounded-full">
+          <label
+            htmlFor="photo"
+            className="mb-1 inline-block rounded-full h-32 w-32 relative"
+          >
+            <div
+              className="h-32 w-32 border-2 border-stech rounded-full relative flex flex-col items-center justify-center cursor-pointer"
+              title="Business logo"
+            >
               {logo ? (
-                <img src={logo} alt="logo" />
+                <img
+                  className="w-full h-full rounded-full object-fill"
+                  src={logo}
+                  alt="logo"
+                />
               ) : (
-                <p className="text-4xl font-bold text-secondary">Logo</p>
-              )}
-
-              {imageLoading && (
-                <div className="absolute h-full w-full bg-black opacity-80 rounded-full">
-                  <ImSpinner9 className="h-full w-full animate-spin text-primary" />
+                <div className="w-full h-full bg-black hover:bg-transparent duration-300 rounded-full flex flex-col items-center justify-center text-white hover:text-stech border text-4xl font-bold overflow-hidden">
+                  <span >
+                    Logo
+                  </span>
                 </div>
               )}
-
-              <div className="absolute opacity-0 hover:opacity-100 bg-black flex justify-center items-center h-full w-full rounded-full duration-300">
-                <span className="font-bold text-4xl text-white">Logo</span>
-              </div>
+              {isLoading && (
+                <div className="absolute h-full w-full bg-black opacity-100 rounded-full">
+                  <ImSpinner9 className="h-full w-full animate-spin text-white" />
+                </div>
+              )}
             </div>
           </label>
+
           <Input
-            onChange={(e) => handleImageChange(e)}
+            onChange={(e) => handleImageUpload(e)}
             className="hidden"
             id="photo"
             type="file"
             accept="image/*"
+            required={false}
           />
         </div>
         <div className="grid grid-cols-2 gap-5">
-          {/* Business Name */}
           <Input
             {...register("storeName")}
             label={"Name of Store"}
@@ -69,7 +83,6 @@ const AboutBusiness = () => {
             className={"bg-transparent border"}
           />
 
-          {/* Business Email */}
           <Input
             {...register("storeId")}
             label={"Store ID"}
