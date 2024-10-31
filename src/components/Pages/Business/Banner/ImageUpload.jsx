@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import { ImSpinner9 } from "react-icons/im";
 import { useUploadImageMutation } from "../../../../store/service/imageUpload/imageUploadAPI";
 import Input from "../../../Common/Input";
@@ -8,11 +8,10 @@ import { handleImages } from "../../../../store/features/product/productSlice";
 
 const ImageUpload = () => {
   const [imageIndex, setImageIndex] = useState(0);
+  const [uploadImage, { isLoading }] = useUploadImageMutation();
 
   const dispatch = useDispatch();
   const { images } = useSelector((state) => state.session.productReducer.value);
-
-  const [uploadImage, { isLoading }] = useUploadImageMutation();
 
   const handleImageUpload = async (event, index) => {
     setImageIndex(index);
@@ -35,8 +34,13 @@ const ImageUpload = () => {
     );
   };
 
+  const handleDeleteImage = (index) => {
+    const delete_url = images[index].delete_url;
+    console.log(delete_url);
+  };
+
   return (
-    <div className="grid grid-cols-4 gap-5 mt-3">
+    <div className="grid grid-cols-4 gap-5">
       {[...Array(images.length).keys()].map((_, index) => (
         <div key={index} className="mb-5 h-32 w-full">
           <label
@@ -49,11 +53,20 @@ const ImageUpload = () => {
               }`}
             >
               {images[index] ? (
-                <img
-                  src={images[index].display_url}
-                  alt={`Uploaded ${index}`}
-                  className="h-full w-full object-fill rounded-md"
-                />
+                <div className="h-full w-full">
+                  <img
+                    src={images[index].display_url}
+                    alt={`Uploaded ${index}`}
+                    className="h-full w-full object-fill rounded-md"
+                  />
+
+                  <div
+                    onClick={() => handleDeleteImage(index)}
+                    className="absolute top-0 right-0 bg-[#2222228d] hover:bg-[#222222d4] duration-300 text-danger h-full w-full flex flex-col items-center justify-center rounded-md text-2xl"
+                  >
+                    <FaTrash className="" />
+                  </div>
+                </div>
               ) : (
                 <p className="flex flex-col items-center justify-center text-2xl font-bold text-stech w-full h-full">
                   <FaPlus />
@@ -73,7 +86,7 @@ const ImageUpload = () => {
             id={`photo-${index}`}
             type="file"
             accept="image/*"
-            disabled={isLoading}
+            disabled={isLoading || images[index]}
           />
         </div>
       ))}
