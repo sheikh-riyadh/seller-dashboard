@@ -20,7 +20,7 @@ const Pending = () => {
           </span>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold leading-snug">{`👋 Hello, ${user?.name}! Welcome to our platform.`}</h1>
+          <h1 className="text-3xl font-bold leading-snug">{`👋 Hello, ${user?.fullName}! Welcome to our platform.`}</h1>
           <span className="text-white text-lg">
             {`Your account is currently pending, and we'll notify you once it's fully activated.`}
           </span>

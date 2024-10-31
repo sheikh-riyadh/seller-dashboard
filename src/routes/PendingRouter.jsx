@@ -2,17 +2,15 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-const PrivateRouter = ({ children }) => {
+const PendingRouter = ({ children }) => {
   const { user } = useSelector(
     (state) => state?.local?.myselfCaptakeUserReducer?.value || {}
   );
 
   const location = useLocation();
 
-  if (user?.role === "seller" && user?.status == "active") {
+  if (user?.role === "seller" && user?.status === "pending") {
     return children;
-  } else if (user?.role === "seller" && user?.status === "pending") {
-    return <Navigate to="/pending" />;
   } else if (user?.role === "seller" && user?.status === "blocked") {
     return <Navigate to="/blocked" />;
   } else {
@@ -20,8 +18,8 @@ const PrivateRouter = ({ children }) => {
   }
 };
 
-PrivateRouter.propTypes = {
+PendingRouter.propTypes = {
   children: PropTypes.node,
 };
 
-export default PrivateRouter;
+export default PendingRouter;

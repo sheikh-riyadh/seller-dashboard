@@ -1,14 +1,49 @@
 import { useForm } from "react-hook-form";
 import { FaFacebookF, FaGithub, FaGooglePlusG, FaHome } from "react-icons/fa";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../../firebase/firebase.config";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import SubmitButton from "../../Common/SubmitButton";
+import { useLazyGetSellerQuery } from "../../../store/service/seller/sellerApi";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../../store/features/user/userSlice";
 
 const LogIn = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { handleSubmit, register } = useForm();
 
-  const handleLogin = async (data) => {
-    console.log(data);
+  const navigate = useNavigate();
+  const disptach = useDispatch();
+  const [getSeller] = useLazyGetSellerQuery();
+
+  const handleLogin = async ({ email, password }) => {
+    setIsLoading(true);
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      if (result?.user?.accessToken && result.user.email) {
+        const res = await getSeller(result.user.email);
+        if (res?.data?.email) {
+          disptach(addUser({ ...res?.data }));
+          setIsLoading(false);
+          navigate("/");
+        } else {
+          toast.error("Something went wrong", { id: "error" });
+          setIsLoading(false);
+        }
+      }
+    } catch (error) {
+      if (error.message == "Firebase: Error (auth/invalid-credential).") {
+        toast.error("Invalid credential", { id: "invalid" });
+        setIsLoading(false);
+      } else {
+        toast.error("Something went wrong", { id: "error" });
+        setIsLoading(false);
+      }
+    }
   };
 
   return (
@@ -40,7 +75,9 @@ const LogIn = () => {
           </div>
           <div className="flex flex-col gap-5">
             <span className="text-sm">Forget Your Password?</span>
-            <Button>Sign In</Button>
+            <SubmitButton isLoading={isLoading} className="w-32">
+              Sign In
+            </SubmitButton>
           </div>
         </form>
         <div className="bg-secondary md:rounded-l-[30%] flex flex-col gap-5 items-center justify-center p-7 text-center text-white order-first md:order-none rtl-animation relative">
@@ -52,7 +89,7 @@ const LogIn = () => {
             Register with your personal details to use all of the site features
           </span>
           <Link to="/sign-up">
-            <Button className="uppercase w-32">Sign Up</Button>
+            <Button className="w-32">Sign Up</Button>
           </Link>
         </div>
       </div>

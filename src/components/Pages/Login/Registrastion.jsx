@@ -45,7 +45,14 @@ const Registrastion = () => {
         }
       }
     } catch (error) {
-      console.log("hello", error);
+      if (error.message == "Firebase: Error (auth/email-already-in-use).") {
+        toast.error(`Email ${data?.email} already used`, { id: "email_error" });
+      } else {
+        toast.error("Something went wrong please try again letter", {
+          id: "try_again_letter",
+        });
+      }
+
       setIsLoading(false);
     }
   };

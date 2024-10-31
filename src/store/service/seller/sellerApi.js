@@ -2,6 +2,11 @@ import { baseApi } from "../../api/baseApi";
 
 const sellerApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
+    getSeller: build.query({
+      query: (data) => ({
+        url: `get-seller/${data}`,
+      }),
+    }),
     createSeller: build.mutation({
       query: (data) => ({
         url: "create-seller",
@@ -12,4 +17,8 @@ const sellerApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateSellerMutation } = sellerApi;
+export const {
+  useCreateSellerMutation,
+  useGetSellerQuery,
+  useLazyGetSellerQuery,
+} = sellerApi;

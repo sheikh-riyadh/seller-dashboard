@@ -19,6 +19,8 @@ import NotFound from "../pages/NotFound/NotFound";
 import PrivateRouter from "./PrivateRouter";
 import Pending from "../pages/Pending/Pending";
 import Block from "../pages/Pending/Block";
+import BlockedRouter from "./BlockedRouter";
+import PendingRouter from "./PendingRouter";
 
 const router = createBrowserRouter([
   {
@@ -146,11 +148,19 @@ const router = createBrowserRouter([
   },
   {
     path: "blocked",
-    element: <Block />,
+    element: (
+      <BlockedRouter>
+        <Block />
+      </BlockedRouter>
+    ),
   },
   {
     path: "pending",
-    element: <Pending/>,
+    element: (
+      <PendingRouter>
+        <Pending />
+      </PendingRouter>
+    ),
   },
   {
     path: "sign-in",
