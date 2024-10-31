@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const DescriptionInfo = ({ register }) => {
   const { description } = useSelector(
-    (state) => state.session.productReducer.value
+    (state) => state.session.myselfCaptakeProductReducer.value
   );
 
   return (

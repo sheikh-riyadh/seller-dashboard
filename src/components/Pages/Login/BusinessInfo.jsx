@@ -7,7 +7,7 @@ import { checkValue } from "../../../utils/checkInputFieldValue";
 import toast from "react-hot-toast";
 import CountryInfo from "./CountryInfo";
 
-const BusinessInfo = ({ register, setIsNext, watch }) => {
+const BusinessInfo = ({ register, setIsNext, watch, isLoading }) => {
   const [isBusinessNext, setIsBusinessNext] = useState(false);
   const values = watch([
     "businessNumber",
@@ -52,6 +52,7 @@ const BusinessInfo = ({ register, setIsNext, watch }) => {
           register={register}
           setIsBusinessNext={setIsBusinessNext}
           watch={watch}
+          isLoading={isLoading}
         />
       )}
       {!isBusinessNext && (
@@ -78,6 +79,7 @@ BusinessInfo.propTypes = {
   register: PropTypes.func,
   setIsNext: PropTypes.func,
   watch: PropTypes.func,
+  isLoading: PropTypes.bool
 };
 
 export default BusinessInfo;

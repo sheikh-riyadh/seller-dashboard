@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { business } from "../../../data/business/business";
 import SelectInput from "../../Common/SelectInput";
-import Button from "../../Common/Button";
 import Input from "../../Common/Input";
+import SubmitButton from "../../Common/SubmitButton";
 
-const CountryInfo = ({ register, setIsBusinessNext, watch }) => {
+const CountryInfo = ({ register, setIsBusinessNext, watch,isLoading }) => {
   const [cities, setCities] = useState([]);
   const name = watch("state");
   useEffect(() => {
@@ -62,9 +62,11 @@ const CountryInfo = ({ register, setIsBusinessNext, watch }) => {
         >
           Back
         </div>
-        <Button className="font-medium uppercase text-sm border w-full text-center p-2.5 rounded-md bg-stech text-white cursor-pointer">
+        <SubmitButton isLoading={isLoading}
+        
+        className="font-medium uppercase text-sm border w-full text-center p-2.5 rounded-md bg-stech text-white cursor-pointer">
           Submit
-        </Button>
+        </SubmitButton>
       </div>
     </div>
   );
@@ -74,6 +76,7 @@ CountryInfo.propTypes = {
   register: PropTypes.func,
   setIsBusinessNext: PropTypes.func,
   watch: PropTypes.func,
+  isLoading: PropTypes.bool
 };
 
 export default CountryInfo;

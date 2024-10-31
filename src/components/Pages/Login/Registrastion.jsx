@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -10,22 +10,43 @@ import { business } from "../../../data/business/business";
 import BusinessInfo from "./BusinessInfo";
 import { checkValue } from "../../../utils/checkInputFieldValue";
 import { auth } from "../../../firebase/firebase.config";
+import { useCreateSellerMutation } from "../../../store/service/seller/sellerApi";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../../store/features/user/userSlice";
 
 const Registrastion = () => {
   const [isNext, setIsNext] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const { handleSubmit, register, watch } = useForm();
   const values = watch(["fullName", "email", "phoneNumber", "password"]);
 
+  const navigate = useNavigate();
+  const disptach = useDispatch();
+  const [createSeller] = useCreateSellerMutation();
+
   const handleRegistration = async (data) => {
+    setIsLoading(true);
     try {
       const result = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
-      console.log(result.user);
+      if (result?.user?.accessToken && result.user.email) {
+        const res = await createSeller(data);
+        if (res?.data?.acknowledged) {
+          disptach(addUser({ ...res?.data }));
+          setIsLoading(false);
+          navigate("/");
+        } else {
+          toast.error("Something went wrong", { id: "error" });
+          setIsLoading(false);
+        }
+      }
     } catch (error) {
       console.log("hello", error);
+      setIsLoading(false);
     }
   };
 
@@ -78,6 +99,7 @@ const Registrastion = () => {
                 register={register}
                 setIsNext={setIsNext}
                 watch={watch}
+                isLoading={isLoading}
               />
             )}
           </div>

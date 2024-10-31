@@ -6,6 +6,5 @@ export const checkValue = (values) => {
       break;
     }
   }
-  console.log(values)
   return result;
 };

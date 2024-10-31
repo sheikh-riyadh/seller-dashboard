@@ -11,7 +11,7 @@ const ImageUpload = () => {
   const [uploadImage, { isLoading }] = useUploadImageMutation();
 
   const dispatch = useDispatch();
-  const { images } = useSelector((state) => state.session.productReducer.value);
+  const { images } = useSelector((state) => state.session.myselfCaptakeProductReducer.value);
 
   const handleImageUpload = async (event, index) => {
     setImageIndex(index);

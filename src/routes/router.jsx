@@ -16,70 +16,141 @@ import Followers from "../pages/Followers/Followers";
 import SignIn from "../pages/Login/SignIn";
 import SignUp from "../pages/Login/SignUp";
 import NotFound from "../pages/NotFound/NotFound";
+import PrivateRouter from "./PrivateRouter";
+import Pending from "../pages/Pending/Pending";
+import Block from "../pages/Pending/Block";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      <PrivateRouter>
+        <MainLayout />
+      </PrivateRouter>
+    ),
     children: [
       {
         path: "/",
-        element: <Dashboard />,
+        element: (
+          <PrivateRouter>
+            <Dashboard />
+          </PrivateRouter>
+        ),
       },
       {
         path: "add-product",
-        element: <AddProduct />,
+        element: (
+          <PrivateRouter>
+            <AddProduct />
+          </PrivateRouter>
+        ),
       },
       {
         path: "add-brands",
-        element: <BrandInformation />,
+        element: (
+          <PrivateRouter>
+            <BrandInformation />
+          </PrivateRouter>
+        ),
       },
       {
         path: "add-return-policy",
-        element: <ReturnPolicy />,
+        element: (
+          <PrivateRouter>
+            <ReturnPolicy />
+          </PrivateRouter>
+        ),
       },
       {
         path: "about-business",
-        element: <AboutBusiness />,
+        element: (
+          <PrivateRouter>
+            <AboutBusiness />
+          </PrivateRouter>
+        ),
       },
       {
         path: "business-info",
-        element: <BusinessInformation />,
+        element: (
+          <PrivateRouter>
+            <BusinessInformation />
+          </PrivateRouter>
+        ),
       },
       {
         path: "business-location",
-        element: <BusinessLocation />,
+        element: (
+          <PrivateRouter>
+            <BusinessLocation />
+          </PrivateRouter>
+        ),
       },
       {
         path: "banner-info",
-        element: <BannerInformation />,
+        element: (
+          <PrivateRouter>
+            <BannerInformation />
+          </PrivateRouter>
+        ),
       },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <PrivateRouter>
+            <Dashboard />
+          </PrivateRouter>
+        ),
       },
       {
         path: "followers",
-        element: <Followers />,
+        element: (
+          <PrivateRouter>
+            <Followers />
+          </PrivateRouter>
+        ),
       },
       {
         path: "identity-verification",
-        element: <IdentityVerification />,
+        element: (
+          <PrivateRouter>
+            <IdentityVerification />
+          </PrivateRouter>
+        ),
       },
 
       {
         path: "manage-reviews",
-        element: <ManageReviews />,
+        element: (
+          <PrivateRouter>
+            <ManageReviews />
+          </PrivateRouter>
+        ),
       },
       {
         path: "order",
-        element: <ManageOrder />,
+        element: (
+          <PrivateRouter>
+            <ManageOrder />
+          </PrivateRouter>
+        ),
       },
       {
         path: "personal-info",
-        element: <PersonalInformation />,
+        element: (
+          <PrivateRouter>
+            <PersonalInformation />
+          </PrivateRouter>
+        ),
       },
     ],
+  },
+  {
+    path: "blocked",
+    element: <Block />,
+  },
+  {
+    path: "pending",
+    element: <Pending/>,
   },
   {
     path: "sign-in",
