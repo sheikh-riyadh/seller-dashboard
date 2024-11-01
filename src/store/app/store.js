@@ -31,10 +31,10 @@ const sessionConfig = {
 };
 
 const rootPersistReducers = combineReducers({
-  myselfCaptakeUserReducer,
 });
 
 const sessionReducers = combineReducers({
+  myselfCaptakeUserReducer,
   myselfCaptakeProductReducer,
 });
 

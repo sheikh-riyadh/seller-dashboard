@@ -1,7 +1,17 @@
 import Button from "../../components/Common/Button";
 import { SiAdblock } from "react-icons/si";
+// import { useGetSellerQuery } from "../../store/service/seller/sellerApi";
+// import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 
 const Block = () => {
+  // const navigate = useNavigate();
+  // const { user } = useSelector(
+  //   (state) => state?.local?.myselfCaptakeUserReducer?.value || {}
+  // );
+  // const { data } = useGetSellerQuery(user?.email);
+  // data?.status === "active" && navigate("/sign-in");
+
   return (
     <div className="flex flex-col items-center justify-center h-svh bg-primary">
       <div className="grid md:grid-cols-2 w-7/12 md:w-11/12 lg:w-9/12 xl:w-7/12 items-center justify-center">

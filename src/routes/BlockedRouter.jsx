@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const BlockedRouter = ({ children }) => {
   const { user } = useSelector(
-    (state) => state?.local?.myselfCaptakeUserReducer?.value || {}
+    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
   );
 
   const location = useLocation();

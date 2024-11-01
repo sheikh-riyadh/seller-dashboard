@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const PrivateRouter = ({ children }) => {
   const { user } = useSelector(
-    (state) => state?.local?.myselfCaptakeUserReducer?.value || {}
+    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
   );
 
   const location = useLocation();
