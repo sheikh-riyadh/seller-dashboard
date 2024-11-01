@@ -20,7 +20,7 @@ const SubmitButton = ({
     >
       {isLoading ? (
         <div
-          className={`flex gap-1 items-center h-full ${
+          className={`flex gap-1 items-center justify-center h-full ${
             isLoading && "cursor-wait"
           }`}
         >

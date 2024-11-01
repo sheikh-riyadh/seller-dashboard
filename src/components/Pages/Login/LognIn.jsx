@@ -7,13 +7,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase/firebase.config";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import SubmitButton from "../../Common/SubmitButton";
 import { useLazyGetSellerQuery } from "../../../store/service/seller/sellerApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../store/features/user/userSlice";
+import ForgetPassword from "./ForgetPassword";
+import Modal from "../../Modal/Modal";
+import SubmitButton from "../../Common/SubmitButton";
 
 const LogIn = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { handleSubmit, register } = useForm();
 
   const navigate = useNavigate();
@@ -74,7 +78,12 @@ const LogIn = () => {
             />
           </div>
           <div className="flex flex-col gap-5">
-            <span className="text-sm">Forget Your Password?</span>
+            <span
+              onClick={() => setIsModalOpen((prev) => !prev)}
+              className="text-sm cursor-pointer"
+            >
+              Forget Your Password?
+            </span>
             <SubmitButton isLoading={isLoading} className="w-32">
               Sign In
             </SubmitButton>
@@ -93,6 +102,16 @@ const LogIn = () => {
           </Link>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={setIsModalOpen}
+          className="w-[350px]"
+          title="Forget Password"
+        >
+          <ForgetPassword />
+        </Modal>
+      )}
     </div>
   );
 };
