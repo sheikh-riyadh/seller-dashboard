@@ -1,17 +1,19 @@
 import { useState } from "react";
+import { useUploadImageMutation } from "../../../../store/service/imageUpload/imageUploadAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { handleDeleteBanner, handleImages } from "../../../../store/features/banner/bannerSlice";
+import toast from "react-hot-toast";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { ImSpinner9 } from "react-icons/im";
-import { useUploadImageMutation } from "../../../../store/service/imageUpload/imageUploadAPI";
 import Input from "../../../Common/Input";
-import { useDispatch, useSelector } from "react-redux";
-import { handleImages } from "../../../../store/features/product/productSlice";
+
 
 const ImageUpload = () => {
   const [imageIndex, setImageIndex] = useState(0);
   const [uploadImage, { isLoading }] = useUploadImageMutation();
 
   const dispatch = useDispatch();
-  const { images } = useSelector((state) => state.session.myselfCaptakeProductReducer.value);
+  const { images } = useSelector((state) => state.session.bannerReducer.value);
 
   const handleImageUpload = async (event, index) => {
     setImageIndex(index);
@@ -21,68 +23,64 @@ const ImageUpload = () => {
     const formData = new FormData();
     formData.append("image", file);
 
-    const response = await uploadImage(formData).unwrap();
-
-    dispatch(
-      handleImages({
-        index,
-        data: {
-          display_url: response.data?.display_url,
-          delete_url: response.data?.delete_url,
-        },
-      })
-    );
+    try {
+      const response = await uploadImage(formData).unwrap();
+      dispatch(
+        handleImages({
+          index,
+          data: response.data?.display_url,
+        })
+      );
+    } catch (error) {
+      toast.error("Something went wrong ", { id: error });
+    }
   };
 
-  const handleDeleteImage = (index) => {
-    const delete_url = images[index].delete_url;
-    console.log(delete_url);
+  const handleDelete = (index) => {
+    dispatch(handleDeleteBanner(index));
   };
 
   return (
     <div className="grid grid-cols-4 gap-5">
-      {[...Array(images.length).keys()].map((_, index) => (
-        <div key={index} className="mb-5 h-32 w-full">
-          <label
-            htmlFor={`photo-${index}`}
-            className="rounded-full inline-block my-1 w-full"
-          >
-            <div
-              className={`h-32 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
-                isLoading && "cursor-wait"
-              }`}
+      {[...Array(images?.length).keys()].map((_, index) => (
+        <div key={index} className="my-5 h-32 w-full relative">
+          {!images[index] ? (
+            <label
+              htmlFor={`photo-${index}`}
+              className="inline-block my-1 w-full"
             >
-              {images[index] ? (
-                <div className="h-full w-full">
-                  <img
-                    src={images[index].display_url}
-                    alt={`Uploaded ${index}`}
-                    className="h-full w-full object-fill rounded-md"
-                  />
-
-                  <div
-                    onClick={() => handleDeleteImage(index)}
-                    className="absolute top-0 right-0 bg-[#2222228d] hover:bg-[#222222d4] duration-300 text-danger h-full w-full flex flex-col items-center justify-center rounded-md text-2xl"
-                  >
-                    <FaTrash className="" />
-                  </div>
-                </div>
-              ) : (
+              <div
+                className={`h-32 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
+                  isLoading && "cursor-wait"
+                }`}
+              >
                 <p className="flex flex-col items-center justify-center text-2xl font-bold text-stech w-full h-full">
                   <FaPlus />
                 </p>
-              )}
 
-              {isLoading && imageIndex === index && (
-                <div className="absolute h-full w-full rounded bg-white flex items-center justify-center">
-                  <ImSpinner9 className="animate-spin text-stech text-4xl" />
-                </div>
-              )}
+                {isLoading && imageIndex === index && (
+                  <div className="absolute h-full w-full rounded bg-white flex items-center justify-center">
+                    <ImSpinner9 className="animate-spin text-stech text-4xl" />
+                  </div>
+                )}
+              </div>
+            </label>
+          ) : (
+            <div className="h-full w-full absolute border-2 border-dotted border-stech rounded-md my-1">
+              <img
+                src={images[index]}
+                alt={`Uploaded ${index}`}
+                className="h-full w-full object-fill rounded-md"
+              />
+
+              <div className="absolute top-0 right-0 bg-[#2222228d] hover:bg-[#222222d4] duration-300 text-danger h-full w-full flex flex-col items-center justify-center rounded-md text-2xl cursor-pointer">
+                <FaTrash onClick={() => handleDelete(index)} className="" />
+              </div>
             </div>
-          </label>
+          )}
           <Input
             onChange={(e) => handleImageUpload(e, index)}
-            className="hidden"
+            className="hidden z-0"
             id={`photo-${index}`}
             type="file"
             accept="image/*"

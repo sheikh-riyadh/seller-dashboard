@@ -3,15 +3,28 @@ import { FaUserAlt } from "react-icons/fa";
 import { ImSpinner9 } from "react-icons/im";
 import Input from "../../components/Common/Input";
 import SelectInput from "../../components/Common/SelectInput";
-import Button from "../../components/Common/Button";
 import { business } from "../../data/business/business";
 import { useUploadImageMutation } from "../../store/service/imageUpload/imageUploadAPI";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  useGetSellerDetailsQuery,
+  useUpdateSellerMutation,
+} from "../../store/service/seller/sellerApi";
+import SubmitButton from "../../components/Common/SubmitButton";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const PersonalInformation = () => {
   const [photo, setPhoto] = useState("");
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, setValue } = useForm();
 
+  const { user } = useSelector(
+    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
+  );
+
+  const { data: sellerData } = useGetSellerDetailsQuery(user?._id);
+  const [updateSeller, { isLoading: updateSellerLoading }] =
+    useUpdateSellerMutation();
   const [uploadImage, { isLoading }] = useUploadImageMutation();
 
   const handleImageUpload = async (event) => {
@@ -24,11 +37,38 @@ const PersonalInformation = () => {
     setPhoto(response.data?.display_url);
   };
 
+  const handleUpdatePersonalInfo = async (data) => {
+    try {
+      const res = await updateSeller({
+        _id: sellerData?._id,
+        data: { ...data, photo },
+      });
+      if (!res?.error) {
+        toast.success("Updated successfully", { id: "update_seller" });
+      } else {
+        toast.error(res?.error?.data?.message, { id: "update_error" });
+      }
+    } catch (error) {
+      toast.error("Something went wrong 😓", { id: error });
+    }
+  };
+
+  useEffect(() => {
+    for (const key in sellerData) {
+      if (Object.prototype.hasOwnProperty.call(sellerData, key)) {
+        if (key !== "_id") {
+          setValue(key, sellerData[key]);
+        }
+      }
+    }
+    setPhoto(sellerData?.photo)
+  }, [sellerData, setValue]);
+
   return (
     <div>
       <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
       <form
-        onSubmit={handleSubmit()}
+        onSubmit={handleSubmit(handleUpdatePersonalInfo)}
         className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md"
       >
         <div className="rounded-full">
@@ -84,6 +124,7 @@ const PersonalInformation = () => {
                 />
               ) : (
                 <SelectInput
+                {...register(registerName)}
                   label={label}
                   required={isRequired}
                   key={registerName}
@@ -103,7 +144,9 @@ const PersonalInformation = () => {
           )}
         </div>
         <div className="mt-5 flex flex-col justify-end items-end">
-          <Button className="py-2 w-40">Save</Button>
+          <SubmitButton isLoading={updateSellerLoading} className="py-2 w-40">
+            Save
+          </SubmitButton>
         </div>
       </form>
     </div>

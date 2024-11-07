@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Pending = () => {
   // const navigate = useNavigate();
   const { user } = useSelector(
-    (state) => state?.local?.myselfCaptakeUserReducer?.value || {}
+    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
   );
   // const { data } = useGetSellerQuery(user?.email);
   // data?.status === "active" && navigate("/sign-in");

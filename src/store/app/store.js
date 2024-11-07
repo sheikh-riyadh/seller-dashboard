@@ -13,6 +13,7 @@ import {
   persistReducer,
 } from "redux-persist";
 import { baseApi } from "../api/baseApi";
+import bannerReducer from "../features/banner/bannerSlice";
 import myselfCaptakeUserReducer from "../features/user/userSlice";
 import myselfCaptakeProductReducer from "../features/product/productSlice";
 import { imgbbApi } from "../service/imageUpload/imageUploadAPI";
@@ -30,12 +31,12 @@ const sessionConfig = {
   storage: storageSession,
 };
 
-const rootPersistReducers = combineReducers({
-});
+const rootPersistReducers = combineReducers({});
 
 const sessionReducers = combineReducers({
   myselfCaptakeUserReducer,
   myselfCaptakeProductReducer,
+  bannerReducer,
 });
 
 const persistedReducers = persistReducer(persistConfig, rootPersistReducers);
