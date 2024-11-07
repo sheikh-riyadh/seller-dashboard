@@ -22,7 +22,8 @@ const PersonalInformation = () => {
     (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
   );
 
-  const { data: sellerData } = useGetSellerDetailsQuery(user?._id);
+  const { data: sellerData, isLoading: sellerLoading } =
+    useGetSellerDetailsQuery(user?._id);
   const [updateSeller, { isLoading: updateSellerLoading }] =
     useUpdateSellerMutation();
   const [uploadImage, { isLoading }] = useUploadImageMutation();
@@ -61,7 +62,7 @@ const PersonalInformation = () => {
         }
       }
     }
-    setPhoto(sellerData?.photo)
+    setPhoto(sellerData?.photo);
   }, [sellerData, setValue]);
 
   return (
@@ -71,83 +72,105 @@ const PersonalInformation = () => {
         onSubmit={handleSubmit(handleUpdatePersonalInfo)}
         className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md"
       >
-        <div className="rounded-full">
-          <label
-            htmlFor="photo"
-            className="mb-1 inline-block rounded-full h-32 w-32 relative"
-          >
-            <div
-              className="h-32 w-32 border-2 border-stech rounded-full relative flex flex-col items-center justify-center cursor-pointer"
-              title="Personal photo"
-            >
-              {photo ? (
-                <img
-                  className="w-full h-full rounded-full object-fill"
-                  src={photo}
-                  alt="photo"
-                />
-              ) : (
-                <div className="w-full h-full bg-black hover:bg-transparent duration-300 rounded-full flex flex-col items-center justify-center text-white hover:text-stech border text-9xl font-bold overflow-hidden">
-                  <FaUserAlt />
+        {!sellerLoading ? (
+          <div>
+            <div className="rounded-full">
+              <label
+                htmlFor="photo"
+                className="mb-1 inline-block rounded-full h-32 w-32 relative"
+              >
+                <div
+                  className="h-32 w-32 border-2 border-stech rounded-full relative flex flex-col items-center justify-center cursor-pointer"
+                  title="Personal photo"
+                >
+                  {photo ? (
+                    <img
+                      className="w-full h-full rounded-full object-fill"
+                      src={photo}
+                      alt="photo"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-black hover:bg-transparent duration-300 rounded-full flex flex-col items-center justify-center text-white hover:text-stech border text-9xl font-bold overflow-hidden">
+                      <FaUserAlt />
+                    </div>
+                  )}
+                  {isLoading && (
+                    <div className="absolute h-full w-full bg-black opacity-100 rounded-full">
+                      <ImSpinner9 className="h-full w-full animate-spin text-white" />
+                    </div>
+                  )}
                 </div>
-              )}
-              {isLoading && (
-                <div className="absolute h-full w-full bg-black opacity-100 rounded-full">
-                  <ImSpinner9 className="h-full w-full animate-spin text-white" />
-                </div>
+              </label>
+
+              <Input
+                onChange={(e) => handleImageUpload(e)}
+                className="hidden"
+                id="photo"
+                type="file"
+                accept="image/*"
+                required={false}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-5">
+              {business?.personalData?.map(
+                ({
+                  registerName,
+                  label,
+                  isRequired,
+                  type,
+                  data,
+                  placeholder,
+                }) =>
+                  !data ? (
+                    <Input
+                      key={registerName}
+                      label={label}
+                      {...register(registerName)}
+                      required={isRequired}
+                      type={type}
+                      placeholder={placeholder}
+                      className={"bg-white border"}
+                      disabled={type === "email"}
+                      value={type === "email" ? sellerData?.email : undefined}
+                    />
+                  ) : (
+                    <SelectInput
+                      {...register(registerName)}
+                      label={label}
+                      required={isRequired}
+                      key={registerName}
+                      placeholder={placeholder}
+                      className={"bg-white border"}
+                    >
+                      <option selected disabled value="">
+                        Select
+                      </option>
+                      {data?.map((op) => (
+                        <option className="capitalize" value={op} key={op}>
+                          {op}
+                        </option>
+                      ))}
+                    </SelectInput>
+                  )
               )}
             </div>
-          </label>
-
-          <Input
-            onChange={(e) => handleImageUpload(e)}
-            className="hidden"
-            id="photo"
-            type="file"
-            accept="image/*"
-            required={false}
-          />
-        </div>
-
-        <div className="grid grid-cols-2 gap-5">
-          {business?.personalData?.map(
-            ({ registerName, label, isRequired, type, data, placeholder }) =>
-              !data ? (
-                <Input
-                  key={registerName}
-                  label={label}
-                  {...register(registerName)}
-                  required={isRequired}
-                  type={type}
-                  placeholder={placeholder}
-                  className={"bg-white border"}
-                />
-              ) : (
-                <SelectInput
-                {...register(registerName)}
-                  label={label}
-                  required={isRequired}
-                  key={registerName}
-                  placeholder={placeholder}
-                  className={"bg-white border"}
-                >
-                  <option selected disabled value="">
-                    Select
-                  </option>
-                  {data?.map((op) => (
-                    <option className="capitalize" value={op} key={op}>
-                      {op}
-                    </option>
-                  ))}
-                </SelectInput>
-              )
-          )}
-        </div>
-        <div className="mt-5 flex flex-col justify-end items-end">
-          <SubmitButton isLoading={updateSellerLoading} className="py-2 w-40">
-            Save
-          </SubmitButton>
-        </div>
+            <div className="mt-5 flex flex-col justify-end items-end">
+              <SubmitButton
+                disabled={isLoading}
+                isLoading={updateSellerLoading}
+                className="py-2 w-40"
+              >
+                Save
+              </SubmitButton>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-5 items-center justify-center h-80 bg-white">
+            <ImSpinner9 className="text-6xl animate-spin" />
+            <span className="font-medium">Loading...</span>
+          </div>
+        )}
       </form>
     </div>
   );

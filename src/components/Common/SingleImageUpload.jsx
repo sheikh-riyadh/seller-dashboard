@@ -4,19 +4,38 @@ import PropTypes from "prop-types";
 import Input from "./Input";
 import { useUploadImageMutation } from "../../store/service/imageUpload/imageUploadAPI";
 import cn from "../../utils/cn";
+import toast from "react-hot-toast";
 
-const SingleImageUpload = ({ image, setImage, register, className }) => {
+const SingleImageUpload = ({
+  image,
+  setImage,
+  register,
+  className,
+  setImageUploadLoading,
+}) => {
   const [uploadImage, { isLoading }] = useUploadImageMutation();
 
   const handleImageUpload = async (event) => {
+    setImageUploadLoading(true);
     const file = event.target.files[0];
     if (!file) return;
 
     const formData = new FormData();
     formData.append("image", file);
 
-    const response = await uploadImage(formData).unwrap();
-    setImage(response.data?.display_url);
+    try {
+      const response = await uploadImage(formData).unwrap();
+      if (response?.data?.display_url) {
+        setImage(response.data?.display_url);
+        setImageUploadLoading(false);
+      } else {
+        toast.error("Something went wrong", { id: "upload_error" });
+        setImageUploadLoading(false);
+      }
+    } catch (error) {
+      toast.error("Something went wrong", { id: error });
+      setImageUploadLoading(false);
+    }
   };
 
   return (
@@ -69,6 +88,7 @@ SingleImageUpload.propTypes = {
   setImage: PropTypes.func,
   register: PropTypes.func,
   className: PropTypes.string,
+  setImageUploadLoading: PropTypes.func,
 };
 
 export default SingleImageUpload;

@@ -95,19 +95,19 @@ const BannerInformation = () => {
 
   useEffect(() => {
     reset();
-    for (const key in bannerData) {
-      if (Object.prototype.hasOwnProperty.call(bannerData, key)) {
-        if (key !== "_id") {
-          setValue(key, bannerData[key]);
+    if (bannerData?.type) {
+      for (const key in bannerData) {
+        if (Object.prototype.hasOwnProperty.call(bannerData, key)) {
+          if (key !== "_id") {
+            setValue(key, bannerData[key]);
+          }
         }
       }
-    }
-    if (bannerData?.images) {
-      dispatch(handleSetImage(bannerData?.images));
+      if (bannerData?.images) {
+        dispatch(handleSetImage(bannerData?.images));
+      }
     }
   }, [bannerData, setValue, reset, dispatch]);
-
-  console.log(bannerData);
 
   return (
     <div className="pb-8">
