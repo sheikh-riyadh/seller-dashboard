@@ -36,6 +36,9 @@ const JoditTextArea = ({
       required: true,
       height,
       toolbarStickyOffset,
+      style:{
+        padding:"20"
+      },
     }),
     [height, toolbarStickyOffset]
   );

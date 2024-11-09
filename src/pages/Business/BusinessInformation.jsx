@@ -9,14 +9,14 @@ import {
   useUpdateSellerMutation,
 } from "../../store/service/seller/sellerApi";
 import toast from "react-hot-toast";
-import { ImSpinner9 } from "react-icons/im";
 import { useGetUser } from "../../hooks/useGetUser";
+import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const BusinessInformation = () => {
   const [cities, setCities] = useState([]);
   const { handleSubmit, register, setValue, watch } = useForm();
 
-  const { user } = useGetUser()
+  const { user } = useGetUser();
 
   const { data: sellerData, isLoading: sellerLoading } =
     useGetSellerDetailsQuery(user?._id);
@@ -166,10 +166,7 @@ const BusinessInformation = () => {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-5 items-center justify-center h-80 bg-white">
-              <ImSpinner9 className="text-6xl animate-spin" />
-              <span className="font-medium">Loading...</span>
-            </div>
+            <LoadingSpinner />
           )}
         </div>
       </form>

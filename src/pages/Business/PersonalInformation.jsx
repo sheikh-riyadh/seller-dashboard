@@ -13,12 +13,13 @@ import {
 import SubmitButton from "../../components/Common/SubmitButton";
 import toast from "react-hot-toast";
 import { useGetUser } from "../../hooks/useGetUser";
+import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const PersonalInformation = () => {
   const [photo, setPhoto] = useState("");
   const { handleSubmit, register, setValue } = useForm();
 
-  const { user } = useGetUser()
+  const { user } = useGetUser();
 
   const { data: sellerData, isLoading: sellerLoading } =
     useGetSellerDetailsQuery(user?._id);
@@ -174,10 +175,7 @@ const PersonalInformation = () => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col gap-5 items-center justify-center h-80 bg-white">
-            <ImSpinner9 className="text-6xl animate-spin" />
-            <span className="font-medium">Loading...</span>
-          </div>
+          <LoadingSpinner />
         )}
       </form>
     </div>

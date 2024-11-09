@@ -18,8 +18,8 @@ import {
   useGetSellerBrandsQuery,
   useUpdateSellerBrandsMutation,
 } from "../../store/service/brands/brandsApi";
-import { ImSpinner9 } from "react-icons/im";
 import { useEffect } from "react";
+import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const BrandInformation = () => {
   const { register, handleSubmit, watch, reset } = useForm();
@@ -176,10 +176,7 @@ const BrandInformation = () => {
               </div>
             </form>
           ) : (
-            <div className="flex flex-col gap-5 items-center justify-center h-80 bg-white">
-              <ImSpinner9 className="text-6xl animate-spin" />
-              <span className="font-medium">Loading...</span>
-            </div>
+            <LoadingSpinner />
           )}
         </div>
       </div>

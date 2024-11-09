@@ -11,6 +11,7 @@ import {
 } from "../../store/service/seller/sellerApi";
 import toast from "react-hot-toast";
 import { useGetUser } from "../../hooks/useGetUser";
+import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const AboutBusiness = () => {
   const [logo, setLogo] = useState();
@@ -160,10 +161,7 @@ const AboutBusiness = () => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col gap-5 items-center justify-center h-80 bg-white">
-            <ImSpinner9 className="text-6xl animate-spin" />
-            <span className="font-medium">Loading...</span>
-          </div>
+          <LoadingSpinner />
         )}
       </form>
     </div>

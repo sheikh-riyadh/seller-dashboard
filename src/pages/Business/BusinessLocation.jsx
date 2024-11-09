@@ -7,16 +7,16 @@ import {
   useGetSellerLocationQuery,
   useUpdateSellerLocationMutation,
 } from "../../store/service/businessLocation/businessLocationApi";
-import { ImSpinner9 } from "react-icons/im";
 import toast from "react-hot-toast";
 import { useGetUser } from "../../hooks/useGetUser";
+import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const BusinessLocation = () => {
   const [image, setImage] = useState();
   const [imageUploadLoading, setImageUploadLoading] = useState(false);
   const { handleSubmit, register } = useForm();
 
-  const { user } = useGetUser()
+  const { user } = useGetUser();
   const { data: locationData, isLoading } = useGetSellerLocationQuery(
     user?._id
   );
@@ -96,10 +96,7 @@ const BusinessLocation = () => {
             </div>
           </form>
         ) : (
-          <div className="flex flex-col gap-5 items-center justify-center h-80 bg-white">
-            <ImSpinner9 className="text-6xl animate-spin" />
-            <span className="font-medium">Loading...</span>
-          </div>
+          <LoadingSpinner />
         )}
       </div>
     </div>

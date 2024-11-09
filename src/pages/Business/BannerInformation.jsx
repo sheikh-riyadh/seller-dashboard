@@ -16,8 +16,8 @@ import TextArea from "../../components/Common/TextArea";
 import SubmitButton from "../../components/Common/SubmitButton";
 import ImageUpload from "../../components/Pages/Business/Banner/ImageUpload";
 import VideoUpload from "../../components/Pages/Business/Banner/LiveVideoUpload";
-import { ImSpinner9 } from "react-icons/im";
 import { useGetUser } from "../../hooks/useGetUser";
+import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const BannerInformation = () => {
   const [type, setType] = useState("image");
@@ -32,7 +32,7 @@ const BannerInformation = () => {
 
   const dispatch = useDispatch();
   const { images } = useSelector((state) => state.session.bannerReducer.value);
-  const { user } = useGetUser()
+  const { user } = useGetUser();
   const { data: bannerData, isLoading: bannerLoading } = useGetBannerQuery({
     type,
     sellerId: user?._id,
@@ -178,10 +178,7 @@ const BannerInformation = () => {
                 </form>
               </div>
             ) : (
-              <div className="flex flex-col gap-5 items-center justify-center h-80 bg-white">
-                <ImSpinner9 className="text-6xl animate-spin" />
-                <span className="font-medium">Loading...</span>
-              </div>
+              <LoadingSpinner />
             )}
           </div>
         </div>
