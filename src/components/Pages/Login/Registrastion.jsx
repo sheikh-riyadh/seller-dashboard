@@ -40,7 +40,7 @@ const Registrastion = () => {
           setIsLoading(false);
           navigate("/");
         } else {
-          toast.error("Something went wrong", { id: "error" });
+          toast.error("Something went wrong 😓", { id: "error" });
           setIsLoading(false);
         }
       }

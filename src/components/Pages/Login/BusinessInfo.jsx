@@ -1,8 +1,8 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { business } from "../../../data/business/business";
 import Input from "../../Common/Input";
 import SelectInput from "../../Common/SelectInput";
-import { useState } from "react";
 import { checkValue } from "../../../utils/checkInputFieldValue";
 import toast from "react-hot-toast";
 import CountryInfo from "./CountryInfo";

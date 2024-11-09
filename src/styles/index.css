@@ -19,9 +19,8 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Handle */
+/* ================Scrollbar=================== */
 
-/* Track */
 .custom-bar::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
@@ -33,12 +32,11 @@ input::-webkit-inner-spin-button {
   width: 10px;
 }
 
-/* Here we hide scrollbar */
 .bar-hidden::-webkit-scrollbar {
   display: none;
 }
 
-/* Apply the zoom-in animation to an element */
+/* ================Animation====================== */
 .zoom-in-element {
   animation: zoomIn 0.5s ease forwards;
 }
@@ -55,7 +53,6 @@ input::-webkit-inner-spin-button {
   animation: spin 5s linear infinite;
 }
 
-/* Up and down animation */
 .up-and-down {
   background-color: var(--primary);
   border-radius: 50%;
@@ -63,14 +60,18 @@ input::-webkit-inner-spin-button {
   animation: moveUpDown 2s infinite ease-in-out;
 }
 
-/* Remove number input default arrow sign */
-
-/* Chrome, Safari, Edge, Opera */
+/*======================Input type number======================= */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ========================Circle animation============================ */
 
 .circle-progressbar::before {
   content: "";
@@ -81,10 +82,13 @@ input::-webkit-inner-spin-button {
   border-radius: 50%;
 }
 
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
+.marquee {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee linear infinite;
 }
+
+/* ==========================Keyframes==================================== */
 
 @keyframes moveUpDown {
   0% {
@@ -98,8 +102,6 @@ input[type="number"] {
   }
 }
 
-
-/* Define the spin animation */
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -108,15 +110,15 @@ input[type="number"] {
     transform: rotate(360deg);
   }
 }
-/* Zoom-in animation */
+
 @keyframes zoomIn {
   0% {
     opacity: 0;
-    transform: scale(0.5); /* Start at half size */
+    transform: scale(0.5);
   }
   100% {
     opacity: 1;
-    transform: scale(1); /* Zoom to full size */
+    transform: scale(1);
   }
 }
 
@@ -138,6 +140,15 @@ input[type="number"] {
   100% {
     opacity: 1;
     transform: translateX(0); /* End at the original position */
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
   }
 }
 

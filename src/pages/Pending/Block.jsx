@@ -7,7 +7,7 @@ import { SiAdblock } from "react-icons/si";
 const Block = () => {
   // const navigate = useNavigate();
   // const { user } = useSelector(
-  //   (state) => state?.local?.myselfCaptakeUserReducer?.value || {}
+  //   (state) => state?.local?.sellerUserReducer?.value || {}
   // );
   // const { data } = useGetSellerQuery(user?.email);
   // data?.status === "active" && navigate("/sign-in");

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Input from "../../components/Common/Input";
 import { business } from "../../data/business/business";
@@ -10,16 +9,17 @@ import {
   useUpdateSellerMutation,
 } from "../../store/service/seller/sellerApi";
 import toast from "react-hot-toast";
+import { ImSpinner9 } from "react-icons/im";
+import { useGetUser } from "../../hooks/useGetUser";
 
 const BusinessInformation = () => {
   const [cities, setCities] = useState([]);
   const { handleSubmit, register, setValue, watch } = useForm();
 
-  const { user } = useSelector(
-    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
-  );
+  const { user } = useGetUser()
 
-  const { data: sellerData } = useGetSellerDetailsQuery(user?._id);
+  const { data: sellerData, isLoading: sellerLoading } =
+    useGetSellerDetailsQuery(user?._id);
   const [updateSeller, { isLoading: updateSellerLoading }] =
     useUpdateSellerMutation();
 
@@ -67,94 +67,110 @@ const BusinessInformation = () => {
         onSubmit={handleSubmit(handleUpdateBusinessInfo)}
         className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md"
       >
-        <div className="grid grid-cols-2 gap-5">
-          <Input
-            {...register("businessNumber")}
-            required
-            label="Business number"
-            className={"bg-white border"}
-            type="number"
-          />
+        <div>
+          {!sellerLoading ? (
+            <div>
+              <div className="grid grid-cols-2 gap-5">
+                <Input
+                  {...register("businessNumber")}
+                  required
+                  label="Business number"
+                  className={"bg-white border"}
+                  type="number"
+                />
 
-          <SelectInput
-            {...register("country")}
-            label="Country"
-            required
-            className={"bg-white border"}
-          >
-            <option value="" selected disabled>
-              Select country
-            </option>
-            <option value="bangladesh">Bangladesh</option>
-          </SelectInput>
+                <SelectInput
+                  {...register("country")}
+                  label="Country"
+                  required
+                  className={"bg-white border"}
+                >
+                  <option value="" selected disabled>
+                    Select country
+                  </option>
+                  <option value="bangladesh">Bangladesh</option>
+                </SelectInput>
 
-          <SelectInput
-            {...register("state")}
-            label="State"
-            required
-            className={"bg-white border"}
-          >
-            <option value="" selected disabled>
-              Select state
-            </option>
-            {business?.countryInfoData.map((state) => (
-              <option
-                value={state?.name?.toLowerCase()}
-                key={state.name}
-                selected={state?.name?.toLowerCase() === sellerData?.state}
-              >
-                {state.name}
-              </option>
-            ))}
-          </SelectInput>
+                <SelectInput
+                  {...register("state")}
+                  label="State"
+                  required
+                  className={"bg-white border"}
+                >
+                  <option value="" selected disabled>
+                    Select state
+                  </option>
+                  {business?.countryInfoData.map((state) => (
+                    <option
+                      value={state?.name?.toLowerCase()}
+                      key={state.name}
+                      selected={
+                        state?.name?.toLowerCase() === sellerData?.state
+                      }
+                    >
+                      {state.name}
+                    </option>
+                  ))}
+                </SelectInput>
 
-          <SelectInput
-            required
-            {...register("city")}
-            label="City"
-            className={"bg-white border"}
-          >
-            <option value="" selected disabled>
-              Select city
-            </option>
-            {cities?.map((city) => (
-              <option
-                value={city?.toLowerCase()}
-                key={city}
-                selected={city.toLowerCase() === sellerData?.city}
-              >
-                {city}
-              </option>
-            ))}
-          </SelectInput>
+                <SelectInput
+                  required
+                  {...register("city")}
+                  label="City"
+                  className={"bg-white border"}
+                >
+                  <option value="" selected disabled>
+                    Select city
+                  </option>
+                  {cities?.map((city) => (
+                    <option
+                      value={city?.toLowerCase()}
+                      key={city}
+                      selected={city.toLowerCase() === sellerData?.city}
+                    >
+                      {city}
+                    </option>
+                  ))}
+                </SelectInput>
 
-          <Input
-            {...register("policeStation")}
-            required
-            label="Police station"
-            className={"bg-white border"}
-            placeholder="Police station"
-          />
-          <Input
-            {...register("zipCode")}
-            required
-            label="Zipcode"
-            className={"bg-white border"}
-            placeholder="Zipcode"
-            type="number"
-          />
-          <Input
-            {...register("fullAddress")}
-            required
-            label="Full address"
-            className={"bg-white border"}
-            placeholder="Full address"
-          />
-        </div>
-        <div className="mt-5 flex flex-col justify-end items-end">
-          <SubmitButton isLoading={updateSellerLoading} className="py-2 w-40">
-            Save
-          </SubmitButton>
+                <Input
+                  {...register("policeStation")}
+                  required
+                  label="Police station"
+                  className={"bg-white border"}
+                  placeholder="Police station"
+                />
+                <Input
+                  {...register("zipCode")}
+                  required
+                  label="Zipcode"
+                  className={"bg-white border"}
+                  placeholder="Zipcode"
+                  type="number"
+                />
+                <Input
+                  {...register("fullAddress")}
+                  required
+                  label="Full address"
+                  className={"bg-white border"}
+                  placeholder="Full address"
+                />
+              </div>
+              <div className="mt-5 flex flex-col justify-end items-end">
+                <SubmitButton
+                  isLoading={updateSellerLoading}
+                  className="py-2 w-40"
+                >
+                  Save
+                </SubmitButton>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-5 items-center justify-center h-80 bg-white">
+              <ImSpinner9 className="text-6xl animate-spin" />
+              <span className="font-medium">Loading...</span>
+            </div>
+          )}
         </div>
       </form>
     </div>

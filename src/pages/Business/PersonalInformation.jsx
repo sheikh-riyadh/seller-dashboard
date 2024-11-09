@@ -11,16 +11,14 @@ import {
   useUpdateSellerMutation,
 } from "../../store/service/seller/sellerApi";
 import SubmitButton from "../../components/Common/SubmitButton";
-import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { useGetUser } from "../../hooks/useGetUser";
 
 const PersonalInformation = () => {
   const [photo, setPhoto] = useState("");
   const { handleSubmit, register, setValue } = useForm();
 
-  const { user } = useSelector(
-    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
-  );
+  const { user } = useGetUser()
 
   const { data: sellerData, isLoading: sellerLoading } =
     useGetSellerDetailsQuery(user?._id);
@@ -34,11 +32,20 @@ const PersonalInformation = () => {
 
     const formData = new FormData();
     formData.append("image", file);
-    const response = await uploadImage(formData).unwrap();
-    setPhoto(response.data?.display_url);
+    try {
+      const response = await uploadImage(formData).unwrap();
+      setPhoto(response.data?.display_url);
+    } catch (error) {
+      toast.error("Something went wrong 😓", { id: error });
+    }
   };
 
   const handleUpdatePersonalInfo = async (data) => {
+    if (!photo) {
+      toast.error("Photo is required", { id: "submit_error" });
+      return;
+    }
+
     try {
       const res = await updateSeller({
         _id: sellerData?._id,
@@ -109,6 +116,7 @@ const PersonalInformation = () => {
                 type="file"
                 accept="image/*"
                 required={false}
+                disabled={isLoading}
               />
             </div>
 

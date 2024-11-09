@@ -1,15 +1,13 @@
 import { ImSpinner4 } from "react-icons/im";
 import { TbReportSearch } from "react-icons/tb";
 import Button from "../../components/Common/Button";
-import { useSelector } from "react-redux";
+import { useGetUser } from "../../hooks/useGetUser";
 // import { useGetSellerQuery } from "../../store/service/seller/sellerApi";
 // import { useNavigate } from "react-router-dom";
 
 const Pending = () => {
   // const navigate = useNavigate();
-  const { user } = useSelector(
-    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
-  );
+  const { user } = useGetUser()
   // const { data } = useGetSellerQuery(user?.email);
   // data?.status === "active" && navigate("/sign-in");
 

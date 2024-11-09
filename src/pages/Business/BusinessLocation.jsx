@@ -7,18 +7,16 @@ import {
   useGetSellerLocationQuery,
   useUpdateSellerLocationMutation,
 } from "../../store/service/businessLocation/businessLocationApi";
-import { useSelector } from "react-redux";
 import { ImSpinner9 } from "react-icons/im";
 import toast from "react-hot-toast";
+import { useGetUser } from "../../hooks/useGetUser";
 
 const BusinessLocation = () => {
   const [image, setImage] = useState();
   const [imageUploadLoading, setImageUploadLoading] = useState(false);
   const { handleSubmit, register } = useForm();
 
-  const { user } = useSelector(
-    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
-  );
+  const { user } = useGetUser()
   const { data: locationData, isLoading } = useGetSellerLocationQuery(
     user?._id
   );

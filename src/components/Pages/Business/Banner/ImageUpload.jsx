@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useUploadImageMutation } from "../../../../store/service/imageUpload/imageUploadAPI";
 import { useDispatch, useSelector } from "react-redux";
+import { useUploadImageMutation } from "../../../../store/service/imageUpload/imageUploadAPI";
 import { handleDeleteBanner, handleImages } from "../../../../store/features/banner/bannerSlice";
 import toast from "react-hot-toast";
 import { FaPlus, FaTrash } from "react-icons/fa";
@@ -32,7 +32,7 @@ const ImageUpload = () => {
         })
       );
     } catch (error) {
-      toast.error("Something went wrong ", { id: error });
+      toast.error("Something went wrong 😓", { id: error });
     }
   };
 

@@ -11,7 +11,7 @@ import { handleAdditionalInfo } from "../../store/features/product/productSlice"
 
 const AddProduct = () => {
   const { keyFeatures, description, additionalInfo } = useSelector(
-    (state) => state.session.myselfCaptakeProductReducer.value
+    (state) => state.session.sellerProductReducer.value
   );
 
   const { handleSubmit, register, setValue, watch } = useForm();

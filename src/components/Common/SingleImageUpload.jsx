@@ -29,11 +29,11 @@ const SingleImageUpload = ({
         setImage(response.data?.display_url);
         setImageUploadLoading(false);
       } else {
-        toast.error("Something went wrong", { id: "upload_error" });
+        toast.error("Something went wrong 😓", { id: "upload_error" });
         setImageUploadLoading(false);
       }
     } catch (error) {
-      toast.error("Something went wrong", { id: error });
+      toast.error("Something went wrong 😓", { id: error });
       setImageUploadLoading(false);
     }
   };

@@ -1,11 +1,9 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { useGetUser } from "../hooks/useGetUser";
 
 const BlockedRouter = ({ children }) => {
-  const { user } = useSelector(
-    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
-  );
+  const { user } = useGetUser()
 
   const location = useLocation();
 

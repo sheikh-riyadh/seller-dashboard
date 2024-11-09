@@ -1,14 +1,14 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaFacebookF, FaGithub, FaGooglePlusG, FaHome } from "react-icons/fa";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { FaFacebookF, FaGithub, FaGooglePlusG, FaHome } from "react-icons/fa";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
-import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase/firebase.config";
 import toast from "react-hot-toast";
-import { useState } from "react";
 import { useLazyGetSellerQuery } from "../../../store/service/seller/sellerApi";
-import { useDispatch } from "react-redux";
 import { addUser } from "../../../store/features/user/userSlice";
 import ForgetPassword from "./ForgetPassword";
 import Modal from "../../Modal/Modal";
@@ -35,7 +35,7 @@ const LogIn = () => {
           setIsLoading(false);
           navigate("/");
         } else {
-          toast.error("Something went wrong", { id: "error" });
+          toast.error("Something went wrong 😓", { id: "error" });
           setIsLoading(false);
         }
       }
@@ -44,7 +44,7 @@ const LogIn = () => {
         toast.error("Invalid credential", { id: "invalid" });
         setIsLoading(false);
       } else {
-        toast.error("Something went wrong", { id: "error" });
+        toast.error("Something went wrong 😓", { id: "error" });
         setIsLoading(false);
       }
     }

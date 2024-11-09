@@ -5,12 +5,12 @@ import Input from "../../components/Common/Input";
 import TextArea from "../../components/Common/TextArea";
 import { useUploadImageMutation } from "../../store/service/imageUpload/imageUploadAPI";
 import SubmitButton from "../../components/Common/SubmitButton";
-import { useSelector } from "react-redux";
 import {
   useGetSellerDetailsQuery,
   useUpdateSellerMutation,
 } from "../../store/service/seller/sellerApi";
 import toast from "react-hot-toast";
+import { useGetUser } from "../../hooks/useGetUser";
 
 const AboutBusiness = () => {
   const [logo, setLogo] = useState();
@@ -18,9 +18,7 @@ const AboutBusiness = () => {
 
   const [uploadImage, { isLoading }] = useUploadImageMutation();
 
-  const { user } = useSelector(
-    (state) => state?.session?.myselfCaptakeUserReducer?.value || {}
-  );
+  const { user } = useGetUser();
 
   const { data: sellerData, isLoading: sellerLoading } =
     useGetSellerDetailsQuery(user?._id);
@@ -29,15 +27,27 @@ const AboutBusiness = () => {
 
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
-    if (!file) return;
+    if (!file) {
+      toast.error("Logo is required", { id: "logo" });
+      return;
+    }
 
     const formData = new FormData();
     formData.append("image", file);
-    const response = await uploadImage(formData).unwrap();
-    setLogo(response.data?.display_url);
+    try {
+      const response = await uploadImage(formData).unwrap();
+      setLogo(response.data?.display_url);
+    } catch (error) {
+      toast.error("Something went wrong 😓", { id: error });
+    }
   };
 
   const handleOnSubmit = async (data) => {
+    if (!logo) {
+      toast.error("Logo is required", { id: "logo" });
+      return;
+    }
+
     delete data?._id;
     try {
       const res = await updateSeller({
@@ -107,7 +117,6 @@ const AboutBusiness = () => {
                 id="photo"
                 type="file"
                 accept="image/*"
-                required={false}
               />
             </div>
             <div className="grid grid-cols-2 gap-5">

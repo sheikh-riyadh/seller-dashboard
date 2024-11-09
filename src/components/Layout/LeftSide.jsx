@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { layout } from "../../data/layout/layout";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { useState } from "react";
 
 const LeftSide = () => {
   const { pathname } = useLocation();

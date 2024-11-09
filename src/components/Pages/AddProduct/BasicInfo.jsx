@@ -13,7 +13,7 @@ const BasicInfo = ({ register, setValue }) => {
 
   const dispatch = useDispatch();
   const { keyFeatures } = useSelector(
-    (state) => state.session.myselfCaptakeProductReducer.value
+    (state) => state.session.sellerProductReducer.value
   );
 
   const handleDeleteKeyFeatures = (deleteFeatureItem) => {
