@@ -5,7 +5,7 @@ const initialState = {
     keyFeatures: [],
     description: "",
     additionalInfo: "",
-    images: [...Array(4).fill(null)],
+    productImages: [...Array(4).fill(null)],
   },
 };
 
@@ -30,15 +30,30 @@ const productSlice = createSlice({
     handleAdditionalInfo: (state, { payload }) => {
       state.value.additionalInfo = payload;
     },
-    handleImages: (state, { payload }) => {
-      state.value.images[payload.index] = payload.data;
+    handleProductImages: (state, { payload }) => {
+      state.value.productImages[payload.index] = payload.data;
     },
-    handleClear:(state)=>{
-      state.value.keyFeatures=[],
-      state.value.description="",
-      state.value.additionalInfo="",
-      state.value.images=[...Array(4).fill(null)]
-    }
+    handleDeleteProductImage: (state, { payload }) => {
+      state.value.productImages[payload] = null;
+    },
+    handleSetProductImages: (state, { payload }) => {
+      state.value.productImages = payload;
+    },
+    handleSetUpdatedProduct: (
+      state,
+      { payload: { keyFeatures, description, additionalInfo, productImages } }
+    ) => {
+      (state.value.additionalInfo = additionalInfo),
+        (state.value.description = description),
+        (state.value.keyFeatures = keyFeatures),
+        (state.value.productImages = productImages);
+    },
+    handleClearProduct: (state) => {
+      (state.value.keyFeatures = []),
+        (state.value.description = ""),
+        (state.value.additionalInfo = ""),
+        (state.value.productImages = [...Array(4).fill(null)]);
+    },
   },
 });
 
@@ -47,8 +62,11 @@ export const {
   handleRemoveKeyFeatures,
   handleDes,
   handleAdditionalInfo,
-  handleImages,
-  handleClear
+  handleProductImages,
+  handleDeleteProductImage,
+  handleSetProductImages,
+  handleClearProduct,
+  handleSetUpdatedProduct
 } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import Input from "../../Common/Input";
 import SelectInput from "../../Common/SelectInput";
@@ -8,12 +8,17 @@ import {
   handleAddKeyFeatures,
   handleRemoveKeyFeatures,
 } from "../../../store/features/product/productSlice";
+import { useGetSellerBrandsQuery } from "../../../store/service/brands/brandsApi";
+import { useGetProduct } from "../../../hooks/useGetProduct";
+import { useGetUser } from "../../../hooks/useGetUser";
 
 const BasicInfo = ({ register, setValue }) => {
-
   const dispatch = useDispatch();
-  const { keyFeatures } = useSelector(
-    (state) => state.session.sellerProductReducer.value
+  const { keyFeatures } = useGetProduct();
+  const { user } = useGetUser();
+
+  const { data: sellerBrandsData, isLoading } = useGetSellerBrandsQuery(
+    user?._id
   );
 
   const handleDeleteKeyFeatures = (deleteFeatureItem) => {
@@ -32,35 +37,64 @@ const BasicInfo = ({ register, setValue }) => {
 
   return (
     <div className="flex flex-col gap-1 p-5">
-      <span className="py-2 block font-medium">Product Image:</span>
-      <ImageUpload />
+      <span className="py-2 block font-medium text-sm">Product Image:</span>
+      <ImageUpload from="product" />
       <div>
         <Input
-          label={"Product Title"}
+          {...register("videoURL")}
+          label={"Video URL"}
+          className={"bg-white border"}
+          placeholder="URL"
+        />
+      </div>
+      <div>
+        <Input
+          {...register("title")}
+          label={"Title"}
           required
           className={"bg-white border"}
-          {...register("productTitle")}
           placeholder="Product title"
         />
       </div>
 
       <div>
         <SelectInput
-          label={"Product Category"}
-          required
           {...register("category")}
-          className={"bg-white border"}
+          label={"Category"}
+          required
+          className={"bg-white border text-sm"}
         >
           <option selected value="">
             Select category
           </option>
-          <option>Hello</option>
-          <option>Hello</option>
-          <option>Hello</option>
+          <option value="hello 1">Hello 1</option>
+          <option value="hello 2">Hello 2</option>
+          <option value="hello 3">Hello 3</option>
         </SelectInput>
       </div>
-      <span className="py-2 block font-medium">
-        Product key features <span className="text-danger">*</span>
+      <div>
+        <SelectInput
+          {...register("brand")}
+          label={"Brand"}
+          required
+          className={"bg-white border text-sm"}
+        >
+          <option disabled selected value="">
+            {`${isLoading ? "Please wait..." : "Select brand"}`}
+          </option>
+
+          {sellerBrandsData?.brands?.map(({ brandName }) => (
+            <option key={brandName} value={brandName}>
+              {brandName}
+            </option>
+          ))}
+          <option value="no brand">
+            No brand
+          </option>
+        </SelectInput>
+      </div>
+      <span className="py-2 block font-medium text-sm">
+        Key Features <span className="text-danger">*</span>
       </span>
       <div>
         <Input

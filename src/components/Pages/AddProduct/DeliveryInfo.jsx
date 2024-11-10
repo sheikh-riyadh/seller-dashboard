@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import SelectInput from "../../Common/SelectInput";
 import Input from "../../Common/Input";
 
-
 const DeliveryInfo = ({ register, watch }) => {
   const returnProductAvailable = watch("returnProductAvailable");
   const freeDeliveryAvailable = watch("freeDeliveryAvailable");
@@ -10,70 +9,80 @@ const DeliveryInfo = ({ register, watch }) => {
   return (
     <div>
       <div className="flex flex-col gap-5">
+        <Input
+          {...register("warranty")}
+          key="warranty"
+          className="bg-white border"
+          label="Warranty"
+          placeholder="warranty"
+          required
+        />
         <div>
           <SelectInput
-            label={"Cash on Delivery"}
-            required
             {...register("cashOnDeliveryAvailable")}
-            className={"bg-white border"}
+            label="Cash on Delivery"
+            required
+            className="bg-white border"
+            defaultValue="yes"
           >
-            <option selected value="" disabled>
-              Select
+            <option selected value="yes">
+              Yes
             </option>
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
           </SelectInput>
         </div>
         <div className="flex flex-col gap-3">
           <SelectInput
-            label={"Return Product"}
-            required
             {...register("returnProductAvailable")}
-            className={"bg-white border"}
+            label="Return Product"
+            required
+            className="bg-white border"
           >
-            <option selected value="" disabled>
+            <option value="" disabled>
               Select
             </option>
             <option value="no">No</option>
             <option value="yes">Yes</option>
           </SelectInput>
-          {returnProductAvailable == "yes" ? (
+          {returnProductAvailable === "yes" ? (
             <Input
-              {...register("returnProductConditon")}
-              className={"bg-white border"}
-              label={"Return Product Within ( x ) Days"}
-              placeholder={"Enter days"}
+              {...register("returnDays")}
+              key="returnDays"
+              className="bg-white border"
+              label="Return Product Within ( x ) Days"
+              placeholder="Enter days"
               type="number"
-              min={"1"}
+              min={1}
+              required
             />
-          ) : (
-            ""
-          )}
+          ) : null}
         </div>
         <div className="flex flex-col gap-3">
           <SelectInput
-            label={"Free Delivery"}
-            required
             {...register("freeDeliveryAvailable")}
-            className={"bg-white border"}
+            label="Free Delivery"
+            required
+            className="bg-white border"
+            defaultValue=""
           >
-            <option selected value="" disabled>
+            <option value="" disabled>
               Select
             </option>
             <option value="no">No</option>
             <option value="yes">Yes</option>
           </SelectInput>
 
-          {freeDeliveryAvailable == "yes" ? (
+          {freeDeliveryAvailable === "no" ? (
             <Input
-              {...register("freeDeliveryCondition")}
-              className={"bg-white border"}
-              label={"Free Delivery Condition If You Have (within 10 words)"}
-              placeholder={"Enter if you have any delivery condition"}
+              {...register("deliveryCharge")}
+              key="deliveryCharge"
+              className="bg-white border"
+              required
+              label="Delivery Charge"
+              placeholder="Enter delivery charge"
+              type="number"
+              min={1}
             />
-          ) : (
-            ""
-          )}
+          ) : null}
         </div>
       </div>
     </div>
@@ -81,8 +90,8 @@ const DeliveryInfo = ({ register, watch }) => {
 };
 
 DeliveryInfo.propTypes = {
-  register: PropTypes.func,
-  watch: PropTypes.func,
+  register: PropTypes.func.isRequired,
+  watch: PropTypes.func.isRequired,
 };
 
 export default DeliveryInfo;

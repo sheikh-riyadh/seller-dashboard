@@ -23,7 +23,7 @@ const ReturnPolicy = () => {
     useUpdateReturnPolicyMutation();
 
   const handleReturnPolicy = async () => {
-    if (content?.length < 20) {
+    if (content?.length <50) {
       toast.error("Policy is required", { id: "policy_error" });
       return;
     }

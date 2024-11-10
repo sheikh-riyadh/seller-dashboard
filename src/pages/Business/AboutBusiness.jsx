@@ -126,7 +126,6 @@ const AboutBusiness = () => {
                 label={"Name of Store"}
                 placeholder="Name of Store"
                 required
-                defaultValue={""}
                 className={"bg-transparent border"}
                 value={sellerData?.businessName}
                 disabled

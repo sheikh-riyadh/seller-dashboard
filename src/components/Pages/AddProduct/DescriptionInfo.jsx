@@ -2,12 +2,10 @@ import PropTypes from "prop-types";
 import TextArea from "../../Common/TextArea";
 import JoditTextArea from "../../Common/JoditTextArea";
 import { handleDes } from "../../../store/features/product/productSlice";
-import { useSelector } from "react-redux";
+import { useGetProduct } from "../../../hooks/useGetProduct";
 
 const DescriptionInfo = ({ register }) => {
-  const { description } = useSelector(
-    (state) => state.session.sellerProductReducer.value
-  );
+  const { description } = useGetProduct()
 
   return (
     <div>
@@ -20,14 +18,14 @@ const DescriptionInfo = ({ register }) => {
             className={"bg-white border h-36"}
             {...register("shortDescription")}
             required
-            label={"Short Description (within 50 words)"}
+            label={"Short Description (Recommend 50 words)"}
           />
         </div>
-        <span className="py-2 block font-medium">
-          Product Description <span className="text-danger">*</span>
+        <span className="py-2 block font-medium text-sm">
+          Long Description <span className="text-danger">*</span>
         </span>
         <div>
-          <JoditTextArea handleDescription={handleDes} content={description} />
+          <JoditTextArea handleDescription={handleDes} content={description} height={"450px"} />
         </div>
       </div>
     </div>

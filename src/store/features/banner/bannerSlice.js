@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    images: [...Array(4).fill(null)],
+    bannerImages: [...Array(4).fill(null)],
   },
 };
 
@@ -10,17 +10,17 @@ const bannerSlice = createSlice({
   name: "banner",
   initialState,
   reducers: {
-    handleImages: (state, { payload }) => {
-      state.value.images[payload.index] = payload.data;
+    handleBannerImages: (state, { payload }) => {
+      state.value.bannerImages[payload.index] = payload.data;
     },
-    handleDeleteBanner: (state, { payload }) => {
-      state.value.images[payload] = null;
+    handleDeleteBannerImage: (state, { payload }) => {
+      state.value.bannerImages[payload] = null;
     },
-    handleSetImage: (state, { payload }) => {
-      state.value.images = payload;
+    handleSetBannerImage: (state, { payload }) => {
+      state.value.bannerImages = payload;
     },
 
-    handleClear: (state) => {
+    handleBannerClear: (state) => {
       (state.value.keyFeatures = []),
         (state.value.description = ""),
         (state.value.additionalInfo = ""),
@@ -29,7 +29,11 @@ const bannerSlice = createSlice({
   },
 });
 
-export const { handleImages, handleClear, handleDeleteBanner, handleSetImage } =
-  bannerSlice.actions;
+export const {
+  handleBannerImages,
+  handleClear,
+  handleDeleteBannerImage,
+  handleSetBannerImage,
+} = bannerSlice.actions;
 
 export default bannerSlice.reducer;

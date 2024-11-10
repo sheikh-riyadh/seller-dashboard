@@ -1,19 +1,30 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useUploadImageMutation } from "../../../../store/service/imageUpload/imageUploadAPI";
-import { handleDeleteBanner, handleImages } from "../../../../store/features/banner/bannerSlice";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { ImSpinner9 } from "react-icons/im";
+import { useUploadImageMutation } from "../../../../store/service/imageUpload/imageUploadAPI";
+import {
+  handleDeleteBannerImage,
+  handleBannerImages,
+} from "../../../../store/features/banner/bannerSlice";
 import Input from "../../../Common/Input";
+import { useGetBanner } from "../../../../hooks/useBanner";
+import { useGetProduct } from "../../../../hooks/useGetProduct";
+import {
+  handleDeleteProductImage,
+  handleProductImages,
+} from "../../../../store/features/product/productSlice";
 
-
-const ImageUpload = () => {
+const ImageUpload = ({ from = "banner" }) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [uploadImage, { isLoading }] = useUploadImageMutation();
+  const { bannerImages } = useGetBanner();
+  const { productImages } = useGetProduct();
 
   const dispatch = useDispatch();
-  const { images } = useSelector((state) => state.session.bannerReducer.value);
+  const images = from == "banner" ? bannerImages : productImages;
 
   const handleImageUpload = async (event, index) => {
     setImageIndex(index);
@@ -25,19 +36,32 @@ const ImageUpload = () => {
 
     try {
       const response = await uploadImage(formData).unwrap();
-      dispatch(
-        handleImages({
-          index,
-          data: response.data?.display_url,
-        })
-      );
+      if (from == "banner") {
+        dispatch(
+          handleBannerImages({
+            index,
+            data: response.data?.display_url,
+          })
+        );
+      } else {
+        dispatch(
+          handleProductImages({
+            index,
+            data: response.data?.display_url,
+          })
+        );
+      }
     } catch (error) {
       toast.error("Something went wrong 😓", { id: error });
     }
   };
 
   const handleDelete = (index) => {
-    dispatch(handleDeleteBanner(index));
+    if (from == "banner") {
+      dispatch(handleDeleteBannerImage(index));
+    } else {
+      dispatch(handleDeleteProductImage(index));
+    }
   };
 
   return (
@@ -50,12 +74,21 @@ const ImageUpload = () => {
               className="inline-block my-1 w-full"
             >
               <div
-                className={`h-32 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
+                className={`group h-32 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
                   isLoading && "cursor-wait"
                 }`}
               >
-                <p className="flex flex-col items-center justify-center text-2xl font-bold text-stech w-full h-full">
-                  <FaPlus />
+                <p className="flex flex-col gap-1 items-center justify-center text-2xl font-bold text-stech w-full h-full">
+                  <FaPlus className="group-hover:rotate-180 duration-1000" />
+                  {from === "banner" && index === 0 ? (
+                    <span className="text-sm bg-danger w-full capitalize text-white text-center absolute mt-16 p-1">
+                      required
+                    </span>
+                  ) : from === "product" ? (
+                    <span className="text-sm bg-danger w-full capitalize text-white text-center absolute mt-16 p-1">
+                      required
+                    </span>
+                  ) : null}
                 </p>
 
                 {isLoading && imageIndex === index && (
@@ -90,6 +123,10 @@ const ImageUpload = () => {
       ))}
     </div>
   );
+};
+
+ImageUpload.propTypes = {
+  from: PropTypes.string,
 };
 
 export default ImageUpload;

@@ -13,7 +13,7 @@ import {
   persistReducer,
 } from "redux-persist";
 import { baseApi } from "../api/baseApi";
-import bannerReducer from "../features/banner/bannerSlice";
+import sellerBannerReducer from "../features/banner/bannerSlice";
 import sellerBrandsReducer from "../features/brands/brandsSlice";
 import sellerUserReducer from "../features/user/userSlice";
 import sellerProductReducer from "../features/product/productSlice";
@@ -37,7 +37,7 @@ const rootPersistReducers = combineReducers({});
 const sessionReducers = combineReducers({
   sellerUserReducer,
   sellerProductReducer,
-  bannerReducer,
+  sellerBannerReducer,
   sellerBrandsReducer,
 });
 

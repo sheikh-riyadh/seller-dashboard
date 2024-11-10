@@ -133,9 +133,9 @@ const PersonalInformation = () => {
                 }) =>
                   !data ? (
                     <Input
+                    {...register(registerName)}
                       key={registerName}
                       label={label}
-                      {...register(registerName)}
                       required={isRequired}
                       type={type}
                       placeholder={placeholder}

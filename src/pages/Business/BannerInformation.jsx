@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   useCreateBannerMutation,
   useGetBannerQuery,
@@ -8,8 +8,7 @@ import {
   useUpdateBannerMutation,
 } from "../../store/service/banner/bannerApi";
 import toast from "react-hot-toast";
-import { checkValue } from "../../utils/checkInputFieldValue";
-import { handleSetImage } from "../../store/features/banner/bannerSlice";
+import { handleSetBannerImage } from "../../store/features/banner/bannerSlice";
 import Button from "../../components/Common/Button";
 import Input from "../../components/Common/Input";
 import TextArea from "../../components/Common/TextArea";
@@ -18,6 +17,7 @@ import ImageUpload from "../../components/Pages/Business/Banner/ImageUpload";
 import VideoUpload from "../../components/Pages/Business/Banner/LiveVideoUpload";
 import { useGetUser } from "../../hooks/useGetUser";
 import LoadingSpinner from "../../components/Common/LoadingSpinner";
+import { useGetBanner } from "../../hooks/useBanner";
 
 const BannerInformation = () => {
   const [type, setType] = useState("image");
@@ -31,7 +31,7 @@ const BannerInformation = () => {
   });
 
   const dispatch = useDispatch();
-  const { images } = useSelector((state) => state.session.bannerReducer.value);
+  const { bannerImages } = useGetBanner();
   const { user } = useGetUser();
   const { data: bannerData, isLoading: bannerLoading } = useGetBannerQuery({
     type,
@@ -45,13 +45,19 @@ const BannerInformation = () => {
   const handleOnSubmit = async (data) => {
     let newData;
 
-    if (type == "image" && !checkValue(images)) {
-      toast.error("Banner image must be fillup", { id: "empty_error" });
+    if (type == "image" && !bannerImages[0]) {
+      toast.error("Banner image is required", { id: "empty_error" });
       return;
     } else {
       if (type == "image") {
         delete data.videoURL;
-        newData = { ...data, sellerId: user?._id, images, type, default: true };
+        newData = {
+          ...data,
+          sellerId: user?._id,
+          bannerImages,
+          type,
+          default: true,
+        };
       } else {
         newData = { ...data, sellerId: user?._id, type, default: true };
       }
@@ -106,8 +112,8 @@ const BannerInformation = () => {
           }
         }
       }
-      if (bannerData?.images) {
-        dispatch(handleSetImage(bannerData?.images));
+      if (bannerData?.bannerImages) {
+        dispatch(handleSetBannerImage(bannerData?.bannerImages));
       }
     }
   }, [bannerData, setValue, reset, dispatch]);
