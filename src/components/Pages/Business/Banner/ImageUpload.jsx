@@ -16,6 +16,7 @@ import {
   handleDeleteProductImage,
   handleProductImages,
 } from "../../../../store/features/product/productSlice";
+import Required from "./Required";
 
 const ImageUpload = ({ from = "banner" }) => {
   const [imageIndex, setImageIndex] = useState(0);
@@ -67,28 +68,28 @@ const ImageUpload = ({ from = "banner" }) => {
   return (
     <div className="grid grid-cols-4 gap-5">
       {[...Array(images?.length).keys()].map((_, index) => (
-        <div key={index} className="my-5 h-32 w-full relative">
+        <div key={index} className="my-5 h-40 w-full relative">
           {!images[index] ? (
             <label
               htmlFor={`photo-${index}`}
               className="inline-block my-1 w-full"
             >
               <div
-                className={`group h-32 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
+                className={`group h-40 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
                   isLoading && "cursor-wait"
                 }`}
               >
                 <p className="flex flex-col gap-1 items-center justify-center text-2xl font-bold text-stech w-full h-full">
-                  <FaPlus className="group-hover:rotate-180 duration-1000" />
+                  <FaPlus className="group-hover:rotate-180 duration-1000 border text-4xl p-2 rounded-full" />
                   {from === "banner" && index === 0 ? (
-                    <span className="text-sm bg-danger w-full capitalize text-white text-center absolute mt-16 p-1">
-                      required
-                    </span>
+                    <Required fileSize={"980 X 500"} />
                   ) : from === "product" ? (
-                    <span className="text-sm bg-danger w-full capitalize text-white text-center absolute mt-16 p-1">
-                      required
+                    <Required fileSize={"500 X 500"} />
+                  ) : (
+                    <span className="absolute bottom-1 left-1.5 text-sm">
+                      982 X 500
                     </span>
-                  ) : null}
+                  )}
                 </p>
 
                 {isLoading && imageIndex === index && (
@@ -106,8 +107,8 @@ const ImageUpload = ({ from = "banner" }) => {
                 className="h-full w-full object-fill rounded-md"
               />
 
-              <div className="absolute top-0 right-0 bg-[#2222228d] hover:bg-[#222222d4] duration-300 text-danger h-full w-full flex flex-col items-center justify-center rounded-md text-2xl cursor-pointer">
-                <FaTrash onClick={() => handleDelete(index)} className="" />
+              <div className="flex flex-col border justify-center items-center duration-300 absolute top-2 right-2 text-white w-7 h-7 p-1 bg-danger hover:opacity-70 rounded-full cursor-pointer">
+                <FaTrash onClick={() => handleDelete(index)} />
               </div>
             </div>
           )}

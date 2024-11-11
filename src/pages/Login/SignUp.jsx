@@ -1,11 +1,7 @@
 import Registrastion from "../../components/Pages/Login/Registrastion";
 
 const SignUp = () => {
-  return (
-    <div>
-      <Registrastion />
-    </div>
-  );
+  return <Registrastion />;
 };
 
 export default SignUp;

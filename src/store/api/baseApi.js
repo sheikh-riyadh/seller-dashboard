@@ -14,7 +14,8 @@ export const baseApi = createApi({
     "seller-brands",
     "seller-location",
     "seller-policy",
-    "seller-product"
+    "seller-product",
+    "seller-annoucement"
   ],
   endpoints: () => ({}),
 });

@@ -84,7 +84,7 @@ const LogIn = () => {
             >
               Forget Your Password?
             </span>
-            <SubmitButton isLoading={isLoading} className="w-32">
+            <SubmitButton isLoading={isLoading} className="w-40">
               Sign In
             </SubmitButton>
           </div>
@@ -98,7 +98,7 @@ const LogIn = () => {
             Register with your personal details to use all of the site features
           </span>
           <Link to="/sign-up">
-            <Button className="w-32">Sign Up</Button>
+            <Button className="w-40 bg-transparent">Sign Up</Button>
           </Link>
         </div>
       </div>

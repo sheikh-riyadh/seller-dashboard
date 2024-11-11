@@ -61,7 +61,7 @@ const Registrastion = () => {
     if (checkValue(values)) {
       setIsNext(true);
     } else {
-      toast.error("All field are required", { id: "input_error" });
+      toast.error("All fields are required", { id: "input_error" });
     }
   };
 
@@ -77,7 +77,7 @@ const Registrastion = () => {
             Enter your personal details to use all of the site features
           </span>
           <Link to="/sign-in">
-            <Button className="uppercase w-32">Sign In</Button>
+            <Button className="uppercase w-40 bg-transparent">Sign In</Button>
           </Link>
         </div>
 

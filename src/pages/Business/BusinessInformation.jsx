@@ -53,7 +53,9 @@ const BusinessInformation = () => {
   useEffect(() => {
     for (const key in sellerData) {
       if (Object.prototype.hasOwnProperty.call(sellerData, key)) {
-        if (key !== "_id") {
+        if (key === "_id") {
+          continue;
+        } else {
           setValue(key, sellerData[key]);
         }
       }

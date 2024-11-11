@@ -1,14 +1,15 @@
 import {
+  FaBoxes,
   FaBoxOpen,
   FaBriefcase,
   FaBuilding,
+  FaBullhorn,
   FaCertificate,
   FaFingerprint,
   FaLayerGroup,
   FaMapMarkerAlt,
   FaReply,
   FaShoppingBag,
-  FaUserFriends,
   FaUserTie,
 } from "react-icons/fa";
 import { MdReviews, MdWindow } from "react-icons/md";
@@ -29,6 +30,11 @@ export const layout = {
       name: "Add Product",
       icon: <FaBoxOpen />,
       link: "/add-product",
+    },
+    {
+      name: "Manage Product",
+      icon: <FaBoxes />,
+      link: "/manage-product",
     },
     {
       name: "Personal Information",
@@ -76,9 +82,9 @@ export const layout = {
       link: "/identity-verification",
     },
     {
-      name: "Followers",
-      icon: <FaUserFriends />,
-      link: "/followers",
+      name: "Announcement",
+      icon: <FaBullhorn />,
+      link: "/announcement",
     },
   ],
 };

@@ -12,7 +12,6 @@ import ManageReviews from "../pages/OrderManagement/ManageReviews/ManageReviews"
 import ReturnPolicy from "../pages/ReturnPolicy/ReturnPolicy";
 import AboutBusiness from "../pages/Business/AboutBusiness";
 import IdentityVerification from "../pages/Business/IdentityVerification";
-import Followers from "../pages/Followers/Followers";
 import SignIn from "../pages/Login/SignIn";
 import SignUp from "../pages/Login/SignUp";
 import NotFound from "../pages/NotFound/NotFound";
@@ -21,6 +20,8 @@ import Pending from "../pages/Pending/Pending";
 import Block from "../pages/Pending/Block";
 import BlockedRouter from "./BlockedRouter";
 import PendingRouter from "./PendingRouter";
+import ManageProduct from "../pages/ManageProduct/ManageProduct";
+import Announcement from "../pages/Announcement/Announcement";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "announcement",
+        element: (
+          <PrivateRouter>
+            <Announcement />
+          </PrivateRouter>
+        ),
+      },
+      {
         path: "business-info",
         element: (
           <PrivateRouter>
@@ -104,14 +113,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "followers",
-        element: (
-          <PrivateRouter>
-            <Followers />
-          </PrivateRouter>
-        ),
-      },
-      {
         path: "identity-verification",
         element: (
           <PrivateRouter>
@@ -119,12 +120,19 @@ const router = createBrowserRouter([
           </PrivateRouter>
         ),
       },
-
       {
         path: "manage-reviews",
         element: (
           <PrivateRouter>
             <ManageReviews />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "manage-product",
+        element: (
+          <PrivateRouter>
+            <ManageProduct />
           </PrivateRouter>
         ),
       },
@@ -141,6 +149,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <PersonalInformation />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "update-product",
+        element: (
+          <PrivateRouter>
+            <AddProduct />
           </PrivateRouter>
         ),
       },

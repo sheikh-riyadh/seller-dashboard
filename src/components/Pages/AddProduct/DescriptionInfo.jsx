@@ -9,7 +9,7 @@ const DescriptionInfo = ({ register }) => {
 
   return (
     <div>
-      <div className="mb-5 bg-stech text-white p-3">
+      <div className="mb-5 bg-stech text-white p-5">
         <span>Description</span>
       </div>
       <div className="flex flex-col gap-1 p-5">

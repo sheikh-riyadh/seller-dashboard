@@ -1,6 +1,8 @@
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import PropTypes from "prop-types";
 import BasicInfo from "../../components/Pages/AddProduct/BasicInfo";
 import DescriptionInfo from "../../components/Pages/AddProduct/DescriptionInfo";
 import StockPriceAndQuantity from "../../components/Pages/AddProduct/StockPriceAndQuantity";
@@ -19,10 +21,8 @@ import {
   useCreateProductMutation,
   useUpdateProductMutation,
 } from "../../store/service/product/productApi";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
-const AddProduct = ({ updateData }) => {
+const AddProduct = () => {
   const { user } = useGetUser();
   const { keyFeatures, description, additionalInfo, productImages } =
     useGetProduct();
@@ -33,6 +33,8 @@ const AddProduct = ({ updateData }) => {
   const [createProduct, { isLoading: createLoading }] =
     useCreateProductMutation();
 
+  const navigate = useNavigate();
+
   const { handleSubmit, register, setValue, watch, reset } = useForm();
 
   const handleKeyDown = (event) => {
@@ -40,6 +42,9 @@ const AddProduct = ({ updateData }) => {
       event.preventDefault();
     }
   };
+
+  const location = useLocation();
+  const updateData = location?.state?.payload;
 
   const handleOnSubmit = async (data) => {
     const newData = {
@@ -49,6 +54,7 @@ const AddProduct = ({ updateData }) => {
       description,
       additionalInfo,
       sellerId: user?._id,
+      status: updateData?.status ? updateData?.status : "active",
     };
 
     if (!checkValue(productImages)) {
@@ -61,7 +67,6 @@ const AddProduct = ({ updateData }) => {
       toast.error("Description is short");
       return;
     }
-
     if (updateData?._id) {
       try {
         const res = await updateProduct({
@@ -99,7 +104,9 @@ const AddProduct = ({ updateData }) => {
   useEffect(() => {
     for (const key in updateData) {
       if (Object.prototype.hasOwnProperty.call(updateData, key)) {
-        if (key !== "_id") {
+        if (key === "_id" || key === "keyFeatures") {
+          continue;
+        } else {
           setValue(key, updateData[key]);
         }
       }
@@ -113,6 +120,8 @@ const AddProduct = ({ updateData }) => {
         productImages: updateData.productImages,
       };
       dispatch(handleSetUpdatedProduct(data));
+    } else {
+      dispatch(handleClearProduct());
     }
   }, [setValue, updateData, dispatch]);
 
@@ -127,8 +136,16 @@ const AddProduct = ({ updateData }) => {
             className="overflow-hidden flex flex-col gap-5"
           >
             <div className="border rounded-md overflow-hidden shadow bg-white">
-              <div className="mb-5 bg-stech text-white p-3">
+              <div className="mb-5 bg-stech text-white p-5 flex items-center justify-between">
                 <span>Basic Information</span>
+                {updateData?._id && (
+                  <span
+                    onClick={() => navigate(-1)}
+                    className="bg-white px-6 py-1 rounded-sm text-stech cursor-pointer"
+                  >
+                    Back
+                  </span>
+                )}
               </div>
               <BasicInfo register={register} setValue={setValue} />
             </div>
@@ -138,7 +155,7 @@ const AddProduct = ({ updateData }) => {
             </div>
 
             <div className="border rounded-md overflow-hidden shadow bg-white">
-              <div className="mb-5 bg-stech text-white p-3">
+              <div className="mb-5 bg-stech text-white p-5">
                 <span>Price and quantity</span>
               </div>
               <div className="flex flex-col gap-1 p-5">
@@ -147,7 +164,7 @@ const AddProduct = ({ updateData }) => {
             </div>
 
             <div className="border rounded-md overflow-hidden shadow bg-white">
-              <div className="mb-5 bg-stech text-white p-3">
+              <div className="mb-5 bg-stech text-white p-5">
                 <span>Additional Information</span>
               </div>
               <div className="flex flex-col gap-1 p-5">
@@ -160,7 +177,7 @@ const AddProduct = ({ updateData }) => {
             </div>
 
             <div className="border rounded-md overflow-hidden shadow bg-white">
-              <div className="mb-5 bg-stech text-white p-3">
+              <div className="mb-5 bg-stech text-white p-5">
                 <span>Delivery Information</span>
               </div>
               <div className="flex flex-col gap-1 p-5">
@@ -170,7 +187,7 @@ const AddProduct = ({ updateData }) => {
             <div className="flex flex-col items-end justify-end">
               <SubmitButton
                 isLoading={createLoading || updateLoading}
-                className="w-32"
+                className="w-40"
               >
                 Save
               </SubmitButton>
@@ -180,10 +197,6 @@ const AddProduct = ({ updateData }) => {
       </div>
     </div>
   );
-};
-
-AddProduct.propTypes = {
-  updateData: PropTypes.object,
 };
 
 export default AddProduct;

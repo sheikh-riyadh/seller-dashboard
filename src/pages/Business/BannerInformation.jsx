@@ -107,7 +107,9 @@ const BannerInformation = () => {
     if (bannerData?.type) {
       for (const key in bannerData) {
         if (Object.prototype.hasOwnProperty.call(bannerData, key)) {
-          if (key !== "_id") {
+          if (key === "_id") {
+            continue;
+          } else {
             setValue(key, bannerData[key]);
           }
         }

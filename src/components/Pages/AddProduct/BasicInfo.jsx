@@ -29,7 +29,7 @@ const BasicInfo = ({ register, setValue }) => {
     if (event.key === "Enter") {
       const data = event.target.value;
       if (!keyFeatures.includes(data)) {
-        setValue("keyFeatures");
+        setValue("keyFeatures", "");
         dispatch(handleAddKeyFeatures(data));
       }
     }
@@ -88,9 +88,7 @@ const BasicInfo = ({ register, setValue }) => {
               {brandName}
             </option>
           ))}
-          <option value="no brand">
-            No brand
-          </option>
+          <option value="no brand">No brand</option>
         </SelectInput>
       </div>
       <span className="py-2 block font-medium text-sm">
