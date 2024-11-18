@@ -12,7 +12,7 @@ const RightSide = () => {
         <Link>
           <FaQuestionCircle className="text-lg" />
         </Link>
-        <Link>
+        <Link to={"/question-answer"}>
           <MdQuestionAnswer className="text-lg" />
         </Link>
         <Link>

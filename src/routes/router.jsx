@@ -22,6 +22,7 @@ import BlockedRouter from "./BlockedRouter";
 import PendingRouter from "./PendingRouter";
 import ManageProduct from "../pages/ManageProduct/ManageProduct";
 import Announcement from "../pages/Announcement/Announcement";
+import QuestionAnswer from "../pages/QuestionAnswer/QuestionAnswer";
 
 const router = createBrowserRouter([
   {
@@ -149,6 +150,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <PersonalInformation />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "question-answer",
+        element: (
+          <PrivateRouter>
+            <QuestionAnswer />
           </PrivateRouter>
         ),
       },
