@@ -30,6 +30,7 @@ const QuestionAnswer = () => {
       data: {
         sellerName: user?.fullName,
         answer: data?.answer,
+        sellerId: user?._id,
       },
     };
     try {
