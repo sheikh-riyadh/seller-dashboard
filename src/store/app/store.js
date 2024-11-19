@@ -17,6 +17,7 @@ import sellerBannerReducer from "../features/banner/bannerSlice";
 import sellerBrandsReducer from "../features/brands/brandsSlice";
 import sellerUserReducer from "../features/user/userSlice";
 import sellerProductReducer from "../features/product/productSlice";
+import questionReducer from "../features/questionAnswer/questionAnswerSlice";
 import { imgbbApi } from "../service/imageUpload/imageUploadAPI";
 
 const persistConfig = {
@@ -32,7 +33,9 @@ const sessionConfig = {
   storage: storageSession,
 };
 
-const rootPersistReducers = combineReducers({});
+const rootPersistReducers = combineReducers({
+  questionReducer
+});
 
 const sessionReducers = combineReducers({
   sellerUserReducer,
