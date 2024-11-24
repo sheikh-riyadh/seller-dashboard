@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    questionIndex: 0,
     currentSize: 0,
     previousSize: 0,
     showSize: 0,
@@ -14,9 +13,6 @@ const questionAnswerSlice = createSlice({
   name: "qna",
   initialState,
   reducers: {
-    handleQuestionIndex: (state, { payload }) => {
-      state.value.questionIndex = payload;
-    },
     handleQuestionNAnswerSize: (state, { payload }) => {
       state.value.currentSize = payload;
       if (state.value.currentSize > state.value.previousSize) {
@@ -32,10 +28,7 @@ const questionAnswerSlice = createSlice({
   },
 });
 
-export const {
-  handleQuestionIndex,
-  handleIsClicked,
-  handleQuestionNAnswerSize,
-} = questionAnswerSlice.actions;
+export const { handleIsClicked, handleQuestionNAnswerSize } =
+  questionAnswerSlice.actions;
 
 export default questionAnswerSlice.reducer;

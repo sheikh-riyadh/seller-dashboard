@@ -11,18 +11,15 @@ import { FaClipboard, FaMousePointer } from "react-icons/fa";
 import QuestionAnswerSkeleton from "../../components/Skeleton/QuestionAnswer/QuestionAnswerSkeleton";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { handleQuestionIndex } from "../../store/features/questionAnswer/questionAnswerSlice";
-import { useQuestionIndex } from "../../hooks/useQuestionIndex";
 
 const QuestionAnswer = () => {
   const { seller } = useGetSeller();
+
   const [currentQuestion, setCurrentQuestion] = useState();
   const { data, isLoading } = useGetProductQuestionsQuery(seller?._id);
+
   const [answer, { isLoading: answerLoading }] = useProductAnswerMutation();
   const { handleSubmit, register, reset } = useForm();
-  const dispatch = useDispatch();
-  const { questionIndex } = useQuestionIndex();
 
   const handleAnswer = async (data) => {
     const newData = {
@@ -47,8 +44,8 @@ const QuestionAnswer = () => {
   };
 
   useEffect(() => {
-    setCurrentQuestion(data?.[questionIndex]);
-  }, [data, questionIndex]);
+    setCurrentQuestion(data?.[0]);
+  }, [data]);
 
   return (
     <div>
@@ -57,12 +54,11 @@ const QuestionAnswer = () => {
           {data?.length ? (
             <div className="grid grid-cols-12 gap-5 m-5 h-screen">
               <div className="col-span-4 h-[calc(100%-100px)] overflow-y-auto w-full border flex flex-col rounded-md bg-white">
-                {data?.map((question, index) => (
+                {data?.map((question) => (
                   <div
                     key={question?._id}
                     onClick={() => {
-                      setCurrentQuestion(question),
-                        dispatch(handleQuestionIndex(index));
+                      setCurrentQuestion(question);
                     }}
                     className={`px-5 py-5 cursor-pointer ${
                       currentQuestion?._id === question?._id
@@ -114,9 +110,6 @@ const QuestionAnswer = () => {
                         )}
                       </div>
                       <div className="flex flex-col gap-3">
-                        <span className="text-xs">
-                          {moment(question?.createdAt).format("LT")}
-                        </span>
                         {!Object?.keys(question?.answer).length && (
                           <div className="flex flex-col items-center justify-center">
                             <span className="w-4 h-4 bg-danger text-white text-center rounded-full text-sm">
@@ -137,7 +130,25 @@ const QuestionAnswer = () => {
                       src={currentQuestion?.question?.productInfo?.productImage}
                       alt=""
                     />
-                    <span>{currentQuestion?.question?.productInfo?.title}</span>
+                    <div className="flex flex-col gap-1">
+                      <span>
+                        {currentQuestion?.question?.productInfo?.title}
+                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-sm font-semibold">
+                          Q:{" "}
+                          {moment(currentQuestion?.createdAt).format(
+                            "MMMM D YYYY"
+                          )}
+                        </span>
+                        <span className="text-sm font-semibold">
+                          A:{" "}
+                          {moment(currentQuestion?.updatedAt).format(
+                            "MMMM D YYYY"
+                          )}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 

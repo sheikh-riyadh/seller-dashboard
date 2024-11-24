@@ -13,7 +13,7 @@ import {
   handleIsClicked,
   handleQuestionNAnswerSize,
 } from "../../store/features/questionAnswer/questionAnswerSlice";
-import { useQuestionIndex } from "../../hooks/useQuestionIndex";
+import { useQuestion } from "../../hooks/useQuestion";
 
 const RightSide = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,7 +35,7 @@ const RightSide = () => {
     (question) => !question?.answer?.answer
   );
 
-  const { isClicked, showSize } = useQuestionIndex();
+  const { isClicked, showSize } = useQuestion();
 
   useEffect(() => {
     dispatch(handleQuestionNAnswerSize(unseenQuestion?.length));
