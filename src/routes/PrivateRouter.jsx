@@ -1,17 +1,17 @@
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useGetUser } from "../hooks/useGetUser";
+import { useGetSeller } from "../hooks/useGetSeller";
 
 const PrivateRouter = ({ children }) => {
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
 
   const location = useLocation();
 
-  if (user?.role === "seller" && user?.status == "active") {
+  if (seller?.role === "seller" && seller?.status == "active") {
     return children;
-  } else if (user?.role === "seller" && user?.status === "pending") {
+  } else if (seller?.role === "seller" && seller?.status === "pending") {
     return <Navigate to="/pending" />;
-  } else if (user?.role === "seller" && user?.status === "blocked") {
+  } else if (seller?.role === "seller" && seller?.status === "blocked") {
     return <Navigate to="/blocked" />;
   } else {
     return <Navigate to="/sign-in" state={{ from: location }} replace={true} />;

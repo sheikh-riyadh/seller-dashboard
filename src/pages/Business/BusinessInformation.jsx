@@ -9,17 +9,17 @@ import {
   useUpdateSellerMutation,
 } from "../../store/service/seller/sellerApi";
 import toast from "react-hot-toast";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const BusinessInformation = () => {
   const [cities, setCities] = useState([]);
   const { handleSubmit, register, setValue, watch } = useForm();
 
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
 
   const { data: sellerData, isLoading: sellerLoading } =
-    useGetSellerDetailsQuery(user?._id);
+    useGetSellerDetailsQuery(seller?._id);
   const [updateSeller, { isLoading: updateSellerLoading }] =
     useUpdateSellerMutation();
 

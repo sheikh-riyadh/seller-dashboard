@@ -4,15 +4,15 @@ import toast from "react-hot-toast";
 import Table from "../../Common/Table";
 import { useGetProductsQuery } from "../../../store/service/product/productApi";
 import LoadingSpinner from "../../Common/LoadingSpinner";
-import { useGetUser } from "../../../hooks/useGetUser";
+import { useGetSeller } from "../../../hooks/useGetSeller";
 import DeleteProduct from "./DeleteProduct";
 import { numberWithCommas } from "../../../utils/numberWithComma";
 import UpdateStatus from "./UpdateStatus";
 
 const ProductTable = () => {
   const navigate = useNavigate();
-  const { user } = useGetUser();
-  const { data, isLoading } = useGetProductsQuery(user?._id);
+  const { seller } = useGetSeller();
+  const { data, isLoading } = useGetProductsQuery(seller?._id);
 
   const redirectUserDetailsHandler = (items) => {
     if (items) {
@@ -74,7 +74,7 @@ const ProductTable = () => {
             {
               name: "Status",
               render: ({ item }) => {
-                return <UpdateStatus item={item} sellerId={user?._id} />;
+                return <UpdateStatus item={item} sellerId={seller?._id} />;
               },
             },
             {
@@ -89,7 +89,7 @@ const ProductTable = () => {
                     >
                       <FaBinoculars />
                     </span>
-                    <DeleteProduct user={user} id={item?._id} />
+                    <DeleteProduct user={seller} id={item?._id} />
                   </div>
                 );
               },

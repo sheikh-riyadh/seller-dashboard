@@ -16,14 +16,14 @@ import {
 import SubmitButton from "../../components/Common/SubmitButton";
 import { checkValue } from "../../utils/checkInputFieldValue";
 import { useGetProduct } from "../../hooks/useGetProduct";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import {
   useCreateProductMutation,
   useUpdateProductMutation,
 } from "../../store/service/product/productApi";
 
 const AddProduct = () => {
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
   const { keyFeatures, description, additionalInfo, productImages } =
     useGetProduct();
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const AddProduct = () => {
       keyFeatures,
       description,
       additionalInfo,
-      sellerId: user?._id,
+      sellerId: seller?._id,
       status: updateData?.status ? updateData?.status : "active",
     };
 
@@ -151,7 +151,7 @@ const AddProduct = () => {
             </div>
 
             <div className="border rounded-md overflow-hidden shadow bg-white">
-              <DescriptionInfo register={register} />
+              <DescriptionInfo />
             </div>
 
             <div className="border rounded-md overflow-hidden shadow bg-white">

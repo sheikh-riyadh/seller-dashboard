@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    user: null,
+    seller: null,
   },
 };
 
@@ -11,12 +11,15 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action) => {
-      state.value.user = action.payload;
+      state.value.seller = action.payload;
+    },
+    removeUser: (state) => {
+      state.value.seller = null;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addUser } = userSlice.actions;
+export const { addUser,removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

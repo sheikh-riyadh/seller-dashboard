@@ -1,13 +1,13 @@
 import { ImSpinner4 } from "react-icons/im";
 import { TbReportSearch } from "react-icons/tb";
 import Button from "../../components/Common/Button";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 // import { useGetSellerQuery } from "../../store/service/seller/sellerApi";
 // import { useNavigate } from "react-router-dom";
 
 const Pending = () => {
   // const navigate = useNavigate();
-  const { user } = useGetUser()
+  const { seller } = useGetSeller()
   // const { data } = useGetSellerQuery(user?.email);
   // data?.status === "active" && navigate("/sign-in");
 
@@ -21,7 +21,7 @@ const Pending = () => {
           </span>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold leading-snug">{`👋 Hello, ${user?.fullName}! Welcome to our platform.`}</h1>
+          <h1 className="text-3xl font-bold leading-snug">{`👋 Hello, ${seller?.fullName}! Welcome to our platform.`}</h1>
           <span className="text-white text-lg">
             {`Your account is currently pending, and we'll notify you once it's fully activated.`}
           </span>

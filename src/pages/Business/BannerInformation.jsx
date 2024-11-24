@@ -15,7 +15,7 @@ import TextArea from "../../components/Common/TextArea";
 import SubmitButton from "../../components/Common/SubmitButton";
 import ImageUpload from "../../components/Pages/Business/Banner/ImageUpload";
 import VideoUpload from "../../components/Pages/Business/Banner/LiveVideoUpload";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import LoadingSpinner from "../../components/Common/LoadingSpinner";
 import { useGetBanner } from "../../hooks/useBanner";
 
@@ -32,12 +32,12 @@ const BannerInformation = () => {
 
   const dispatch = useDispatch();
   const { bannerImages } = useGetBanner();
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
   const { data: bannerData, isLoading: bannerLoading } = useGetBannerQuery({
     type,
-    sellerId: user?._id,
+    sellerId: seller?._id,
   });
-  const { data: defaultBannerData } = useGetDefaultBannerQuery(user?._id);
+  const { data: defaultBannerData } = useGetDefaultBannerQuery(seller?._id);
   const [createBanner, { isLoading }] = useCreateBannerMutation();
   const [updateBanner, { isLoading: updateLoading }] =
     useUpdateBannerMutation();
@@ -53,13 +53,13 @@ const BannerInformation = () => {
         delete data.videoURL;
         newData = {
           ...data,
-          sellerId: user?._id,
+          sellerId: seller?._id,
           bannerImages,
           type,
           default: true,
         };
       } else {
-        newData = { ...data, sellerId: user?._id, type, default: true };
+        newData = { ...data, sellerId: seller?._id, type, default: true };
       }
     }
 

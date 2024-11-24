@@ -5,7 +5,7 @@ import Modal from "../../components/Modal/Modal";
 import { useForm } from "react-hook-form";
 import SubmitButton from "../../components/Common/SubmitButton";
 import TextArea from "../../components/Common/TextArea";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import {
   useCreateAnnoucementMutation,
   useDeleteAnnoucementMutation,
@@ -20,10 +20,10 @@ const Announcement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { register, handleSubmit, setValue } = useForm();
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
 
   const { data: announcementData, isLoading } = useGetAnnoucementQuery(
-    user?._id
+    seller?._id
   );
   const [updateAnnouncement, { isLoading: updateLoading }] =
     useUpdateAnnoucementMutation();
@@ -37,7 +37,7 @@ const Announcement = () => {
       try {
         const res = await updateAnnouncement({
           _id: announcementData?._id,
-          data: { ...data, sellerId: user?._id },
+          data: { ...data, sellerId: seller?._id },
         });
 
         if (!res?.error) {
@@ -55,7 +55,7 @@ const Announcement = () => {
       try {
         const res = await createAnnouncement({
           ...data,
-          sellerId: user?._id,
+          sellerId: seller?._id,
         });
 
         if (!res?.error) {
@@ -145,7 +145,7 @@ const Announcement = () => {
       )}
       {isDeleteModalOpen && (
         <DeleteModal
-          deleteData={{ _id: announcementData?._id, sellerId: user?._id }}
+          deleteData={{ _id: announcementData?._id, sellerId: seller?._id }}
           handleDeleteFunction={deleteAnnouncement}
           isLoading={deleteLoading}
           isModalOpen={isDeleteModalOpen}

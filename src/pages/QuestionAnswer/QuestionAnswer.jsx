@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import {
   useGetProductQuestionsQuery,
   useProductAnswerMutation,
@@ -16,9 +16,9 @@ import { handleQuestionIndex } from "../../store/features/questionAnswer/questio
 import { useQuestionIndex } from "../../hooks/useQuestionIndex";
 
 const QuestionAnswer = () => {
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
   const [currentQuestion, setCurrentQuestion] = useState();
-  const { data, isLoading } = useGetProductQuestionsQuery(user?._id);
+  const { data, isLoading } = useGetProductQuestionsQuery(seller?._id);
   const [answer, { isLoading: answerLoading }] = useProductAnswerMutation();
   const { handleSubmit, register, reset } = useForm();
   const dispatch = useDispatch();
@@ -28,9 +28,10 @@ const QuestionAnswer = () => {
     const newData = {
       _id: currentQuestion?._id,
       data: {
-        sellerName: user?.fullName,
+        sellerName: seller?.fullName,
         answer: data?.answer,
-        sellerId: user?._id,
+        sellerId: seller?._id,
+        logo: seller?.logo,
       },
     };
     try {
@@ -107,7 +108,7 @@ const QuestionAnswer = () => {
                         </span>
                         {!Object?.keys(question?.answer).length && (
                           <div className="flex flex-col items-center justify-center">
-                            <span className="w-4 h-4 bg-stech text-white text-center rounded-full text-sm">
+                            <span className="w-4 h-4 bg-danger text-white text-center rounded-full text-sm">
                               1
                             </span>
                           </div>

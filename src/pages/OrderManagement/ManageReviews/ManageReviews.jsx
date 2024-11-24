@@ -12,7 +12,7 @@ const ManageReviews = () => {
       <div className="p-5 flex flex-col gap-5 -mt-36">
         <div>
           <div className="flex items-center gap-3 justify-end">
-            <Input placeholder="Search..." className="border bg-white w-full" />
+            <Input placeholder="Search not available" className="border bg-white w-full" />
             <Button className="w-36 py-2.5">Find review</Button>
           </div>
         </div>
@@ -39,7 +39,7 @@ const ManageReviews = () => {
               ))}
             </div>
             <div className="p-5">
-              <ManageReviewTable />
+              <ManageReviewTable selectTabOption={selectTabOption} />
             </div>
           </div>
         </div>

@@ -10,18 +10,18 @@ import {
   useGetSellerDetailsQuery,
   useUpdateSellerMutation,
 } from "../../store/service/seller/sellerApi";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import { FaTrash } from "react-icons/fa";
 import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const IdentityVerification = () => {
   const [identity, setIdentity] = useState("");
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
   const { register, handleSubmit, setValue } = useForm();
 
   const [uploadImage, { isLoading }] = useUploadImageMutation();
   const { data: sellerData, isLoading: sellerLoading } =
-    useGetSellerDetailsQuery(user?._id);
+    useGetSellerDetailsQuery(seller?._id);
 
   const [updateSeller, { isLoading: updateSellerLoading }] =
     useUpdateSellerMutation();

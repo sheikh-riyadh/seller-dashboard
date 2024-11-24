@@ -12,17 +12,17 @@ import {
 } from "../../store/service/seller/sellerApi";
 import SubmitButton from "../../components/Common/SubmitButton";
 import toast from "react-hot-toast";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const PersonalInformation = () => {
   const [photo, setPhoto] = useState("");
   const { handleSubmit, register, setValue } = useForm();
 
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
 
   const { data: sellerData, isLoading: sellerLoading } =
-    useGetSellerDetailsQuery(user?._id);
+    useGetSellerDetailsQuery(seller?._id);
   const [updateSeller, { isLoading: updateSellerLoading }] =
     useUpdateSellerMutation();
   const [uploadImage, { isLoading }] = useUploadImageMutation();

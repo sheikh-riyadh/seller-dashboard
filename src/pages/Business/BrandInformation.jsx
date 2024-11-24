@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import { FaTrash } from "react-icons/fa6";
 import Marquee from "../../components/Common/Marquee";
 import SubmitButton from "../../components/Common/SubmitButton";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import { useGetBrands } from "../../hooks/useGetBrands";
 import {
   useCreateSellerBrandsMutation,
@@ -23,12 +23,12 @@ import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const BrandInformation = () => {
   const { register, handleSubmit, watch, reset } = useForm();
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
   const { brands } = useGetBrands();
 
   const dispatch = useDispatch();
   const { data: sellerBrandsData, isLoading: sellerBrandLoading } =
-    useGetSellerBrandsQuery(user?._id);
+    useGetSellerBrandsQuery(seller?._id);
   const [updateSellerBrands, { isLoading: updateSellerBrandLoading }] =
     useUpdateSellerBrandsMutation();
 
@@ -70,7 +70,7 @@ const BrandInformation = () => {
       return;
     }
 
-    const data = { brands, sellerId: user?._id };
+    const data = { brands, sellerId: seller?._id };
     if (sellerBrandsData?._id) {
       try {
         const res = await updateSellerBrands({

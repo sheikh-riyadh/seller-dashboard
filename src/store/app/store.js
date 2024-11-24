@@ -17,7 +17,7 @@ import sellerBannerReducer from "../features/banner/bannerSlice";
 import sellerBrandsReducer from "../features/brands/brandsSlice";
 import sellerUserReducer from "../features/user/userSlice";
 import sellerProductReducer from "../features/product/productSlice";
-import questionReducer from "../features/questionAnswer/questionAnswerSlice";
+import sellerQuestionReducer from "../features/questionAnswer/questionAnswerSlice";
 import { imgbbApi } from "../service/imageUpload/imageUploadAPI";
 
 const persistConfig = {
@@ -34,7 +34,7 @@ const sessionConfig = {
 };
 
 const rootPersistReducers = combineReducers({
-  questionReducer
+  sellerQuestionReducer
 });
 
 const sessionReducers = combineReducers({

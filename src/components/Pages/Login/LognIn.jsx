@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { FaFacebookF, FaGithub, FaGooglePlusG, FaHome } from "react-icons/fa";
+import {FaHome } from "react-icons/fa";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
 import { auth } from "../../../firebase/firebase.config";
@@ -58,11 +58,6 @@ const LogIn = () => {
           className="flex flex-col items-center justify-center gap-5 w-full p-7"
         >
           <h1 className="font-bold text-3xl capitalize">Sign In</h1>
-          <div className="flex items-center gap-3">
-            <FaGooglePlusG className="border text-3xl p-1 rounded-md" />
-            <FaFacebookF className="border text-3xl p-1 rounded-md" />
-            <FaGithub className="border text-3xl p-1 rounded-md" />
-          </div>
           <div className="w-full flex flex-col gap-5">
             <Input
               {...register("email")}

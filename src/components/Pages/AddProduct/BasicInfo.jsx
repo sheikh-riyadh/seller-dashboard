@@ -10,16 +10,20 @@ import {
 } from "../../../store/features/product/productSlice";
 import { useGetSellerBrandsQuery } from "../../../store/service/brands/brandsApi";
 import { useGetProduct } from "../../../hooks/useGetProduct";
-import { useGetUser } from "../../../hooks/useGetUser";
+import { useGetSeller } from "../../../hooks/useGetSeller";
+import { useGetCategoriesQuery } from "../../../store/service/category/categoryApi";
 
 const BasicInfo = ({ register, setValue }) => {
   const dispatch = useDispatch();
   const { keyFeatures } = useGetProduct();
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
 
   const { data: sellerBrandsData, isLoading } = useGetSellerBrandsQuery(
-    user?._id
+    seller?._id
   );
+
+  const { data: catgories, isLoading: categoriesLoading } =
+    useGetCategoriesQuery();
 
   const handleDeleteKeyFeatures = (deleteFeatureItem) => {
     dispatch(handleRemoveKeyFeatures(deleteFeatureItem));
@@ -63,13 +67,16 @@ const BasicInfo = ({ register, setValue }) => {
           label={"Category"}
           required
           className={"bg-white border text-sm"}
+          disabled={categoriesLoading}
         >
           <option selected value="">
             Select category
           </option>
-          <option value="hello 1">Hello 1</option>
-          <option value="hello 2">Hello 2</option>
-          <option value="hello 3">Hello 3</option>
+          {catgories?.map((category) => (
+            <option value={category?.category} key={category?._id}>
+              {category?.category}
+            </option>
+          ))}
         </SelectInput>
       </div>
       <div>

@@ -8,7 +8,7 @@ import {
   useUpdateSellerLocationMutation,
 } from "../../store/service/businessLocation/businessLocationApi";
 import toast from "react-hot-toast";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import LoadingSpinner from "../../components/Common/LoadingSpinner";
 
 const BusinessLocation = () => {
@@ -16,9 +16,9 @@ const BusinessLocation = () => {
   const [imageUploadLoading, setImageUploadLoading] = useState(false);
   const { handleSubmit, register } = useForm();
 
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
   const { data: locationData, isLoading } = useGetSellerLocationQuery(
-    user?._id
+    seller?._id
   );
 
   const [updateLocation, { isLoading: updateLoading }] =
@@ -29,7 +29,7 @@ const BusinessLocation = () => {
   const handleOnSubmit = async () => {
     const data = {
       locationImage: image,
-      sellerId: user?._id,
+      sellerId: seller?._id,
     };
     if (locationData?._id) {
       try {

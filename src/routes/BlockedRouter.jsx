@@ -1,15 +1,15 @@
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useGetUser } from "../hooks/useGetUser";
+import { useGetSeller } from "../hooks/useGetSeller";
 
 const BlockedRouter = ({ children }) => {
-  const { user } = useGetUser()
+  const { seller } = useGetSeller()
 
   const location = useLocation();
 
-  if (user?.role === "seller" && user?.status == "blocked") {
+  if (seller?.role === "seller" && seller?.status == "blocked") {
     return children;
-  } else if (user?.role === "seller" && user?.status == "pending") {
+  } else if (seller?.role === "seller" && seller?.status == "pending") {
     return <Navigate to="/pending" />;
   } else {
     return <Navigate to="/sign-in" state={{ from: location }} replace={true} />;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import JoditTextArea from "../../components/Common/JoditTextArea";
 import SubmitButton from "../../components/Common/SubmitButton";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetSeller } from "../../hooks/useGetSeller";
 import {
   useCreateReturnPolicyMutation,
   useGetReturnPolicyQuery,
@@ -13,10 +13,10 @@ import LoadingSpinner from "../../components/Common/LoadingSpinner";
 const ReturnPolicy = () => {
   const [content, setContent] = useState();
 
-  const { user } = useGetUser();
+  const { seller } = useGetSeller();
 
   const { data: policyData, isLoading: policyLoading } =
-    useGetReturnPolicyQuery(user?._id);
+    useGetReturnPolicyQuery(seller?._id);
   const [createPolicy, { isLoading: createLoading }] =
     useCreateReturnPolicyMutation();
   const [updatePolicy, { isLoading: updateLoading }] =
@@ -28,7 +28,7 @@ const ReturnPolicy = () => {
       return;
     }
 
-    const data = { content, sellerId: user?._id };
+    const data = { content, sellerId: seller?._id };
 
     if (policyData?._id) {
       try {

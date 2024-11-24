@@ -8,8 +8,42 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useGetSeller } from "../../../hooks/useGetSeller";
+import moment from "moment";
+import { useGetAnalyticeDataQuery } from "../../../store/service/analytice/analyticeApi";
 
 const OrderAndCancelletionGraph = () => {
+  const { seller } = useGetSeller();
+
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    year: moment().format("YYYY"),
+  });
+
+  const { data: analyticeData, isLoading } = useGetAnalyticeDataQuery(
+    query.toString()
+  );
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const categorizedData = months.reduce((acc, month) => {
+    acc[month] = { cancelled: 0, order: 0 };
+    return acc;
+  }, {});
+
   const data = [
     { name: "Jan", uv: 4000, pv: 2400, amt: 2400 },
     { name: "Feb", uv: 3000, pv: 1398, amt: 2210 },
