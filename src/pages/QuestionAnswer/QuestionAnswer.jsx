@@ -136,17 +136,19 @@ const QuestionAnswer = () => {
                       </span>
                       <div className="flex items-center gap-3">
                         <span className="text-sm font-semibold">
-                          Q:{" "}
+                          Q:
                           {moment(currentQuestion?.createdAt).format(
                             "MMMM D YYYY"
                           )}
                         </span>
-                        <span className="text-sm font-semibold">
-                          A:{" "}
-                          {moment(currentQuestion?.updatedAt).format(
-                            "MMMM D YYYY"
-                          )}
-                        </span>
+                        {currentQuestion?.answer?.answer && (
+                          <span className="text-sm font-semibold">
+                            A:
+                            {moment(currentQuestion?.updatedAt).format(
+                              "MMMM D YYYY"
+                            )}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
