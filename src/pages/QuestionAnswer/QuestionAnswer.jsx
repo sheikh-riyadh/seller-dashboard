@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import Input from "../../components/Common/Input";
 import SubmitButton from "../../components/Common/SubmitButton";
-import { FaClipboard, FaMousePointer, FaStore } from "react-icons/fa";
+import { FaClipboard, FaMousePointer } from "react-icons/fa";
 import QuestionAnswerSkeleton from "../../components/Skeleton/QuestionAnswer/QuestionAnswerSkeleton";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -90,17 +90,28 @@ const QuestionAnswer = () => {
                               )}...`
                             : question?.question?.userInfo?.userName}
                         </span>
-                        <span
-                          title={question?.question?.userQuestion}
-                          className="text-sm"
-                        >
-                          {question?.question?.userQuestion.length > 20
-                            ? `${question?.question?.userQuestion.slice(
-                                0,
-                                20
-                              )}...`
-                            : question?.question?.userQuestion}
-                        </span>
+                        {!question?.answer?.answer ? (
+                          <span
+                            title={question?.question?.userQuestion}
+                            className="text-sm"
+                          >
+                            {question?.question?.userQuestion.length > 20
+                              ? `${question?.question?.userQuestion.slice(
+                                  0,
+                                  20
+                                )}...`
+                              : question?.question?.userQuestion}
+                          </span>
+                        ) : (
+                          <span
+                            title={question?.answer?.answer}
+                            className="text-sm"
+                          >
+                            {question?.answer?.answer?.length > 20
+                              ? `${question?.answer?.answer?.slice(0, 20)}...`
+                              : question?.answer?.answer}
+                          </span>
+                        )}
                       </div>
                       <div className="flex flex-col gap-3">
                         <span className="text-xs">
@@ -153,8 +164,12 @@ const QuestionAnswer = () => {
                         </span>
                         <FaMousePointer className="absolute -bottom-3 right-0 text-xl -rotate-180 text-stech" />
                       </div>
-                      <div className="w-8 h-8 border rounded-full p-1">
-                        <FaStore className="w-full h-full text-stech" />
+                      <div className="w-8 h-8">
+                        <img
+                          className="w-full h-full rounded-full"
+                          src={seller?.photo}
+                          alt="user"
+                        />
                       </div>
                     </div>
                   ) : null}
