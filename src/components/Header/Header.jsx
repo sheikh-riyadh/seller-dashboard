@@ -6,7 +6,7 @@ const Header = () => {
   const { seller } = useGetSeller();
 
   return (
-    <header className="w-full sticky top-0 bg-white border-b border-gray-200 z-50 p-3">
+    <header className="w-full sticky top-0 bg-white border-b border-gray-200 z-50 p-2.5">
       <nav className="flex items-center justify-end px-8">
         <div>
           <div className="flex items-center gap-3">

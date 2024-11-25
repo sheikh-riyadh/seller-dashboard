@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaHome } from "react-icons/fa";
@@ -36,11 +36,14 @@ const Registrastion = () => {
       if (result?.user?.accessToken && result.user.email) {
         const res = await createSeller(data);
         if (res?.data?.acknowledged) {
-          disptach(addUser({ ...res?.data }));
+          disptach(addUser({ ...res?.data, currentUser: result?.user }));
           setIsLoading(false);
           navigate("/");
         } else {
-          toast.error("Something went wrong 😓", { id: "error" });
+          toast.error(res?.error?.data?.message, { id: "error" });
+          deleteUser(result?.user)
+            .then(() => {})
+            .catch(() => {});
           setIsLoading(false);
         }
       }
@@ -48,9 +51,7 @@ const Registrastion = () => {
       if (error.message == "Firebase: Error (auth/email-already-in-use).") {
         toast.error(`Email ${data?.email} already used`, { id: "email_error" });
       } else {
-        toast.error("Something went wrong please try again letter", {
-          id: "try_again_letter",
-        });
+        toast.error("Something went wrong 😓", { id: "letter" });
       }
 
       setIsLoading(false);

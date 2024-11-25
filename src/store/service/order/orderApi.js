@@ -8,6 +8,12 @@ const orderApi = baseApi.injectEndpoints({
       }),
       providesTags: ["order"],
     }),
+    getAnalyticeData: build.query({
+      query: (query) => ({
+        url: `analytice-order?${query}`,
+      }),
+      providesTags: ["order"],
+    }),
     updateOrderStatus: build.mutation({
       query: (data) => ({
         url: `update-order-status`,
@@ -16,8 +22,11 @@ const orderApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["order"],
     }),
-    
   }),
 });
 
-export const { useGetOrderQuery, useUpdateOrderStatusMutation } = orderApi;
+export const {
+  useGetOrderQuery,
+  useUpdateOrderStatusMutation,
+  useGetAnalyticeDataQuery,
+} = orderApi;

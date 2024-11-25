@@ -29,7 +29,7 @@ const StockPriceAndQuantity = ({ register }) => {
         label={"Stock"}
         {...register("stock")}
         type="number"
-        min={"1"}
+        min={"0"}
       />
       <Input
         className={"bg-white border"}

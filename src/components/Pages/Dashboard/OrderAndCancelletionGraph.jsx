@@ -8,58 +8,20 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import PropTypes from "prop-types";
 import { useGetSeller } from "../../../hooks/useGetSeller";
-import moment from "moment";
-import { useGetAnalyticeDataQuery } from "../../../store/service/analytice/analyticeApi";
 
-const OrderAndCancelletionGraph = () => {
-  const { seller } = useGetSeller();
+const OrderAndCancelletionGraph = ({ analyticeData }) => {
 
-  const query = new URLSearchParams({
-    sellerId: seller?._id,
-    year: moment().format("YYYY"),
-  });
+  const {seller}=useGetSeller()
 
-  const { data: analyticeData, isLoading } = useGetAnalyticeDataQuery(
-    query.toString()
-  );
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const categorizedData = months.reduce((acc, month) => {
-    acc[month] = { cancelled: 0, order: 0 };
-    return acc;
-  }, {});
-
-  const data = [
-    { name: "Jan", uv: 4000, pv: 2400, amt: 2400 },
-    { name: "Feb", uv: 3000, pv: 1398, amt: 2210 },
-    { name: "March", uv: 2000, pv: 9800, amt: 2290 },
-    { name: "May", uv: 2780, pv: 3908, amt: 2000 },
-    { name: "Jun", uv: 1890, pv: 4800, amt: 2181 },
-    { name: "July", uv: 2390, pv: 3800, amt: 2500 },
-    { name: "Oct", uv: 3490, pv: 4300, amt: 2100 },
-    { name: "Nov", uv: 3490, pv: 4300, amt: 2100 },
-    { name: "Dec", uv: 3490, pv: 4300, amt: 2100 },
-  ];
   return (
     <div className="w-full bg-white h-[500px] col-span-9 gap-5 shadow-md pb-28 rounded-md border">
       <div className="flex gap-5 p-5 justify-between">
         <div className="flex flex-col gap-2">
-          <span className="font-bold text-2xl">Welcome back Sheikh Riyadh</span>
+          <span
+          title={seller?.fullName}
+          className="font-bold text-2xl">Welcome back {seller?.fullName?.length>15? `${seller?.fullName?.slice(0,16)}..`:seller?.fullName}</span>
           <span className="">Take a look at the updated overview</span>
         </div>
         <div className="flex items-center gap-5">
@@ -78,7 +40,7 @@ const OrderAndCancelletionGraph = () => {
         <BarChart
           width={799}
           height={600}
-          data={data}
+          data={analyticeData}
           margin={{
             top: 5,
             right: 30,
@@ -96,6 +58,10 @@ const OrderAndCancelletionGraph = () => {
       </ResponsiveContainer>
     </div>
   );
+};
+
+OrderAndCancelletionGraph.propTypes = {
+  analyticeData: PropTypes.array,
 };
 
 export default OrderAndCancelletionGraph;

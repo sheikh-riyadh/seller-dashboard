@@ -45,7 +45,7 @@ const CircleProgressbar = ({ data, color = "#081621", className }) => {
 };
 
 CircleProgressbar.propTypes = {
-  data: PropTypes.number.isRequired,
+  data: PropTypes.number,
   color: PropTypes.string,
   className: PropTypes.string,
 };

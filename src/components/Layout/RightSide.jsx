@@ -40,6 +40,7 @@ const RightSide = () => {
   useEffect(() => {
     dispatch(handleQuestionNAnswerSize(unseenQuestion?.length));
   }, [dispatch, unseenQuestion]);
+  
 
   return (
     <div className="relative h-full">
@@ -85,7 +86,7 @@ const RightSide = () => {
             )}
           </div>
           <div onClick={() => dispatch(removeUser())}>
-            <FaPowerOff className="text-lg" />
+            <FaPowerOff className="text-lg cursor-pointer" />
           </div>
         </div>
       </div>

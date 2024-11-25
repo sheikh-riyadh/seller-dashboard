@@ -18,13 +18,18 @@ const LeftSide = () => {
           isExtend ? "w-60" : "w-14"
         } h-screen overflow-y-auto border border-t-0 bar-hidden duration-300`}
       >
-        <div className="border-b sticky top-0 bg-white">
+        <div
+          className={`sticky top-0 bg-white ${
+            !isExtend && "bg-white w-[176px] h-[60px]"
+          }`}
+        >
           <img
-            className="w-32 h-[60px] px-2"
-            src="https://www.startech.com.bd/image/catalog/logo.png"
+            className="p-3 bg-white w-[176px] h-[60px]"
+            src="/logo.png"
             alt="logo"
           />
         </div>
+        <hr />
         <div className="flex flex-col gap-2 h-full">
           {layout.left_side.map(({ name, icon, link }) => (
             <Link
