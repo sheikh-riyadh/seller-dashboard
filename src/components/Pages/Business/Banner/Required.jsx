@@ -6,7 +6,7 @@ const Required = ({ fileSize }) => {
       <img
         className="w-24 h-14 absolute -top-2 -left-[12px]"
         src={required}
-        alt="required"
+        alt="required_img"
       />
       <span className="absolute top-2.5 left-2 text-xs text-white">
         required

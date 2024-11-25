@@ -47,7 +47,7 @@ const ReviewView = ({ item }) => {
             </div>
             <div className="flex items-center gap-1">
               {[...Array(item?.rating?.rating).keys()]?.map((rating) => (
-                <FaStar key={rating} className="text-stech" />
+                <FaStar key={rating} className="text-danger" />
               ))}
             </div>
 

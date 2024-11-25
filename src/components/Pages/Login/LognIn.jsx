@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import {FaHome } from "react-icons/fa";
+import {
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { FaHome } from "react-icons/fa";
 import Input from "../../Common/Input";
 import Button from "../../Common/Button";
 import { auth } from "../../../firebase/firebase.config";
@@ -23,12 +26,24 @@ const LogIn = () => {
   const navigate = useNavigate();
   const disptach = useDispatch();
   const [getSeller] = useLazyGetSellerQuery();
-
   const handleLogin = async ({ email, password }) => {
     setIsLoading(true);
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
       if (result?.user?.accessToken && result.user.email) {
+        if (!result?.user?.emailVerified) {
+          try {
+            await sendEmailVerification(result?.user);
+            toast.success(`Please check email and verify`, {
+              id: "verify_email",
+            });
+            setIsLoading(false);
+          } catch (error) {
+            toast.error("Something went wrong 😓", { id: error });
+            setIsLoading(false);
+          }
+          return;
+        }
         const res = await getSeller(result.user.email);
         if (res?.data?.email) {
           disptach(addUser({ ...res?.data }));

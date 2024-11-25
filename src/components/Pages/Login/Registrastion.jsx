@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import toast from "react-hot-toast";
 import { FaHome } from "react-icons/fa";
 import Button from "../../Common/Button";
@@ -11,7 +12,6 @@ import BusinessInfo from "./BusinessInfo";
 import { checkValue } from "../../../utils/checkInputFieldValue";
 import { auth } from "../../../firebase/firebase.config";
 import { useCreateSellerMutation } from "../../../store/service/seller/sellerApi";
-import { useDispatch } from "react-redux";
 import { addUser } from "../../../store/features/user/userSlice";
 
 const Registrastion = () => {
@@ -36,7 +36,7 @@ const Registrastion = () => {
       if (result?.user?.accessToken && result.user.email) {
         const res = await createSeller(data);
         if (res?.data?.acknowledged) {
-          disptach(addUser({ ...res?.data, currentUser: result?.user }));
+          disptach(addUser({ ...res?.data }));
           setIsLoading(false);
           navigate("/");
         } else {

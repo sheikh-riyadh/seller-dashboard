@@ -50,10 +50,10 @@ const QuestionAnswer = () => {
   return (
     <div>
       {!isLoading ? (
-        <>
+        <div>
           {data?.length ? (
             <div className="grid grid-cols-12 gap-5 m-5 h-screen">
-              <div className="col-span-4 h-[calc(100%-100px)] overflow-y-auto w-full border flex flex-col rounded-md bg-white">
+              <div className="col-span-4 h-[calc(100%-100px)] custom-bar overflow-y-auto w-full border flex flex-col rounded-md bg-white">
                 {data?.map((question) => (
                   <div
                     key={question?._id}
@@ -71,7 +71,7 @@ const QuestionAnswer = () => {
                         <img
                           className="h-full w-full rounded-full"
                           src={question?.question?.userInfo?.userPhoto}
-                          alt=""
+                          alt="user_photo"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
@@ -122,13 +122,13 @@ const QuestionAnswer = () => {
                   </div>
                 ))}
               </div>
-              <div className="col-span-8 h-[calc(100%-100px)] overflow-y-auto w-full border rounded-md relative bg-white">
+              <div className="col-span-8 h-[calc(100%-100px)] custom-bar overflow-y-auto w-full border rounded-md relative bg-white">
                 <div>
                   <div className="border-b flex gap-5 p-2">
                     <img
                       className="w-16 h-16"
                       src={currentQuestion?.question?.productInfo?.productImage}
-                      alt=""
+                      alt="product_image"
                     />
                     <div className="flex flex-col gap-1">
                       <span>
@@ -136,14 +136,14 @@ const QuestionAnswer = () => {
                       </span>
                       <div className="flex items-center gap-3">
                         <span className="text-sm font-semibold">
-                          Q:
+                          Q :{" "}
                           {moment(currentQuestion?.createdAt).format(
                             "MMMM D YYYY"
                           )}
                         </span>
                         {currentQuestion?.answer?.answer && (
                           <span className="text-sm font-semibold">
-                            A:
+                            A :{" "}
                             {moment(currentQuestion?.updatedAt).format(
                               "MMMM D YYYY"
                             )}
@@ -154,8 +154,8 @@ const QuestionAnswer = () => {
                   </div>
                 </div>
 
-                <div className="p-5 flex flex-col gap-10">
-                  <div className=" flex flex-col gap-3">
+                <div className="p-5 flex flex-col gap-10 w-full absolute">
+                  <div className=" flex flex-col gap-3 w-3/6">
                     <div className="w-8 h-8">
                       <img
                         className="w-full h-full rounded-full"
@@ -220,7 +220,7 @@ const QuestionAnswer = () => {
               </span>
             </div>
           )}
-        </>
+        </div>
       ) : (
         <QuestionAnswerSkeleton />
       )}

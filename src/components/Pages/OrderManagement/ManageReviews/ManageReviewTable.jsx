@@ -54,7 +54,7 @@ const ManageReviewTable = ({ selectTabOption }) => {
                   <div className="flex gap-1 items-center">
                     {[...Array(item?.rating?.rating).keys()].map((rating) => (
                       <div key={rating}>
-                        <FaStar className="text-stech" />
+                        <FaStar className="text-danger" />
                       </div>
                     ))}
                   </div>
