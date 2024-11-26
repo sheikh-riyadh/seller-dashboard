@@ -26,6 +26,16 @@ const Registrastion = () => {
   const [createSeller] = useCreateSellerMutation();
 
   const handleRegistration = async (data) => {
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(data?.password)) {
+      toast.error(
+        "Password must be at least 8 characters,at least one letter, one number, and one special character",
+        { id: "validation_error", duration: 7000 }
+      );
+      return;
+    }
+
     setIsLoading(true);
     try {
       const result = await createUserWithEmailAndPassword(
@@ -68,8 +78,8 @@ const Registrastion = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen w-full my_container">
-      <div className="md:w-4/5 lg:w-4/6 xl:w-7/12 bg-white border shadow-lg rounded-xl grid grid-cols-1 md:grid-cols-2 overflow-hidden md:h-2/5 lg:h-[420px] xl:h-4/6">
-        <div className="bg-secondary md:rounded-r-[30%] flex flex-col gap-5 items-center justify-center p-7 text-center text-white relative ltr-animation">
+      <div className="md:w-11/12 overflow-x-hidden lg:w-4/6 xl:w-7/12 bg-white border shadow-lg rounded-xl grid grid-cols-1 md:grid-cols-2 overflow-y-auto  h-5/6 md:h-3/6 lg:h-[470px]">
+        <div className="bg-stech md:rounded-r-[30%] flex flex-col gap-5 items-center justify-center p-7 text-center text-white relative ltr-animation">
           <Link to="/" title="Return main website">
             <FaHome className="text-5xl border p-2 rounded-full" />
           </Link>
@@ -78,7 +88,9 @@ const Registrastion = () => {
             Enter your personal details to use all of the site features
           </span>
           <Link to="/sign-in">
-            <Button className="uppercase w-40 bg-transparent">Sign In</Button>
+            <Button className="uppercase w-40 bg-transparent border">
+              Sign In
+            </Button>
           </Link>
         </div>
 
@@ -110,6 +122,12 @@ const Registrastion = () => {
                 isLoading={isLoading}
               />
             )}
+            <div className={`${isNext?"hidden":"block"}`}>
+              <span className="text-xs">
+                Password must be at least 8 characters, one letter, one
+                number, and one special character
+              </span>
+            </div>
           </div>
           {!isNext && (
             <div

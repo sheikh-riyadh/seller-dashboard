@@ -152,9 +152,9 @@ input[type="number"] {
   }
 }
 
-/* Jodit css */
-.jodit_theme_dark .jodit-toolbar__box:not(:empty) {
-  background: #1f2e2c;
+.jodit-toolbar__box,
+.jodit-status-bar {
+  background: #1f2e2c !important;
 }
 
 /* Default color */
