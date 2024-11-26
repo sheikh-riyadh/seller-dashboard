@@ -44,6 +44,7 @@ const Registrastion = () => {
         data.password
       );
       if (result?.user?.accessToken && result.user.email) {
+        delete data?.password;
         const res = await createSeller(data);
         if (res?.data?.acknowledged) {
           disptach(addUser({ ...res?.data }));
@@ -122,10 +123,10 @@ const Registrastion = () => {
                 isLoading={isLoading}
               />
             )}
-            <div className={`${isNext?"hidden":"block"}`}>
+            <div className={`${isNext ? "hidden" : "block"}`}>
               <span className="text-xs">
-                Password must be at least 8 characters, one letter, one
-                number, and one special character
+                Password must be at least 8 characters, one letter, one number,
+                and one special character
               </span>
             </div>
           </div>

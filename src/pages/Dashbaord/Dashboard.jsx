@@ -29,18 +29,18 @@ const Dashboard = () => {
   }, 0);
 
   const analytice = [
-    { name: "Jan", uv: 100, pv: 5000 },
-    { name: "Feb", uv: 10, pv: 5000 },
-    { name: "Mar", uv: 1000, pv: 5000 },
-    { name: "Apr", uv: 1000, pv: 5000 },
-    { name: "May", uv: 2000, pv: 5000 },
-    { name: "Jun", uv: 3000, pv: 5000 },
-    { name: "Jul", uv: 500, pv: 5000 },
-    { name: "Aug", uv: 800, pv: 5000 },
-    { name: "Sep", uv: 700, pv: 5000 },
-    { name: "Oct", uv: 1000, pv: 5000 },
-    { name: "Nov", uv: 1500, pv: 5000 },
-    { name: "Dec", uv: 2000, pv: 5000 },
+    { name: "Jan", uv: 0, pv: 0 },
+    { name: "Feb", uv: 0, pv: 0 },
+    { name: "Mar", uv: 0, pv: 0 },
+    { name: "Apr", uv: 0, pv: 0 },
+    { name: "May", uv: 0, pv: 0 },
+    { name: "Jun", uv: 0, pv: 0 },
+    { name: "Jul", uv: 0, pv: 0 },
+    { name: "Aug", uv: 0, pv: 0 },
+    { name: "Sep", uv: 0, pv: 0 },
+    { name: "Oct", uv: 0, pv: 0 },
+    { name: "Nov", uv: 0, pv: 0 },
+    { name: "Dec", uv: 0, pv: 0 },
   ];
 
   data?.forEach((order) => {
@@ -71,7 +71,9 @@ const Dashboard = () => {
               data={todayOrder}
               color="#047857"
             />
-            <p className="text-center font-medium text-sm text-white">{"New Order"}</p>
+            <p className="text-center font-medium text-sm text-white">
+              {"New Order"}
+            </p>
           </div>
           <div className="shadow-md bg-widget w-full h-full rounded-sm flex flex-col items-center justify-center gap-3 p-5">
             <CircleProgressbar
@@ -79,7 +81,9 @@ const Dashboard = () => {
               data={todayCancelled}
               color="#fcff66"
             />
-            <p className="text-center font-medium text-sm text-white">{"Cancel order"}</p>
+            <p className="text-center font-medium text-sm text-white">
+              {"Cancel order"}
+            </p>
           </div>
         </div>
       </div>
