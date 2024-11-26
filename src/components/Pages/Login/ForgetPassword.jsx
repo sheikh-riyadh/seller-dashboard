@@ -38,6 +38,7 @@ const ForgetPassword = () => {
           required
           placeholder="example@gmail.com"
           type="email"
+          className="bg-[#1C2822] text-white rounded-sm"
         />
         <SubmitButton isLoading={isLoading} className="mt-4">
           send

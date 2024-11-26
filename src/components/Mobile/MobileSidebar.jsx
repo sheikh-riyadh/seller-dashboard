@@ -49,7 +49,7 @@ const MobileSidebar = ({
               <span className="font-bold">{title}</span>
               <FaCircleXmark
                 onClick={() => onClose()}
-                className="text-2xl text-danger duration-300 cursor-pointer"
+                className="text-2xl text-accent duration-300 cursor-pointer"
               />
             </div>
           ) : null}

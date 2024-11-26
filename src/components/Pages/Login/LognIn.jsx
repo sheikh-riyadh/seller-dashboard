@@ -67,7 +67,7 @@ const LogIn = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen w-full my_container">
-      <div className="md:w-4/5 lg:w-4/6 xl:w-7/12 bg-white border shadow-lg rounded-xl grid grid-cols-1 md:grid-cols-2 overflow-hidden md:h-2/5 lg:h-[420px] xl:h-4/6">
+      <div className="md:w-4/5 lg:w-4/6 xl:w-7/12 bg-white shadow-lg rounded-xl grid grid-cols-1 md:grid-cols-2 overflow-hidden md:h-2/5 lg:h-[420px] xl:h-4/6">
         <form
           onSubmit={handleSubmit(handleLogin)}
           className="flex flex-col items-center justify-center gap-5 w-full p-7"
