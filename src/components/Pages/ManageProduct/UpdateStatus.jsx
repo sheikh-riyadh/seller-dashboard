@@ -26,7 +26,7 @@ const UpdateStatus = ({ sellerId, item }) => {
     <div>
       <SelectInput
         onChange={handleUpdateStatus}
-        className="border bg-transparent rounded-full p-0 px-2 capitalize"
+        className="border bg-widget rounded-full p-0 px-2 capitalize text-white"
         disabled={isLoading}
       >
         <option selected={item?.status === "active"} value="active">

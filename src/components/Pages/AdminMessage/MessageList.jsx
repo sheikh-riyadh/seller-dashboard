@@ -26,8 +26,8 @@ const MessageList = ({ messages = [], setIsModalOpen, isModalOpen }) => {
   return (
     <div className="z-50 absolute right-0 top-10" ref={modalRef}>
       <div className="flex flex-col items-center justify-center">
-        <div className="max-w-lg p-4 bg-white rounded-lg shadow-lg w-96">
-          <div className="space-y-4 max-h-[400px] overflow-y-auto custom-bar">
+        <div className="max-w-lg bg-widget rounded-lg shadow-lg w-80 md:w-96">
+          <div className="max-h-[400px] overflow-y-auto custom-bar">
             {messages?.map((message) => (
               <div
                 onClick={() => {
@@ -37,11 +37,11 @@ const MessageList = ({ messages = [], setIsModalOpen, isModalOpen }) => {
                 key={message?._id}
                 className="p-4 border cursor-pointer border-gray-200 rounded-lg flex items-start space-x-3"
               >
-                <div className="flex-shrink-0 mt-1">
+                <div className="flex-shrink-0 mt-1 text-accent">
                   <FaEnvelope />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-800">
+                  <p className="text-sm font-semibold text-white">
                     {message.title}
                   </p>
                   <p className="text-sm text-gray-500">{message.message}</p>
@@ -56,11 +56,11 @@ const MessageList = ({ messages = [], setIsModalOpen, isModalOpen }) => {
         <Modal
           isOpen={seeMessageModal}
           onClose={setSeeMessageModal}
-          className={"w-[400px] h-max[400px]"}
+          className={"md:w-[400px] max-h-[400px]"}
           title={selectedMessage?.title}
         >
-          <div className="border w-full h-full p-5 rounded-md">
-            <span className="font-medium">{selectedMessage?.message}</span>
+          <div className="bg-widget w-full h-full p-5 rounded-md">
+            <span className="font-medium text-white">{selectedMessage?.message}</span>
           </div>
         </Modal>
       )}

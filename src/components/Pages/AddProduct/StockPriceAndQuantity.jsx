@@ -4,10 +4,10 @@ import Input from "../../Common/Input";
 
 const StockPriceAndQuantity = ({ register }) => {
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid lg:grid-cols-4 gap-5">
       <Input
         required
-        className={"bg-white border"}
+        className={"bg-[#1C2822] text-white rounded-sm"}
         placeholder={"Price"}
         label={"Price"}
         {...register("price")}
@@ -15,7 +15,7 @@ const StockPriceAndQuantity = ({ register }) => {
         min={"1"}
       />
       <Input
-        className={"bg-white border"}
+        className={"bg-[#1C2822] text-white rounded-sm"}
         placeholder={"Special Price"}
         label={"Special Price"}
         {...register("specialPrice")}
@@ -24,7 +24,7 @@ const StockPriceAndQuantity = ({ register }) => {
       />
       <Input
         required
-        className={"bg-white border"}
+        className={"bg-[#1C2822] text-white rounded-sm"}
         placeholder={"Stock / Quantity"}
         label={"Stock"}
         {...register("stock")}
@@ -32,7 +32,7 @@ const StockPriceAndQuantity = ({ register }) => {
         min={"0"}
       />
       <Input
-        className={"bg-white border"}
+        className={"bg-[#1C2822] text-white rounded-sm"}
         placeholder={"Discount"}
         label={"Discount"}
         {...register("discount")}

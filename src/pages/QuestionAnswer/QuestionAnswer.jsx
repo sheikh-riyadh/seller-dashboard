@@ -48,12 +48,12 @@ const QuestionAnswer = () => {
   }, [data]);
 
   return (
-    <div>
+    <>
       {!isLoading ? (
-        <div>
+        <>
           {data?.length ? (
-            <div className="grid grid-cols-12 gap-5 m-5 h-screen">
-              <div className="col-span-4 h-[calc(100%-100px)] custom-bar overflow-y-auto w-full border flex flex-col rounded-md bg-white">
+            <div className="grid md:grid-cols-12 gap-5 m-5 h-screen">
+              <div className="md:col-span-4 h-[calc(100%-100px)] custom-bar overflow-y-auto w-full flex flex-col rounded-sm bg-widget">
                 {data?.map((question) => (
                   <div
                     key={question?._id}
@@ -62,8 +62,8 @@ const QuestionAnswer = () => {
                     }}
                     className={`px-5 py-5 cursor-pointer ${
                       currentQuestion?._id === question?._id
-                        ? "bg-blue-50"
-                        : null
+                        ? "bg-[#0000002d] text-white"
+                        : "text-white"
                     }`}
                   >
                     <div className="flex gap-5">
@@ -122,7 +122,7 @@ const QuestionAnswer = () => {
                   </div>
                 ))}
               </div>
-              <div className="col-span-8 h-[calc(100%-100px)] custom-bar overflow-y-auto w-full border rounded-md relative bg-white">
+              <div className="md:col-span-8 h-[calc(100%-100px)] custom-bar overflow-y-auto w-full rounded-sm relative bg-widget">
                 <div>
                   <div className="border-b flex gap-5 p-2">
                     <img
@@ -131,10 +131,10 @@ const QuestionAnswer = () => {
                       alt="product_image"
                     />
                     <div className="flex flex-col gap-1">
-                      <span>
+                      <span className="text-white">
                         {currentQuestion?.question?.productInfo?.title}
                       </span>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 text-accent">
                         <span className="text-sm font-semibold">
                           Q :{" "}
                           {moment(currentQuestion?.createdAt).format(
@@ -163,9 +163,9 @@ const QuestionAnswer = () => {
                         alt="user"
                       />
                     </div>
-                    <div className="bg-blue-100 p-3 rounded-md relative">
-                      <span>{currentQuestion?.question?.userQuestion}</span>
-                      <FaMousePointer className="absolute -top-3 text-xl -rotate-12 text-blue-100" />
+                    <div className="bg-[#171f12] p-3 rounded-md relative">
+                      <span className="text-white">{currentQuestion?.question?.userQuestion}</span>
+                      <FaMousePointer className="absolute -top-2.5 text-xl -rotate-12 text-[#171f12]" />
                     </div>
                   </div>
 
@@ -197,7 +197,8 @@ const QuestionAnswer = () => {
                       <Input
                         {...register("answer")}
                         required
-                        className="border w-full rounded-none bg-white"
+                        className="w-full bg-[#1C2822] text-white rounded-sm"
+                        autoFocus
                       />
                     </div>
                     <div className="col-span-2">
@@ -213,18 +214,18 @@ const QuestionAnswer = () => {
               </div>
             </div>
           ) : (
-            <div className="flex gap-5 flex-col items-center justify-center w-full h-80 bg-white">
-              <FaClipboard className="text-8xl text-slate" />
-              <span className="font-medium text-xl text-danger capitalize">
+            <div className="flex gap-5 flex-col items-center justify-center h-80 bg-widget m-5">
+              <FaClipboard className="text-8xl text-white" />
+              <span className="font-medium text-xl text-accent capitalize">
                 No data found
               </span>
             </div>
           )}
-        </div>
+        </>
       ) : (
         <QuestionAnswerSkeleton />
       )}
-    </div>
+    </>
   );
 };
 

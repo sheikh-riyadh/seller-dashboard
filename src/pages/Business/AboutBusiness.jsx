@@ -76,11 +76,9 @@ const AboutBusiness = () => {
 
   return (
     <div>
-      <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-
       <form
         onSubmit={handleSubmit(handleOnSubmit)}
-        className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md"
+        className="shadow-md bg-widget m-5 p-5 rounded-sm"
       >
         {!sellerLoading ? (
           <div>
@@ -120,13 +118,13 @@ const AboutBusiness = () => {
                 accept="image/*"
               />
             </div>
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid gap-5">
               <Input
                 {...register("businessName")}
                 label={"Name of Store"}
                 placeholder="Name of Store"
                 required
-                className={"bg-transparent border"}
+                className={"bg-[#1C2822] text-white rounded-sm"}
                 value={sellerData?.businessName}
                 disabled
               />
@@ -135,7 +133,7 @@ const AboutBusiness = () => {
                 {...register("_id")}
                 label={"Store ID"}
                 placeholder="Store ID"
-                className={"bg-transparent border"}
+                className={"bg-[#1C2822] text-white rounded-sm"}
                 value={sellerData?._id}
                 disabled
               />
@@ -145,7 +143,7 @@ const AboutBusiness = () => {
                 {...register("description")}
                 label="Description"
                 required
-                className={"bg-transparent border h-28"}
+                className={"bg-[#1C2822] text-white rounded-sm h-28"}
               />
             </div>
 

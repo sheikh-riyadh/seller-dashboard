@@ -64,20 +64,19 @@ const BusinessInformation = () => {
 
   return (
     <div>
-      <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
       <form
         onSubmit={handleSubmit(handleUpdateBusinessInfo)}
-        className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md"
+        className="shadow-md m-5 p-5 bg-widget rounded-sm"
       >
         <div>
           {!sellerLoading ? (
             <div>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid gap-5">
                 <Input
                   {...register("businessNumber")}
                   required
                   label="Business number"
-                  className={"bg-white border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                   type="number"
                 />
 
@@ -85,7 +84,7 @@ const BusinessInformation = () => {
                   {...register("country")}
                   label="Country"
                   required
-                  className={"bg-white border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                 >
                   <option value="" selected disabled>
                     Select country
@@ -97,7 +96,7 @@ const BusinessInformation = () => {
                   {...register("state")}
                   label="State"
                   required
-                  className={"bg-white border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                 >
                   <option value="" selected disabled>
                     Select state
@@ -119,7 +118,7 @@ const BusinessInformation = () => {
                   required
                   {...register("city")}
                   label="City"
-                  className={"bg-white border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                 >
                   <option value="" selected disabled>
                     Select city
@@ -139,14 +138,14 @@ const BusinessInformation = () => {
                   {...register("policeStation")}
                   required
                   label="Police station"
-                  className={"bg-white border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                   placeholder="Police station"
                 />
                 <Input
                   {...register("zipCode")}
                   required
                   label="Zipcode"
-                  className={"bg-white border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                   placeholder="Zipcode"
                   type="number"
                 />
@@ -154,7 +153,7 @@ const BusinessInformation = () => {
                   {...register("fullAddress")}
                   required
                   label="Full address"
-                  className={"bg-white border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                   placeholder="Full address"
                 />
               </div>

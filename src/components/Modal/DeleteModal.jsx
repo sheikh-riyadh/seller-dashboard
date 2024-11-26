@@ -38,7 +38,7 @@ const DeleteModal = ({
         <div className="flex flex-col items-center justify-center gap-5 w-full">
           <div className="flex flex-col gap-5 items-center justify-center">
             <FaQuestionCircle className="text-7xl text-orange-400" />
-            <h1 className="text-lg text-center font-bold">
+            <h1 className="text-lg text-center font-bold text-white">
               Are your sure you want to delete?
             </h1>
           </div>

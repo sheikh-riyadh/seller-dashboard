@@ -18,14 +18,14 @@ const Input = forwardRef(
     return (
       <div className="flex flex-col gap-1">
         {label && (
-          <label className="flex items-center gap-1 py-2 font-medium text-sm">
+          <label className="flex items-center gap-1 py-2 font-medium text-sm text-white">
             {label} {rest?.required && <span className={"text-danger"}>*</span>}
           </label>
         )}
         <div className="flex items-center justify-between relative w-full">
           <input
             className={cn(
-              `focus:outline-none bg-gray-100 w-full p-2 rounded-md`,
+              `focus:outline-none bg-gray-100 w-full p-2 rounded-sm`,
               className
             )}
             {...rest}

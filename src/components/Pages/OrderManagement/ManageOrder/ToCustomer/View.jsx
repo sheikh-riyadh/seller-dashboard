@@ -8,7 +8,7 @@ const View = ({ item }) => {
   const [isView, setIsView] = useState(false);
 
   return (
-    <>
+    <div>
       <div className="flex items-center gap-2">
         <span
           title="Order Overview"
@@ -32,7 +32,7 @@ const View = ({ item }) => {
           <OrderView orderInfo={item} />
         </Modal>
       )}
-    </>
+    </div>
   );
 };
 

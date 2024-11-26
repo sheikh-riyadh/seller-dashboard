@@ -66,7 +66,7 @@ const ReturnPolicy = () => {
   }, [policyData]);
 
   return (
-    <div className="shadow-md m-5 p-5 bg-white border rounded">
+    <div className="shadow-md m-5 p-5 bg-widget rounded-sm">
       {!policyLoading ? (
         <div className="flex flex-col gap-5">
           <JoditTextArea

@@ -27,7 +27,7 @@ const ProductTable = () => {
   };
 
   return (
-    <div className="border rounded-md shadow-md">
+    <div className="rounded-sm shadow-md">
       {!isLoading ? (
         <Table
           className="font-normal"

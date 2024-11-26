@@ -12,6 +12,7 @@ const VideoUpload = ({ register, watch }) => {
         required
         placeholder="https://www.youtube.com/live/WQh7zQQ_3i4"
         {...register("videoURL")}
+        className={"bg-[#1C2822] text-white rounded-sm"}
       />
 
       {videoURL ? (

@@ -107,8 +107,8 @@ const BrandInformation = () => {
 
   return (
     <div className="pb-8">
-      <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-      <div className="-mt-28 bg-white shadow-md border m-5 p-5 rounded-md">
+     
+      <div className="shadow-md m-5 p-5 rounded-sm bg-widget text-white">
         <div>
           {!sellerBrandLoading ? (
             <form
@@ -119,7 +119,7 @@ const BrandInformation = () => {
                 label={"Brand name *"}
                 placeholder="Enter brand name"
                 {...register("brandName")}
-                className={"bg-transparent border"}
+                className={"bg-[#1C2822] text-white rounded-sm"}
                 disabled={isLoading}
               />
               {!isLoading ? (
@@ -129,7 +129,7 @@ const BrandInformation = () => {
                   accept="image/*"
                   disabled={isLoading}
                   onChange={(event) => handleImageUpload(event)}
-                  className={"bg-transparent border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                 />
               ) : (
                 <Marquee
@@ -139,7 +139,7 @@ const BrandInformation = () => {
                 />
               )}
 
-              <div className="grid grid-cols-6 gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-5">
                 {brands?.map((brand, index) => (
                   <div
                     className="flex flex-col gap-1 border rounded-md overflow-hidden relative"

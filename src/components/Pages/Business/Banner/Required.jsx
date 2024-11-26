@@ -11,7 +11,7 @@ const Required = ({ fileSize }) => {
       <span className="absolute top-2.5 left-2 text-xs text-white">
         required
       </span>
-      <span className="absolute bottom-1 left-1.5 text-sm">{fileSize}</span>
+      <span className="absolute bottom-1 left-1.5 text-sm text-accent">{fileSize}</span>
     </div>
   );
 };

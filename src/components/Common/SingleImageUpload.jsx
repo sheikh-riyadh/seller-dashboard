@@ -45,7 +45,7 @@ const SingleImageUpload = ({
         className="rounded-full inline-block my-1 w-full"
       >
         <div
-          className={`h-96 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer overflow-hidden ${
+          className={`h-96 w-full border-2 border-white border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer overflow-hidden ${
             isLoading && "cursor-wait"
           }`}
         >

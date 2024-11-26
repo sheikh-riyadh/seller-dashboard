@@ -34,14 +34,14 @@ const ReviewView = ({ item }) => {
           onClose={setIsView}
           title={"Review overview"}
           key={"order_manage"}
-          className={"w-[900px] h-[470px]"}
+          className={"lg:w-[900px] lg:h-[470px] m-5"}
         >
           <div className="flex flex-col gap-5">
-            <div className="grid grid-cols-12 gap-5">
-              <div className="col-span-3">
+            <div className="grid md:grid-cols-12 gap-5">
+              <div className="md:col-span-3">
                 <UserImage data={item?.userInfo?.photo} />
               </div>
-              <div className="col-span-9">
+              <div className="md:col-span-9">
                 <UserDetailsRight data={newData} />
               </div>
             </div>
@@ -51,7 +51,7 @@ const ReviewView = ({ item }) => {
               ))}
             </div>
 
-            <div className="border h-32 rounded-md p-3 font-bold shadow-md">
+            <div className="h-32 rounded-sm bg-widget p-3 font-bold shadow-md text-white">
               <span>{item?.reviewMessage}</span>
             </div>
           </div>

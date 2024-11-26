@@ -71,16 +71,16 @@ const IdentityVerification = () => {
 
   return (
     <div>
-      <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
+      
       <form onSubmit={handleSubmit(handleOnSubmit)}>
-        <div className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md">
+        <div className="shadow-md m-5 p-5 bg-widget rounded-sm">
           {!sellerLoading ? (
             <div className="flex flex-col gap-5">
               <SelectInput
                 {...register("type")}
                 required
                 label={"Select Document types"}
-                className="border bg-transparent"
+                className="bg-[#1C2822] text-white rounded-sm"
                 defaultValue={"NID"}
               >
                 {["NID", "Passport", "TradeLicense"].map((option) => (
@@ -95,12 +95,12 @@ const IdentityVerification = () => {
                   accept="image/*"
                   disabled={isLoading}
                   onChange={(event) => handleImageUpload(event)}
-                  className={"bg-transparent border"}
+                  className={"bg-[#1C2822] text-white rounded-sm"}
                 />
               ) : (
                 <Marquee
                   content={
-                    <div className="block w-[500px] h-5 rounded-sm bg-green-500"></div>
+                    <div className="block w-[500px] h-5 rounded-sm bg-accent"></div>
                   }
                 />
               )}

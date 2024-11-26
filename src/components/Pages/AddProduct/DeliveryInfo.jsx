@@ -12,7 +12,7 @@ const DeliveryInfo = ({ register, watch }) => {
         <Input
           {...register("warranty")}
           key="warranty"
-          className="bg-white border"
+          className="bg-[#1C2822] text-white rounded-sm"
           label="Warranty"
           placeholder="warranty"
           required
@@ -22,7 +22,7 @@ const DeliveryInfo = ({ register, watch }) => {
             {...register("cashOnDeliveryAvailable")}
             label="Cash on Delivery"
             required
-            className="bg-white border"
+            className="bg-[#1C2822] text-white rounded-sm"
             defaultValue="yes"
           >
             <option selected value="yes">
@@ -35,7 +35,7 @@ const DeliveryInfo = ({ register, watch }) => {
             {...register("returnProductAvailable")}
             label="Return Product"
             required
-            className="bg-white border"
+            className="bg-[#1C2822] text-white rounded-sm"
           >
             <option value="" disabled>
               Select
@@ -47,7 +47,7 @@ const DeliveryInfo = ({ register, watch }) => {
             <Input
               {...register("returnDays")}
               key="returnDays"
-              className="bg-white border"
+              className="bg-[#1C2822] text-white rounded-sm"
               label="Return Product Within ( x ) Days"
               placeholder="Enter days"
               type="number"
@@ -61,7 +61,7 @@ const DeliveryInfo = ({ register, watch }) => {
             {...register("freeDeliveryAvailable")}
             label="Free Delivery"
             required
-            className="bg-white border"
+            className="bg-[#1C2822] text-white rounded-sm"
             defaultValue=""
           >
             <option value="" disabled>
@@ -75,7 +75,7 @@ const DeliveryInfo = ({ register, watch }) => {
             <Input
               {...register("deliveryCharge")}
               key="deliveryCharge"
-              className="bg-white border"
+              className="bg-[#1C2822] text-white rounded-sm"
               required
               label="Delivery Charge"
               placeholder="Enter delivery charge"

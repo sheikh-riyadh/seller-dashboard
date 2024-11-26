@@ -41,13 +41,13 @@ const BasicInfo = ({ register, setValue }) => {
 
   return (
     <div className="flex flex-col gap-1 p-5">
-      <span className="py-2 block font-medium text-sm">Product Image:</span>
+      <span className="py-2 block font-medium text-sm text-white">Product Image:</span>
       <ImageUpload from="product" />
       <div>
         <Input
           {...register("videoURL")}
           label={"Video URL"}
-          className={"bg-white border"}
+          className={"bg-[#1C2822] text-white rounded-sm"}
           placeholder="URL"
         />
       </div>
@@ -56,7 +56,7 @@ const BasicInfo = ({ register, setValue }) => {
           {...register("title")}
           label={"Title"}
           required
-          className={"bg-white border"}
+          className={"bg-[#1C2822] text-white rounded-sm"}
           placeholder="Product title"
         />
       </div>
@@ -66,7 +66,7 @@ const BasicInfo = ({ register, setValue }) => {
           {...register("category")}
           label={"Category"}
           required
-          className={"bg-white border text-sm"}
+          className={"bg-[#1C2822] text-white rounded-sm text-sm"}
           disabled={categoriesLoading}
         >
           <option selected value="">
@@ -84,7 +84,7 @@ const BasicInfo = ({ register, setValue }) => {
           {...register("brand")}
           label={"Brand"}
           required
-          className={"bg-white border text-sm"}
+          className={"bg-[#1C2822] text-white rounded-sm text-sm"}
         >
           <option disabled selected value="">
             {`${isLoading ? "Please wait..." : "Select brand"}`}
@@ -98,13 +98,13 @@ const BasicInfo = ({ register, setValue }) => {
           <option value="no brand">No brand</option>
         </SelectInput>
       </div>
-      <span className="py-2 block font-medium text-sm">
+      <span className="py-2 block font-medium text-sm text-white">
         Key Features <span className="text-danger">*</span>
       </span>
       <div>
         <Input
           {...register("keyFeatures")}
-          className={"bg-white border"}
+          className={"bg-[#1C2822] text-white rounded-sm"}
           onKeyDown={handleProductKeyFeature}
           placeholder="Enter"
         />
@@ -113,7 +113,7 @@ const BasicInfo = ({ register, setValue }) => {
           {keyFeatures?.map((feature) => (
             <div
               key={feature}
-              className="px-2 flex items-center gap-2 border rounded-full"
+              className="px-2 flex items-center gap-2 bg-accent rounded-full"
             >
               <span className="text-sm">{feature}</span>
               <span>

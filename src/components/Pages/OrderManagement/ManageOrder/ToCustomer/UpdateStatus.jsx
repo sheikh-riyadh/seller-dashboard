@@ -55,12 +55,13 @@ const UpdateStatus = ({ orderInfo }) => {
           title={"Update status"}
           className={"w-[350px]"}
         >
-          <form onSubmit={handleStatus} className="flex flex-col gap-4">
+          <form onSubmit={handleStatus} className="flex flex-col text-black gap-4">
             <SelectInput
               label="Status"
               name="status"
               required
               defaultValue={"pending"}
+              className={"bg-[#1C2822] text-white rounded-sm"}
             >
               <option value="">Select</option>
               {[

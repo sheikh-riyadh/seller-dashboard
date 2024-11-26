@@ -68,9 +68,8 @@ const BusinessLocation = () => {
 
   return (
     <div className="pb-8">
-      <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-      <div className="-mt-28 bg-white shadow-md border m-5 p-5 rounded-md">
-        <span className="text-xl font-semibold text-blue mb-5 block">
+      <div className="bg-widget shadow-md m-5 p-5 rounded-sm">
+        <span className="text-xl font-semibold text-white mb-5 block">
           Upload your business location
         </span>
         {!isLoading ? (

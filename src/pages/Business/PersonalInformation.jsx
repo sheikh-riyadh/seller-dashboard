@@ -77,10 +77,10 @@ const PersonalInformation = () => {
 
   return (
     <div>
-      <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
+      
       <form
         onSubmit={handleSubmit(handleUpdatePersonalInfo)}
-        className="shadow-md m-5 p-5 -mt-28 bg-white border rounded-md"
+        className="shadow-md m-5 p-5 bg-widget rounded-sm"
       >
         {!sellerLoading ? (
           <div>
@@ -90,7 +90,7 @@ const PersonalInformation = () => {
                 className="mb-1 inline-block rounded-full h-32 w-32 relative"
               >
                 <div
-                  className="h-32 w-32 border-2 border-stech rounded-full relative flex flex-col items-center justify-center cursor-pointer"
+                  className="h-32 w-32 border-2 border-accent rounded-full relative flex flex-col items-center justify-center cursor-pointer"
                   title="Personal photo"
                 >
                   {photo ? (
@@ -123,7 +123,7 @@ const PersonalInformation = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-5">
+            <div className="flex flex-col gap-5">
               {business?.personalData?.map(
                 ({
                   registerName,
@@ -141,7 +141,7 @@ const PersonalInformation = () => {
                       required={isRequired}
                       type={type}
                       placeholder={placeholder}
-                      className={"bg-white border"}
+                      className={"bg-[#1C2822] text-white rounded-sm"}
                       disabled={type === "email"}
                       value={type === "email" ? sellerData?.email : undefined}
                     />
@@ -152,7 +152,7 @@ const PersonalInformation = () => {
                       required={isRequired}
                       key={registerName}
                       placeholder={placeholder}
-                      className={"bg-white border"}
+                      className={"bg-[#1C2822] text-white rounded-sm "}
                     >
                       <option selected disabled value="">
                         Select

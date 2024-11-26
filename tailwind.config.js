@@ -14,6 +14,13 @@ export default {
         black: "var(--black)", // #000000
         slate: "var(--slate)",
         stech: "var(--stech)",
+        widget: "var(--widget)",
+        widget_contain_bg:"var(--widget_title_background)",
+        chart_1: "var(--chart-1)",
+        chart_2: "var(--chart-2)",
+        accent: "var(--accent)",
+        primary_text: "var(--primary-text)",
+        secondary_text: "var(--secondary-text)",
       },
       my_linear_gradient: `linear-gradient(125deg,#0bc1e9,#3749bb,#00237e)`,
     },

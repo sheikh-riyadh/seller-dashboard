@@ -66,7 +66,7 @@ const ImageUpload = ({ from = "banner" }) => {
   };
 
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid md:grid-cols-4 gap-5">
       {[...Array(images?.length).keys()].map((_, index) => (
         <div key={index} className="my-5 h-40 w-full relative">
           {!images[index] ? (
@@ -75,7 +75,7 @@ const ImageUpload = ({ from = "banner" }) => {
               className="inline-block my-1 w-full"
             >
               <div
-                className={`group h-40 w-full border-2 border-stech border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
+                className={`group h-40 w-full border-2 border-white border-dotted rounded-md relative flex flex-col items-center justify-center cursor-pointer ${
                   isLoading && "cursor-wait"
                 }`}
               >
@@ -86,7 +86,7 @@ const ImageUpload = ({ from = "banner" }) => {
                   ) : from === "product" ? (
                     <Required fileSize={"500 X 500"} />
                   ) : (
-                    <span className="absolute bottom-1 left-1.5 text-sm">
+                    <span className="absolute bottom-1 left-1.5 text-sm text-accent">
                       982 X 500
                     </span>
                   )}

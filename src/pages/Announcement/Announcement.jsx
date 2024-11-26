@@ -78,8 +78,7 @@ const Announcement = () => {
 
   return (
     <div className="pb-8">
-      <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-      <div className="-mt-28 bg-white shadow-md border m-5 p-5 rounded-md">
+      <div className="bg-widget shadow-md m-5 p-5 rounded-sm">
         {!isLoading ? (
           <>
             <div className="flex flex-col items-end mb-5">
@@ -95,14 +94,14 @@ const Announcement = () => {
               </Button>
             </div>
             {!announcementData?._id ? (
-              <div className="flex gap-5 flex-col items-center justify-center w-full h-60 bg-white">
+              <div className="flex gap-5 flex-col items-center justify-center w-full h-60 bg-widget">
                 <FaClipboard className="text-8xl text-slate" />
                 <span className="font-medium text-xl text-danger capitalize">
                   No data found
                 </span>
               </div>
             ) : (
-              <div className="flex gap-5 flex-col items-center w-full h-80 bg-white">
+              <div className="flex gap-5 flex-col items-center w-full h-80 bg-widget text-white">
                 <div className="border w-full h-full p-5 rounded-md relative">
                   <span>{announcementData?.announcement}</span>
 
@@ -134,7 +133,7 @@ const Announcement = () => {
             <TextArea
               {...register("announcement")}
               label={"Announcement"}
-              className="border bg-transparent h-36"
+              className="bg-[#1C2822] text-white border rounded-sm h-36"
               required
             />
             <SubmitButton isLoading={createLoading || updateLoading}>

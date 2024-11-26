@@ -30,7 +30,7 @@ const CircleProgressbar = ({ data, color = "#081621", className }) => {
   }, [data]);
 
   return (
-    <div className="flex bg-white items-center flex-col">
+    <div className="flex bg-widget items-center flex-col">
       <div
         ref={circleRef}
         className={cn(

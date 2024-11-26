@@ -25,9 +25,9 @@ const OrderView = ({ orderInfo }) => {
   ];
   return (
     <div className="flex flex-col gap-5">
-      <div className="shadow-md rounded-md p-5 border">
+      <div className="shadow-md rounded-sm p-5 bg-widget">
         <div className="flex items-center gap-5 w-full">
-          <h1 className="text-lg md:text-3xl font-bold">
+          <h1 className="text-lg md:text-3xl font-bold text-white">
             Order details {`#${orderInfo?.orderId}`}
           </h1>
           <Button
@@ -38,38 +38,35 @@ const OrderView = ({ orderInfo }) => {
             {orderInfo?.status}
           </Button>
         </div>
-        <p className="text-gray-700">
-          Date:{" "}
+        <p className="text-white uppercase">
           <>
             {orderInfo?.status === "cancelled" ? (
               <>
                 {moment(orderInfo?.cancelledDate).format(
-                  "MMMM Do YYYY, h:mm:ss a"
+                  "MMMM Do YYYY, h:mm a"
                 )}
               </>
             ) : (
-              <>
-                {moment(orderInfo?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
-              </>
+              <>{moment(orderInfo?.createdAt).format("MMMM Do YYYY, h:mm a")}</>
             )}
           </>
         </p>
       </div>
 
-      <div className="shadow-md rounded-md border">
-        <div className="p-5 rounded-md">
+      <div className="shadow-md rounded-sm bg-widget">
+        <div className="p-5 rounded-sm">
           <div className="flex flex-col gap-5">
             {orderInfo?.productsInfo?.map((product) => (
               <div
                 key={product?._id}
-                className="grid grid-cols-12 items-center border-b"
+                className="grid grid-cols-12 items-center"
               >
                 <div className="col-span-8 flex flex-wrap xl:flex-nowrap items-center gap-5">
                   <img
                     src={product?.image}
-                    className={"w-20 h-20 rounded-md"}
+                    className={"w-20 h-20 rounded-sm"}
                   />
-                  <h2>{product?.title}</h2>
+                  <h2 className="text-white">{product?.title}</h2>
                 </div>
 
                 <div className="col-span-4">
@@ -90,9 +87,9 @@ const OrderView = ({ orderInfo }) => {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5">
-        <div className="shadow-md rounded-md p-5 border flex flex-col gap-3">
+        <div className="shadow-md rounded-md p-5 bg-widget flex flex-col gap-3 text-white">
           <div className="flex flex-col gap-1">
-            <div className="w-10 h-10 border rounded-md p-1">
+            <div className="w-10 h-10  rounded-md p-1">
               <FaTruck className="h-full w-full text-stech" />
             </div>
             <span className="font-bold">Shipping info</span>
@@ -135,7 +132,7 @@ const OrderView = ({ orderInfo }) => {
             </div>
           </div>
         </div>
-        <div className="shadow-md rounded-md p-5 border">
+        <div className="shadow-md rounded-md p-5 bg-widget text-white">
           {orderInfo?.paymentMethod == "Cash On Delivery" ? (
             <div className="flex flex-col gap-1">
               <FaMoneyBillAlt className="text-4xl text-stech" />
@@ -170,7 +167,9 @@ const OrderView = ({ orderInfo }) => {
               TK{" "}
               {numberWithCommas(
                 parseInt(Math.round(totalCost)) +
-                  parseInt(orderInfo?.deliveryCharge)
+                  parseInt(
+                    orderInfo?.deliveryCharge ? orderInfo?.deliveryCharge : 0
+                  )
               )}
             </span>
           </div>

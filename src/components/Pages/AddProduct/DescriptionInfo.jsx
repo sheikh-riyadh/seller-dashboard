@@ -11,8 +11,8 @@ const DescriptionInfo = () => {
       <div className="mb-5 bg-stech text-white p-5">
         <span>Description</span>
       </div>
-      <div className="flex flex-col gap-1 p-5">
-        <span className="py-2 block font-medium text-sm">
+      <div className="flex flex-col gap-1 p-5 bg-widget">
+        <span className="py-2 block font-medium text-sm text-white">
           Long Description <span className="text-danger">*</span>
         </span>
         <div>

@@ -36,8 +36,12 @@ const JoditTextArea = ({
       required: true,
       height,
       toolbarStickyOffset,
-      style:{
-        padding:"20"
+      theme: "dark",
+      hidePoweredByJodit: true,
+      style: {
+        padding: "20",
+        background: "#1C2822",
+        color: "#fff",
       },
     }),
     [height, toolbarStickyOffset]

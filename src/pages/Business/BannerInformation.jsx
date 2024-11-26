@@ -122,10 +122,8 @@ const BannerInformation = () => {
 
   return (
     <div className="pb-8">
-      <div className="h-44 w-full bg-primary flex flex-col justify-center items-center"></div>
-      <div className="-mt-32">
-        <span className="font-bold text-xl text-white p-5">Add Banner</span>
-        <div className="bg-white border shadow-md p-5 m-5 rounded-md">
+      <div>
+        <div className="bg-widget text-white shadow-md p-5 m-5 rounded-sm">
           <div>
             {!bannerLoading ? (
               <div>
@@ -143,10 +141,10 @@ const BannerInformation = () => {
                       >
                         <div
                           className={`w-4 h-4 rounded-full border duration-300 ${
-                            type == option && "bg-secondary"
+                            type == option && "bg-accent"
                           }`}
                         ></div>
-                        <span className="capitalize">{option}</span>
+                        <span className="capitalize text-white">{option}</span>
                       </Button>
                     ))}
                   </div>
@@ -160,14 +158,14 @@ const BannerInformation = () => {
                     required={true}
                     placeholder="Enter title"
                     {...register("title")}
-                    className={"bg-transparent border"}
+                    className={"bg-[#1C2822] text-white rounded-sm"}
                   />
                   <TextArea
                     label={"Description"}
                     placeholder="Enter description"
                     required={true}
                     {...register("description")}
-                    className={"bg-transparent border h-36"}
+                    className={"bg-[#1C2822] text-white rounded-sm h-36"}
                   />
                   {type == "image" ? (
                     <ImageUpload />

@@ -78,7 +78,7 @@ input[type="number"] {
   position: absolute;
   width: 100px;
   height: 100px;
-  background: var(--white);
+  background: var(--widget);
   border-radius: 50%;
 }
 
@@ -152,6 +152,11 @@ input[type="number"] {
   }
 }
 
+/* Jodit css */
+.jodit_theme_dark .jodit-toolbar__box:not(:empty) {
+  background: #1f2e2c;
+}
+
 /* Default color */
 body {
   --primary: #ef4a23;
@@ -163,7 +168,14 @@ body {
   --white: #fff;
   --black: #222325;
   --slate: #6c757d;
-  --stech: #081621;
-  background-color: #f1f5f9;
-  color: var(--black);
+  --stech: #047857;
+  --widget: #1f2e2c;
+  --widget_title_background: #1f2d2d;
+  --primary-text: #e7f9f7;
+  --secondar-text: #8de2db;
+  --accent: #abd006;
+  --chart-1: #fcff66;
+  --chart-2: #047857;
+  /* color: var(--black); */
+  background-color: #171f12;
 }

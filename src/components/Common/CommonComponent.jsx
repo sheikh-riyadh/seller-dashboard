@@ -9,7 +9,7 @@ const CommonComponent = ({ name, value }) => {
       <h4 className="font-medium text-sm mb-1">{name}</h4>
       <h2 className="font-bold text-lg">
         {value
-          ? `${value.length > 20 ? `${value.slice(0, 20)}...` : value}`
+          ? `${value}`
           : "No Info"}
       </h2>
     </div>

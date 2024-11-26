@@ -127,15 +127,14 @@ const AddProduct = () => {
 
   return (
     <div>
-      <div className="h-40 bg-primary w-full"></div>
       <div className="p-5">
-        <div className="w-full -mt-24 rounded-md overflow-hidden">
+        <div className="w-full rounded-md overflow-hidden">
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
             onKeyDown={handleKeyDown}
             className="overflow-hidden flex flex-col gap-5"
           >
-            <div className="border rounded-md overflow-hidden shadow bg-white">
+            <div className="rounded-md overflow-hidden shadow bg-widget">
               <div className="mb-5 bg-stech text-white p-5 flex items-center justify-between">
                 <span>Basic Information</span>
                 {updateData?._id && (
@@ -150,11 +149,11 @@ const AddProduct = () => {
               <BasicInfo register={register} setValue={setValue} />
             </div>
 
-            <div className="border rounded-md overflow-hidden shadow bg-white">
+            <div className="rounded-md overflow-hidden shadow bg-widget">
               <DescriptionInfo />
             </div>
 
-            <div className="border rounded-md overflow-hidden shadow bg-white">
+            <div className="rounded-md overflow-hidden shadow bg-widget">
               <div className="mb-5 bg-stech text-white p-5">
                 <span>Price and quantity</span>
               </div>
@@ -163,7 +162,7 @@ const AddProduct = () => {
               </div>
             </div>
 
-            <div className="border rounded-md overflow-hidden shadow bg-white">
+            <div className="rounded-md overflow-hidden shadow bg-widget">
               <div className="mb-5 bg-stech text-white p-5">
                 <span>Additional Information</span>
               </div>
@@ -176,7 +175,7 @@ const AddProduct = () => {
               </div>
             </div>
 
-            <div className="border rounded-md overflow-hidden shadow bg-white">
+            <div className="rounded-md overflow-hidden shadow bg-widget">
               <div className="mb-5 bg-stech text-white p-5">
                 <span>Delivery Information</span>
               </div>

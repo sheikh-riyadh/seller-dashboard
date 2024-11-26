@@ -17,9 +17,9 @@ const ToCustomer = () => {
   const { data, isLoading } = useGetOrderQuery(query.toString());
 
   return (
-    <div className="border rounded-lg overflow-hidden bg-white">
+    <div className="rounded-sm overflow-hidden">
       <div className="flex flex-col gap-0.5">
-        <div className="flex items-center gap-x-5 p-5 pb-0 border-b">
+        <div className="flex items-center gap-x-5 p-5 pl-0 pb-0 flex-wrap">
           {[
             "pending",
             "processing",
@@ -31,9 +31,9 @@ const ToCustomer = () => {
             <Button
               key={item}
               onClick={() => setStatus(item)}
-              className={`border-b text-lg pb-3 cursor-pointer bg-transparent border-0 text-black rounded-none text-start w-auto p-0 py-3 ${
+              className={`text-lg pb-3 text-white cursor-pointer bg-transparent border-0 rounded-none text-start w-auto p-0 py-3 ${
                 item === status
-                  ? "border-b border-primary text-primary"
+                  ? "border-b border-accent"
                   : "border-transparent"
               }`}
             >

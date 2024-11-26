@@ -7,7 +7,7 @@ const MainLayout = () => {
   return (
     <div className="overflow-hidden">
       <div className={`flex`}>
-        <div className="bg-white">
+        <div className="bg-widget hidden lg:block ">
           <LeftSide />
         </div>
         <div className="w-full h-[calc(100vh)] overflow-y-auto bar-hidden">
@@ -16,7 +16,7 @@ const MainLayout = () => {
             <Outlet />
           </div>
         </div>
-        <div>
+        <div className="hidden lg:block">
           <RightSide />
         </div>
       </div>

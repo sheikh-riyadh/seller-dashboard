@@ -3,12 +3,12 @@ import CommonComponent from "../../../Common/CommonComponent";
 
 const UserDetailsRight = ({ data, isReport }) => {
   return (
-    <div className="shadow-md rounded-md border overflow-hidden">
-      <div className="flex justify-between border-b bg-white p-4">
+    <div className="shadow-md rounded-sm overflow-hidden">
+      <div className="flex justify-between bg-widget p-4">
         <div>
           {!isReport ? (
-            <h2 className="capitalize text-2xl font-semibold text-gray-800 ">
-              Personal Info
+            <h2 className="capitalize text-2xl font-semibold text-white ">
+              Info
             </h2>
           ) : (
             <p className="font-bold">
@@ -17,9 +17,9 @@ const UserDetailsRight = ({ data, isReport }) => {
           )}
         </div>
       </div>
-      <div className="p-5 bg-white">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="w-full rounded-md">
+      <div className="p-5 bg-widget">
+        <div className="grid grid-cols-1 gap-5">
+          <div className="w-full rounded-md text-white">
             <CommonComponent name={"Full Name"} value={data?.fullName} />
           </div>
         </div>
