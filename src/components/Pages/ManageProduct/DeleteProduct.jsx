@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useDeleteProductMutation } from "../../../store/service/product/productApi";
 import DeleteModal from "../../Modal/DeleteModal";
 
-const DeleteProduct = ({ user, id }) => {
+const DeleteProduct = ({ user, id, email }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteProduct, { isLoading }] = useDeleteProductMutation();
 
@@ -20,7 +20,7 @@ const DeleteProduct = ({ user, id }) => {
 
       {isModalOpen && (
         <DeleteModal
-          deleteData={{ _id: id, sellerId: user?._id }}
+          deleteData={{ _id: id, sellerId: user?._id, email }}
           handleDeleteFunction={deleteProduct}
           isLoading={isLoading}
           isModalOpen={isModalOpen}
@@ -35,6 +35,7 @@ const DeleteProduct = ({ user, id }) => {
 DeleteProduct.propTypes = {
   user: PropTypes.object,
   id: PropTypes.string,
+  email: PropTypes.string,
 };
 
 export default DeleteProduct;

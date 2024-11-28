@@ -9,7 +9,6 @@ import {
 } from "../../store/service/banner/bannerApi";
 import toast from "react-hot-toast";
 import { handleSetBannerImage } from "../../store/features/banner/bannerSlice";
-import Button from "../../components/Common/Button";
 import Input from "../../components/Common/Input";
 import TextArea from "../../components/Common/TextArea";
 import SubmitButton from "../../components/Common/SubmitButton";
@@ -18,6 +17,7 @@ import VideoUpload from "../../components/Pages/Business/Banner/LiveVideoUpload"
 import { useGetSeller } from "../../hooks/useGetSeller";
 import LoadingSpinner from "../../components/Common/LoadingSpinner";
 import { useGetBanner } from "../../hooks/useBanner";
+import SelectInput from "../../components/Common/SelectInput";
 
 const BannerInformation = () => {
   const [type, setType] = useState("image");
@@ -27,17 +27,24 @@ const BannerInformation = () => {
       title: "",
       description: "",
       videoURL: "",
+      type: "image",
     },
   });
 
   const dispatch = useDispatch();
   const { bannerImages } = useGetBanner();
   const { seller } = useGetSeller();
-  const { data: bannerData, isLoading: bannerLoading } = useGetBannerQuery({
-    type,
+
+  const query = new URLSearchParams({
     sellerId: seller?._id,
-  });
-  const { data: defaultBannerData } = useGetDefaultBannerQuery(seller?._id);
+    type,
+    email: seller?.email,
+  }).toString();
+
+  const { data: bannerData, isLoading: bannerLoading } =
+    useGetBannerQuery(query);
+
+  const { data: defaultBannerData, isLoading:defaultBannerLoading } = useGetDefaultBannerQuery(query);
   const [createBanner, { isLoading }] = useCreateBannerMutation();
   const [updateBanner, { isLoading: updateLoading }] =
     useUpdateBannerMutation();
@@ -55,11 +62,11 @@ const BannerInformation = () => {
           ...data,
           sellerId: seller?._id,
           bannerImages,
-          type,
           default: true,
+          email: seller?.email,
         };
       } else {
-        newData = { ...data, sellerId: seller?._id, type, default: true };
+        newData = { ...data, sellerId: seller?._id, default: true };
       }
     }
 
@@ -76,6 +83,7 @@ const BannerInformation = () => {
         const res = await updateBanner({
           _id: bannerData?._id,
           data: { ...newData },
+          email: seller?.email,
         });
         if (!res?.error) {
           toast.success("Updated banner successfully");
@@ -86,6 +94,7 @@ const BannerInformation = () => {
         const res = await updateBanner({
           _id: bannerData?._id,
           data: { ...newData },
+          email: seller?.email,
         });
         if (!res?.error) {
           toast.success("Updated banner successfully");
@@ -125,34 +134,28 @@ const BannerInformation = () => {
       <div>
         <div className="bg-widget text-white shadow-md p-5 m-5 rounded-sm">
           <div>
-            {!bannerLoading ? (
+            {!bannerLoading || defaultBannerLoading ? (
               <div>
                 {" "}
                 <div className="mb-10">
                   <p className=" text-xl font-semibold text-blue">
                     Which one you set as a cover?
                   </p>
-                  <div className="flex items-center justify-start mt-4 gap-x-4">
-                    {["image", "video"].map((option) => (
-                      <Button
-                        onClick={() => setType(option)}
-                        key={option}
-                        className="flex items-center gap-2 cursor-pointer bg-transparent border-none  text-black w-20"
-                      >
-                        <div
-                          className={`w-4 h-4 rounded-full border duration-300 ${
-                            type == option && "bg-accent"
-                          }`}
-                        ></div>
-                        <span className="capitalize text-white">{option}</span>
-                      </Button>
-                    ))}
-                  </div>
                 </div>
                 <form
                   onSubmit={handleSubmit(handleOnSubmit)}
                   className="flex flex-col gap-3"
                 >
+                  <SelectInput
+                    {...register("type")}
+                    onChange={(event) => setType(event.target.value)}
+                    className="bg-[#1C2822] text-white rounded-sm text-sm"
+                    defaultValue={type}
+                  >
+                    <option value="image">Image</option>
+                    <option value="video">Video</option>
+                  </SelectInput>
+
                   <Input
                     label={"Title"}
                     required={true}

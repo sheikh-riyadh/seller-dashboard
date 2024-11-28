@@ -10,13 +10,21 @@ const sellerApi = baseApi.injectEndpoints({
     }),
     getSellerDetails: build.query({
       query: (data) => ({
-        url: `seller-details/${data}`,
+        url: `seller-details?${data}`,
       }),
       providesTags: ["seller"],
     }),
     createSeller: build.mutation({
       query: (data) => ({
         url: "create-seller",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["seller"],
+    }),
+    createJwt: build.mutation({
+      query: (data) => ({
+        url: "jwt",
         method: "POST",
         body: data,
       }),
@@ -35,6 +43,7 @@ const sellerApi = baseApi.injectEndpoints({
 
 export const {
   useCreateSellerMutation,
+  useCreateJwtMutation,
   useGetSellerQuery,
   useGetSellerDetailsQuery,
   useUpdateSellerMutation,

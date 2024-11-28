@@ -12,7 +12,13 @@ import UpdateStatus from "./UpdateStatus";
 const ProductTable = () => {
   const navigate = useNavigate();
   const { seller } = useGetSeller();
-  const { data, isLoading } = useGetProductsQuery(seller?._id);
+
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
+  const { data, isLoading } = useGetProductsQuery(query);
 
   const redirectUserDetailsHandler = (items) => {
     if (items) {
@@ -74,7 +80,7 @@ const ProductTable = () => {
             {
               name: "Status",
               render: ({ item }) => {
-                return <UpdateStatus item={item} sellerId={seller?._id} />;
+                return <UpdateStatus item={item} sellerId={seller?._id} email={seller?.email} />;
               },
             },
             {
@@ -89,7 +95,7 @@ const ProductTable = () => {
                     >
                       <FaBinoculars />
                     </span>
-                    <DeleteProduct user={seller} id={item?._id} />
+                    <DeleteProduct user={seller} id={item?._id} email={item?.email} />
                   </div>
                 );
               },

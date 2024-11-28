@@ -26,9 +26,14 @@ const BrandInformation = () => {
   const { seller } = useGetSeller();
   const { brands } = useGetBrands();
 
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
   const dispatch = useDispatch();
   const { data: sellerBrandsData, isLoading: sellerBrandLoading } =
-    useGetSellerBrandsQuery(seller?._id);
+    useGetSellerBrandsQuery(query);
   const [updateSellerBrands, { isLoading: updateSellerBrandLoading }] =
     useUpdateSellerBrandsMutation();
 
@@ -70,12 +75,13 @@ const BrandInformation = () => {
       return;
     }
 
-    const data = { brands, sellerId: seller?._id };
+    const data = { brands, sellerId: seller?._id, email: seller?.email };
     if (sellerBrandsData?._id) {
       try {
         const res = await updateSellerBrands({
           _id: sellerBrandsData?._id,
           data,
+          email: seller?.email,
         });
 
         if (!res?.error) {
@@ -107,7 +113,6 @@ const BrandInformation = () => {
 
   return (
     <div className="pb-8">
-     
       <div className="shadow-md m-5 p-5 rounded-sm bg-widget text-white">
         <div>
           {!sellerBrandLoading ? (

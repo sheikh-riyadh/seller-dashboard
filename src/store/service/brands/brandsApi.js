@@ -3,8 +3,8 @@ import { baseApi } from "../../api/baseApi";
 const brandsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getSellerBrands: build.query({
-      query: (sellerId) => ({
-        url: `seller-brands/${sellerId}`,
+      query: (data) => ({
+        url: `seller-brands?${data}`,
       }),
       providesTags: ["seller-brands"],
     }),

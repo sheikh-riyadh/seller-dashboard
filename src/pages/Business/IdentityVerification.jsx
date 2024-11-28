@@ -19,9 +19,14 @@ const IdentityVerification = () => {
   const { seller } = useGetSeller();
   const { register, handleSubmit, setValue } = useForm();
 
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
   const [uploadImage, { isLoading }] = useUploadImageMutation();
   const { data: sellerData, isLoading: sellerLoading } =
-    useGetSellerDetailsQuery(seller?._id);
+    useGetSellerDetailsQuery(query);
 
   const [updateSeller, { isLoading: updateSellerLoading }] =
     useUpdateSellerMutation();
@@ -51,6 +56,7 @@ const IdentityVerification = () => {
       const res = await updateSeller({
         _id: sellerData?._id,
         data: { ...data, identity },
+        email: sellerData?.email,
       });
       if (!res?.error) {
         toast.success("Updated successfully", { id: "update_seller" });
@@ -71,7 +77,6 @@ const IdentityVerification = () => {
 
   return (
     <div>
-      
       <form onSubmit={handleSubmit(handleOnSubmit)}>
         <div className="shadow-md m-5 p-5 bg-widget rounded-sm">
           {!sellerLoading ? (

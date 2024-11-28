@@ -3,13 +3,13 @@ import { useUpdateProductMutation } from "../../../store/service/product/product
 import SelectInput from "../../Common/SelectInput";
 import PropTypes from "prop-types";
 
-const UpdateStatus = ({ sellerId, item }) => {
+const UpdateStatus = ({ sellerId, item, email }) => {
   const [updateProduct, { isLoading }] = useUpdateProductMutation();
 
   const handleUpdateStatus = async (event) => {
     const data = {
       _id: item?._id,
-      data: { status: event.target.value, sellerId },
+      data: { status: event.target.value, sellerId, email },
     };
     try {
       const res = await updateProduct(data);
@@ -43,6 +43,7 @@ const UpdateStatus = ({ sellerId, item }) => {
 UpdateStatus.propTypes = {
   sellerId: PropTypes.string,
   item: PropTypes.object,
+  email: PropTypes.string,
 };
 
 export default UpdateStatus;

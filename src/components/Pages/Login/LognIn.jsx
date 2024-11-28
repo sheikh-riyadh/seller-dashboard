@@ -11,7 +11,10 @@ import Input from "../../Common/Input";
 import Button from "../../Common/Button";
 import { auth } from "../../../firebase/firebase.config";
 import toast from "react-hot-toast";
-import { useLazyGetSellerQuery } from "../../../store/service/seller/sellerApi";
+import {
+  useCreateJwtMutation,
+  useLazyGetSellerQuery,
+} from "../../../store/service/seller/sellerApi";
 import { addUser } from "../../../store/features/user/userSlice";
 import ForgetPassword from "./ForgetPassword";
 import Modal from "../../Modal/Modal";
@@ -25,7 +28,10 @@ const LogIn = () => {
 
   const navigate = useNavigate();
   const disptach = useDispatch();
+
   const [getSeller] = useLazyGetSellerQuery();
+  const [createJwt, { isLoading: jwtLoading }] = useCreateJwtMutation();
+
   const handleLogin = async ({ email, password }) => {
     setIsLoading(true);
     try {
@@ -44,6 +50,9 @@ const LogIn = () => {
           }
           return;
         }
+
+        await createJwt({ email: result.user.email });
+
         const res = await getSeller(result.user.email);
         if (res?.data?.email) {
           disptach(addUser({ ...res?.data }));
@@ -94,7 +103,7 @@ const LogIn = () => {
             >
               Forget Your Password?
             </span>
-            <SubmitButton isLoading={isLoading} className="w-40">
+            <SubmitButton isLoading={isLoading || jwtLoading} className="w-40">
               Sign In
             </SubmitButton>
           </div>

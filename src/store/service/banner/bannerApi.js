@@ -3,16 +3,15 @@ import { baseApi } from "../../api/baseApi";
 const bannerApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getBanner: build.query({
-        query: (data) => ({
-          url: `seller-banner?${new URLSearchParams(data)}`,
-        }),
-        providesTags: ["seller-banner"],
+      query: (data) => ({
+        url: `seller-banner?${data}`,
       }),
-      
+      providesTags: ["seller-banner"],
+    }),
 
     getDefaultBanner: build.query({
       query: (sellerId) => ({
-        url: `seller-default-banner/${sellerId}`,
+        url: `seller-default-banner?${sellerId}`,
       }),
       providesTags: ["seller-banner"],
     }),

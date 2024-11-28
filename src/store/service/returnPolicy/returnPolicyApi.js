@@ -3,8 +3,8 @@ import { baseApi } from "../../api/baseApi";
 const returnPolicyApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getReturnPolicy: build.query({
-      query: (sellerId) => ({
-        url: `seller-return-policy/${sellerId}`,
+      query: (data) => ({
+        url: `seller-return-policy?${data}`,
       }),
       providesTags: ["seller-policy"],
     }),

@@ -20,9 +20,13 @@ const PersonalInformation = () => {
   const { handleSubmit, register, setValue } = useForm();
 
   const { seller } = useGetSeller();
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
 
   const { data: sellerData, isLoading: sellerLoading } =
-    useGetSellerDetailsQuery(seller?._id);
+    useGetSellerDetailsQuery(query);
   const [updateSeller, { isLoading: updateSellerLoading }] =
     useUpdateSellerMutation();
   const [uploadImage, { isLoading }] = useUploadImageMutation();
@@ -51,6 +55,7 @@ const PersonalInformation = () => {
       const res = await updateSeller({
         _id: sellerData?._id,
         data: { ...data, photo },
+        email: sellerData?.email,
       });
       if (!res?.error) {
         toast.success("Updated successfully", { id: "update_seller" });
@@ -77,7 +82,6 @@ const PersonalInformation = () => {
 
   return (
     <div>
-      
       <form
         onSubmit={handleSubmit(handleUpdatePersonalInfo)}
         className="shadow-md m-5 p-5 bg-widget rounded-sm"

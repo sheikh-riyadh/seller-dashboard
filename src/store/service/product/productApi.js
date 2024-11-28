@@ -3,8 +3,8 @@ import { baseApi } from "../../api/baseApi";
 const productApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query({
-      query: (sellerId) => ({
-        url: `seller-products/${sellerId}`,
+      query: (data) => ({
+        url: `seller-products?${data}`,
       }),
       providesTags: ["seller-product"],
     }),
@@ -26,7 +26,7 @@ const productApi = baseApi.injectEndpoints({
     }),
     deleteProduct: build.mutation({
       query: (data) => ({
-        url: `seller-delete-product?${new URLSearchParams(data)}`,
+        url: `seller-delete-product?${data}`,
         method: "DELETE",
       }),
       invalidatesTags: ["seller-product"],

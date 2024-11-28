@@ -55,6 +55,7 @@ const AddProduct = () => {
       additionalInfo,
       sellerId: seller?._id,
       status: updateData?.status ? updateData?.status : "active",
+      email: seller?.email,
     };
 
     if (!checkValue(productImages)) {

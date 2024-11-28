@@ -15,24 +15,29 @@ const ReturnPolicy = () => {
 
   const { seller } = useGetSeller();
 
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
   const { data: policyData, isLoading: policyLoading } =
-    useGetReturnPolicyQuery(seller?._id);
+    useGetReturnPolicyQuery(query);
   const [createPolicy, { isLoading: createLoading }] =
     useCreateReturnPolicyMutation();
   const [updatePolicy, { isLoading: updateLoading }] =
     useUpdateReturnPolicyMutation();
 
   const handleReturnPolicy = async () => {
-    if (content?.length <50) {
+    if (content?.length < 50) {
       toast.error("Policy is required", { id: "policy_error" });
       return;
     }
 
-    const data = { content, sellerId: seller?._id };
+    const data = { content, sellerId: seller?._id, email:seller?.email };
 
     if (policyData?._id) {
       try {
-        const res = await updatePolicy({ _id: policyData?._id, data });
+        const res = await updatePolicy({ _id: policyData?._id, data, });
         if (!res?.error) {
           toast.success("Updated return policy successfully ", {
             id: "success",

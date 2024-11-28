@@ -17,9 +17,13 @@ const BusinessLocation = () => {
   const { handleSubmit, register } = useForm();
 
   const { seller } = useGetSeller();
-  const { data: locationData, isLoading } = useGetSellerLocationQuery(
-    seller?._id
-  );
+
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
+  const { data: locationData, isLoading } = useGetSellerLocationQuery(query);
 
   const [updateLocation, { isLoading: updateLoading }] =
     useUpdateSellerLocationMutation();
@@ -30,6 +34,7 @@ const BusinessLocation = () => {
     const data = {
       locationImage: image,
       sellerId: seller?._id,
+      email: seller?.email,
     };
     if (locationData?._id) {
       try {

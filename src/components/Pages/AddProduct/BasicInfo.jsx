@@ -18,9 +18,12 @@ const BasicInfo = ({ register, setValue }) => {
   const { keyFeatures } = useGetProduct();
   const { seller } = useGetSeller();
 
-  const { data: sellerBrandsData, isLoading } = useGetSellerBrandsQuery(
-    seller?._id
-  );
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
+  const { data: sellerBrandsData, isLoading } = useGetSellerBrandsQuery(query);
 
   const { data: catgories, isLoading: categoriesLoading } =
     useGetCategoriesQuery();
@@ -41,7 +44,9 @@ const BasicInfo = ({ register, setValue }) => {
 
   return (
     <div className="flex flex-col gap-1 p-5">
-      <span className="py-2 block font-medium text-sm text-white">Product Image:</span>
+      <span className="py-2 block font-medium text-sm text-white">
+        Product Image:
+      </span>
       <ImageUpload from="product" />
       <div>
         <Input

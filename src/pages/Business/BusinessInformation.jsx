@@ -18,8 +18,13 @@ const BusinessInformation = () => {
 
   const { seller } = useGetSeller();
 
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
   const { data: sellerData, isLoading: sellerLoading } =
-    useGetSellerDetailsQuery(seller?._id);
+    useGetSellerDetailsQuery(query);
   const [updateSeller, { isLoading: updateSellerLoading }] =
     useUpdateSellerMutation();
 
@@ -28,6 +33,7 @@ const BusinessInformation = () => {
       const res = await updateSeller({
         _id: sellerData?._id,
         data: data,
+        email: sellerData?.email,
       });
       if (!res?.error) {
         toast.success("Updated successfully", { id: "update_seller" });
