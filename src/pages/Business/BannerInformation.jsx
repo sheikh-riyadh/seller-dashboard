@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import {
   useCreateBannerMutation,
   useGetBannerQuery,
-  useGetDefaultBannerQuery,
   useUpdateBannerMutation,
 } from "../../store/service/banner/bannerApi";
 import toast from "react-hot-toast";
@@ -44,7 +43,6 @@ const BannerInformation = () => {
   const { data: bannerData, isLoading: bannerLoading } =
     useGetBannerQuery(query);
 
-  const { data: defaultBannerData, isLoading:defaultBannerLoading } = useGetDefaultBannerQuery(query);
   const [createBanner, { isLoading }] = useCreateBannerMutation();
   const [updateBanner, { isLoading: updateLoading }] =
     useUpdateBannerMutation();
@@ -66,7 +64,12 @@ const BannerInformation = () => {
           email: seller?.email,
         };
       } else {
-        newData = { ...data, sellerId: seller?._id, default: true };
+        newData = {
+          ...data,
+          sellerId: seller?._id,
+          default: true,
+          email: seller?.email,
+        };
       }
     }
 
@@ -106,12 +109,6 @@ const BannerInformation = () => {
   };
 
   useEffect(() => {
-    if (defaultBannerData?.type) {
-      setType(defaultBannerData?.type);
-    }
-  }, [defaultBannerData]);
-
-  useEffect(() => {
     reset();
     if (bannerData?.type) {
       for (const key in bannerData) {
@@ -134,7 +131,7 @@ const BannerInformation = () => {
       <div>
         <div className="bg-widget text-white shadow-md p-5 m-5 rounded-sm">
           <div>
-            {!bannerLoading || defaultBannerLoading ? (
+            {!bannerLoading ? (
               <div>
                 {" "}
                 <div className="mb-10">
@@ -150,7 +147,6 @@ const BannerInformation = () => {
                     {...register("type")}
                     onChange={(event) => setType(event.target.value)}
                     className="bg-[#1C2822] text-white rounded-sm text-sm"
-                    defaultValue={type}
                   >
                     <option value="image">Image</option>
                     <option value="video">Video</option>

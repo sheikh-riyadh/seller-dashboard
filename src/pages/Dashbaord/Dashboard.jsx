@@ -8,8 +8,9 @@ const Dashboard = () => {
   const { seller } = useGetSeller();
   const query = new URLSearchParams({
     sellerId: seller?._id,
-  });
-  const { data } = useGetAnalyticeDataQuery(query.toString());
+    email:seller?.email
+  }).toString();
+  const { data } = useGetAnalyticeDataQuery(query);
 
   const cancelledOrder = data?.filter((order) => order?.status === "cancelled");
   const order = data?.filter((order) => order?.status !== "cancelled");

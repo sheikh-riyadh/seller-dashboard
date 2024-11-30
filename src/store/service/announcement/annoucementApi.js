@@ -3,8 +3,8 @@ import { baseApi } from "../../api/baseApi";
 const annoucementApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getAnnoucement: build.query({
-      query: (sellerId) => ({
-        url: `seller-annoucement/${sellerId}`,
+      query: (data) => ({
+        url: `seller-annoucement?${data}`,
       }),
       providesTags: ["seller-annoucement"],
     }),
@@ -26,7 +26,7 @@ const annoucementApi = baseApi.injectEndpoints({
     }),
     deleteAnnoucement: build.mutation({
       query: (data) => ({
-        url: `seller-delete-annoucement?${new URLSearchParams(data)}`,
+        url: `seller-delete-annoucement?${data}`,
         method: "DELETE",
       }),
       invalidatesTags: ["seller-annoucement"],

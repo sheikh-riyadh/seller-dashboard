@@ -13,10 +13,15 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const QuestionAnswer = () => {
-  const { seller } = useGetSeller();
-
   const [currentQuestion, setCurrentQuestion] = useState();
-  const { data, isLoading } = useGetProductQuestionsQuery(seller?._id);
+
+  const { seller } = useGetSeller();
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
+  const { data, isLoading } = useGetProductQuestionsQuery(query);
 
   const [answer, { isLoading: answerLoading }] = useProductAnswerMutation();
   const { handleSubmit, register, reset } = useForm();
@@ -29,6 +34,7 @@ const QuestionAnswer = () => {
         answer: data?.answer,
         sellerId: seller?._id,
         logo: seller?.logo,
+        email: seller?.email,
       },
     };
     try {
@@ -164,7 +170,9 @@ const QuestionAnswer = () => {
                       />
                     </div>
                     <div className="bg-[#171f12] p-3 rounded-md relative">
-                      <span className="text-white">{currentQuestion?.question?.userQuestion}</span>
+                      <span className="text-white">
+                        {currentQuestion?.question?.userQuestion}
+                      </span>
                       <FaMousePointer className="absolute -top-2.5 text-xl -rotate-12 text-[#171f12]" />
                     </div>
                   </div>

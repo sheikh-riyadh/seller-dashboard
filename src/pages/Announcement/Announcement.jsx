@@ -22,9 +22,12 @@ const Announcement = () => {
   const { register, handleSubmit, setValue } = useForm();
   const { seller } = useGetSeller();
 
-  const { data: announcementData, isLoading } = useGetAnnoucementQuery(
-    seller?._id
-  );
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
+  const { data: announcementData, isLoading } = useGetAnnoucementQuery(query);
   const [updateAnnouncement, { isLoading: updateLoading }] =
     useUpdateAnnoucementMutation();
   const [createAnnouncement, { isLoading: createLoading }] =
@@ -37,7 +40,7 @@ const Announcement = () => {
       try {
         const res = await updateAnnouncement({
           _id: announcementData?._id,
-          data: { ...data, sellerId: seller?._id },
+          data: { ...data, sellerId: seller?._id, email: seller?.email },
         });
 
         if (!res?.error) {
@@ -56,6 +59,7 @@ const Announcement = () => {
         const res = await createAnnouncement({
           ...data,
           sellerId: seller?._id,
+          email: seller?.email,
         });
 
         if (!res?.error) {
@@ -144,7 +148,11 @@ const Announcement = () => {
       )}
       {isDeleteModalOpen && (
         <DeleteModal
-          deleteData={{ _id: announcementData?._id, sellerId: seller?._id }}
+          deleteData={{
+            _id: announcementData?._id,
+            sellerId: seller?._id,
+            email: seller?.email,
+          }}
           handleDeleteFunction={deleteAnnouncement}
           isLoading={deleteLoading}
           isModalOpen={isDeleteModalOpen}

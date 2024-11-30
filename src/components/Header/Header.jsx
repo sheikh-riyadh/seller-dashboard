@@ -15,8 +15,13 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [adminMessageModal, setAdminMessageModal] = useState(false);
 
+  const { seller } = useGetSeller();
+  const query = new URLSearchParams({
+    email: seller?.email,
+  }).toString();
+
   const { data: MessageData, isLoading: MessageLoading } =
-    useGetAdminMessageQuery();
+    useGetAdminMessageQuery(query);
 
   const todayMessages = MessageData?.filter(
     (message) => message?.date === moment().format("L")
@@ -26,7 +31,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const { showSize, isClicked } = useQuestion();
-  const { seller } = useGetSeller();
 
   return (
     <header className="w-full sticky top-0 bg-widget z-50 p-2.5">

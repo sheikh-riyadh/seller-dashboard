@@ -26,7 +26,7 @@ const BasicInfo = ({ register, setValue }) => {
   const { data: sellerBrandsData, isLoading } = useGetSellerBrandsQuery(query);
 
   const { data: catgories, isLoading: categoriesLoading } =
-    useGetCategoriesQuery();
+    useGetCategoriesQuery(query);
 
   const handleDeleteKeyFeatures = (deleteFeatureItem) => {
     dispatch(handleRemoveKeyFeatures(deleteFeatureItem));

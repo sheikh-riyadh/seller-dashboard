@@ -14,6 +14,7 @@ import {
   handleQuestionNAnswerSize,
 } from "../../store/features/questionAnswer/questionAnswerSlice";
 import { useQuestion } from "../../hooks/useQuestion";
+import { useLazyLogoutQuery } from "../../store/service/seller/sellerApi";
 
 const RightSide = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,10 +23,17 @@ const RightSide = () => {
   const { seller } = useGetSeller();
   const dispatch = useDispatch();
 
+  const query = new URLSearchParams({
+    sellerId: seller?._id,
+    email: seller?.email,
+  }).toString();
+
   const { data: QuestionData, isLoading: QuestionLoading } =
-    useGetProductQuestionsQuery(seller?._id);
+    useGetProductQuestionsQuery(query);
   const { data: MessageData, isLoading: MessageLoading } =
-    useGetAdminMessageQuery();
+    useGetAdminMessageQuery(query);
+
+  const [logout] = useLazyLogoutQuery();
 
   const todayMessages = MessageData?.filter(
     (message) => message?.date === moment().format("L")
@@ -40,7 +48,11 @@ const RightSide = () => {
   useEffect(() => {
     dispatch(handleQuestionNAnswerSize(unseenQuestion?.length));
   }, [dispatch, unseenQuestion]);
-  
+
+  const handleLogout = async () => {
+    dispatch(removeUser());
+    await logout(query);
+  };
 
   return (
     <div className="relative h-full">
@@ -85,7 +97,7 @@ const RightSide = () => {
               </>
             )}
           </div>
-          <div onClick={() => dispatch(removeUser())}>
+          <div onClick={handleLogout}>
             <FaPowerOff className="text-lg cursor-pointer text-white" />
           </div>
         </div>

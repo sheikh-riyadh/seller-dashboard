@@ -14,6 +14,12 @@ const sellerApi = baseApi.injectEndpoints({
       }),
       providesTags: ["seller"],
     }),
+    logout: build.query({
+      query: (data) => ({
+        url: `logout?${data}`,
+      }),
+      invalidatesTags: ["seller"],
+    }),
     createSeller: build.mutation({
       query: (data) => ({
         url: "create-seller",
@@ -42,10 +48,11 @@ const sellerApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useGetSellerDetailsQuery,
+  useLazyLogoutQuery,
   useCreateSellerMutation,
   useCreateJwtMutation,
   useGetSellerQuery,
-  useGetSellerDetailsQuery,
   useUpdateSellerMutation,
   useLazyGetSellerQuery,
 } = sellerApi;

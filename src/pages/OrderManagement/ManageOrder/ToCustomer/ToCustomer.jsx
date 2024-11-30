@@ -12,9 +12,10 @@ const ToCustomer = () => {
   const query = new URLSearchParams({
     sellerId: seller?._id,
     status,
-  });
+    email:seller?.email
+  }).toString();
 
-  const { data, isLoading } = useGetOrderQuery(query.toString());
+  const { data, isLoading } = useGetOrderQuery(query);
 
   return (
     <div className="rounded-sm overflow-hidden">

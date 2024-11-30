@@ -13,8 +13,9 @@ const ManageReviewTable = ({ selectTabOption }) => {
   const query = new URLSearchParams({
     sellerId: seller?._id,
     rating: selectTabOption,
-  });
-  const { data, isLoading } = useGetReviewQuery(query.toString());
+    email: seller?.email,
+  }).toString();
+  const { data, isLoading } = useGetReviewQuery(query);
 
   return (
     <div className="overflow-hidden">

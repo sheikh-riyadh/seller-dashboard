@@ -4,8 +4,8 @@ import { baseApi } from "../../api/baseApi";
 const adminMessageApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getAdminMessage: build.query({
-      query: () => ({
-        url: "admin-message",
+      query: (data) => ({
+        url: `admin-message?${data}`,
       }),
     }),
   }),
