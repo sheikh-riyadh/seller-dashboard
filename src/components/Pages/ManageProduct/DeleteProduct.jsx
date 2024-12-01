@@ -8,6 +8,12 @@ const DeleteProduct = ({ user, id, email }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteProduct, { isLoading }] = useDeleteProductMutation();
 
+  const query=new URLSearchParams({
+    _id:id,
+    sellerId:user?._id,
+    email,
+  }).toString()
+
   return (
     <>
       <span
@@ -20,7 +26,7 @@ const DeleteProduct = ({ user, id, email }) => {
 
       {isModalOpen && (
         <DeleteModal
-          deleteData={{ _id: id, sellerId: user?._id, email }}
+          deleteData={query}
           handleDeleteFunction={deleteProduct}
           isLoading={isLoading}
           isModalOpen={isModalOpen}
