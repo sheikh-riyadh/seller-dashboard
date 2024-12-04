@@ -38,7 +38,7 @@ const PersonalInformation = () => {
     const formData = new FormData();
     formData.append("image", file);
     try {
-      const response = await uploadImage(formData).unwrap();
+      const response = await uploadImage(formData).unwrap()
       setPhoto(response.data?.display_url);
     } catch (error) {
       toast.error("Something went wrong 😓", { id: error });

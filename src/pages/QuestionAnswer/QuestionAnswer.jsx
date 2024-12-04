@@ -76,7 +76,7 @@ const QuestionAnswer = () => {
                       <div className="w-12 h-12 rounded-full border">
                         <img
                           className="h-full w-full rounded-full"
-                          src={question?.question?.userInfo?.userPhoto}
+                          src={question?.question?.userInfo?.userPhoto || question?.question?.productInfo.productImage}
                           alt="user_photo"
                         />
                       </div>

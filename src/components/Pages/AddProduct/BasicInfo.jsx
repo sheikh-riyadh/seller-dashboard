@@ -42,6 +42,8 @@ const BasicInfo = ({ register, setValue }) => {
     }
   };
 
+  console.log(sellerBrandsData)
+
   return (
     <div className="flex flex-col gap-1 p-5">
       <span className="py-2 block font-medium text-sm text-white">
@@ -95,7 +97,7 @@ const BasicInfo = ({ register, setValue }) => {
             {`${isLoading ? "Please wait..." : "Select brand"}`}
           </option>
 
-          {sellerBrandsData?.brands?.map(({ brandName }) => (
+          {sellerBrandsData?.map(({ brandName }) => (
             <option key={brandName} value={brandName}>
               {brandName}
             </option>
@@ -120,7 +122,7 @@ const BasicInfo = ({ register, setValue }) => {
               key={feature}
               className="px-2 flex items-center gap-2 bg-accent rounded-full"
             >
-              <span className="text-sm">{feature}</span>
+              <span className="text-sm font-bold">{feature}</span>
               <span>
                 <FaTimes
                   onClick={() => handleDeleteKeyFeatures(feature)}

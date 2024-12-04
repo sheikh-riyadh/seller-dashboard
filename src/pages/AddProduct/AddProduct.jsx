@@ -123,8 +123,9 @@ const AddProduct = () => {
       dispatch(handleSetUpdatedProduct(data));
     } else {
       dispatch(handleClearProduct());
+      reset()
     }
-  }, [setValue, updateData, dispatch]);
+  }, [setValue, updateData, dispatch,reset]);
 
   return (
     <div>

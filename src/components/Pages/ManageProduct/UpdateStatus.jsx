@@ -23,7 +23,7 @@ const UpdateStatus = ({ sellerId, item, email }) => {
     }
   };
   return (
-    <div>
+    <div className={`${item?.status === "blocked" && "hidden"}`}>
       <SelectInput
         onChange={handleUpdateStatus}
         className="border bg-widget rounded-full p-0 px-2 capitalize text-white"

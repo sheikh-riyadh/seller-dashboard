@@ -14,7 +14,6 @@ import {
 } from "redux-persist";
 import { baseApi } from "../api/baseApi";
 import sellerBannerReducer from "../features/banner/bannerSlice";
-import sellerBrandsReducer from "../features/brands/brandsSlice";
 import sellerUserReducer from "../features/user/userSlice";
 import sellerProductReducer from "../features/product/productSlice";
 import sellerQuestionReducer from "../features/questionAnswer/questionAnswerSlice";
@@ -34,14 +33,13 @@ const sessionConfig = {
 };
 
 const rootPersistReducers = combineReducers({
-  sellerQuestionReducer
+  sellerQuestionReducer,
 });
 
 const sessionReducers = combineReducers({
   sellerUserReducer,
   sellerProductReducer,
   sellerBannerReducer,
-  sellerBrandsReducer,
 });
 
 const persistedReducers = persistReducer(persistConfig, rootPersistReducers);

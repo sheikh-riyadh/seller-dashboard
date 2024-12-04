@@ -39,7 +39,7 @@ const IdentityVerification = () => {
     formData.append("image", file);
 
     try {
-      const res = await uploadImage(formData).unwrap();
+      const res = await uploadImage(formData).unwrap()
       setIdentity(res?.data?.display_url);
     } catch (error) {
       toast.error("Something went wrong 😓", { id: error });

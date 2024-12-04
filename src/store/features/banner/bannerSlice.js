@@ -19,19 +19,11 @@ const bannerSlice = createSlice({
     handleSetBannerImage: (state, { payload }) => {
       state.value.bannerImages = payload;
     },
-
-    handleBannerClear: (state) => {
-      (state.value.keyFeatures = []),
-        (state.value.description = ""),
-        (state.value.additionalInfo = ""),
-        (state.value.images = [...Array(4).fill(null)]);
-    },
   },
 });
 
 export const {
   handleBannerImages,
-  handleClear,
   handleDeleteBannerImage,
   handleSetBannerImage,
 } = bannerSlice.actions;

@@ -8,7 +8,6 @@ const brandsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["seller-brands"],
     }),
-
     createSellerBrands: build.mutation({
       query: (data) => ({
         url: "seller-create-brands",
@@ -25,6 +24,13 @@ const brandsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["seller-brands"],
     }),
+    deleteBrand: build.mutation({
+      query: (data) => ({
+        url: `seller-delete-brand?${data}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["seller-brands"],
+    }),
   }),
 });
 
@@ -32,4 +38,5 @@ export const {
   useCreateSellerBrandsMutation,
   useGetSellerBrandsQuery,
   useUpdateSellerBrandsMutation,
+  useDeleteBrandMutation,
 } = brandsApi;
