@@ -74,7 +74,13 @@ const ProductTable = ({ search }) => {
             {
               name: "Price",
               render: ({ item }) => {
-                return <div>{numberWithCommas(item?.price)}</div>;
+                return (
+                  <div>
+                    {numberWithCommas(
+                      item?.specialPrice > 0 ? item?.specialPrice : item?.price
+                    )}
+                  </div>
+                );
               },
             },
             {

@@ -78,6 +78,7 @@ const AddProduct = () => {
           toast.success("Product updated successfully", {
             id: "updated_product",
           });
+          navigate(-1);
         } else {
           toast.error("Something went wrong 😓", { id: "update_error" });
         }
@@ -121,11 +122,12 @@ const AddProduct = () => {
         productImages: updateData.productImages,
       };
       dispatch(handleSetUpdatedProduct(data));
+      setValue("category", updateData?.category);
     } else {
       dispatch(handleClearProduct());
-      reset()
+      reset();
     }
-  }, [setValue, updateData, dispatch,reset]);
+  }, [setValue, updateData, dispatch, reset]);
 
   return (
     <div>
