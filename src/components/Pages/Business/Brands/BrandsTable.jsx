@@ -1,19 +1,27 @@
+import { useState } from "react";
 import { ImSpinner9 } from "react-icons/im";
 import Table from "../../../Common/Table";
 import { useGetSellerBrandsQuery } from "../../../../store/service/brands/brandsApi";
 import { useGetSeller } from "../../../../hooks/useGetSeller";
 import UpdateBrand from "./UpdateBrand";
 import DeleteBrand from "./DeleteBrand";
+import PropTypes from "prop-types";
+import Pagination from "../../../Common/Pagination";
 
-const BrandsTable = () => {
+const BrandsTable = ({ search }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(10);
   const { seller } = useGetSeller();
 
   const query = new URLSearchParams({
     sellerId: seller?._id,
     email: seller?.email,
+    search,
+    page: currentPage,
+    limit,
   }).toString();
   const { data, isLoading } = useGetSellerBrandsQuery(query);
-  console.log(data)
+  const pages = Math.ceil(Math.abs(data?.total ?? 0) / parseInt(limit));
 
   return (
     <div>
@@ -21,7 +29,7 @@ const BrandsTable = () => {
         {!isLoading ? (
           <Table
             className="font-normal"
-            tableData={data}
+            tableData={data?.data}
             columns={[
               {
                 name: "Brand Name",
@@ -33,7 +41,11 @@ const BrandsTable = () => {
                 render: ({ item }) => {
                   return (
                     <div className="flex items-center gap-2 w-12 h-12">
-                      <img className="h-full w-full" src={item?.brandPhoto} alt="brand" />
+                      <img
+                        className="h-full w-full"
+                        src={item?.brandPhoto}
+                        alt="brand"
+                      />
                     </div>
                   );
                 },
@@ -59,8 +71,19 @@ const BrandsTable = () => {
           </div>
         )}
       </div>
+      <Pagination
+        pages={pages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        setLimit={setLimit}
+        key={"order_pagination"}
+      />
     </div>
   );
+};
+
+BrandsTable.propTypes = {
+  search: PropTypes.string,
 };
 
 export default BrandsTable;

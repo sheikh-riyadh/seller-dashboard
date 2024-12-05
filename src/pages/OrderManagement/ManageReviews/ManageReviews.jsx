@@ -2,9 +2,11 @@ import { useState } from "react";
 import Button from "../../../components/Common/Button";
 import Input from "../../../components/Common/Input";
 import ManageReviewTable from "../../../components/Pages/OrderManagement/ManageReviews/ManageReviewTable";
+import { useSearchDelay } from "../../../hooks/useSearchDelay";
 
 const ManageReviews = () => {
   const [selectTabOption, setSelectTabOption] = useState(5);
+  const { handleChange, searchValue } = useSearchDelay();
 
   return (
     <div>
@@ -12,7 +14,8 @@ const ManageReviews = () => {
         <div>
           <div className="flex items-center gap-3 justify-end">
             <Input
-              placeholder="Search not available"
+              onChange={handleChange}
+              placeholder="Search..."
               className="border bg-white w-full"
             />
             <Button className="w-36 py-2.5">Find review</Button>
@@ -41,7 +44,10 @@ const ManageReviews = () => {
               ))}
             </div>
             <div className="p-5">
-              <ManageReviewTable selectTabOption={selectTabOption} />
+              <ManageReviewTable
+                selectTabOption={selectTabOption}
+                search={searchValue}
+              />
             </div>
           </div>
         </div>

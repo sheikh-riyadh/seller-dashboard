@@ -42,8 +42,6 @@ const BasicInfo = ({ register, setValue }) => {
     }
   };
 
-  console.log(sellerBrandsData)
-
   return (
     <div className="flex flex-col gap-1 p-5">
       <span className="py-2 block font-medium text-sm text-white">
@@ -97,7 +95,7 @@ const BasicInfo = ({ register, setValue }) => {
             {`${isLoading ? "Please wait..." : "Select brand"}`}
           </option>
 
-          {sellerBrandsData?.map(({ brandName }) => (
+          {sellerBrandsData?.data?.map(({ brandName }) => (
             <option key={brandName} value={brandName}>
               {brandName}
             </option>

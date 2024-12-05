@@ -8,17 +8,27 @@ import { useGetSeller } from "../../../hooks/useGetSeller";
 import DeleteProduct from "./DeleteProduct";
 import { numberWithCommas } from "../../../utils/numberWithComma";
 import UpdateStatus from "./UpdateStatus";
+import { useState } from "react";
+import PropTypes from "prop-types";
+import Pagination from "../../Common/Pagination";
 
-const ProductTable = () => {
+const ProductTable = ({ search }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+
   const navigate = useNavigate();
   const { seller } = useGetSeller();
 
   const query = new URLSearchParams({
     sellerId: seller?._id,
     email: seller?.email,
+    limit,
+    page: currentPage,
+    search,
   }).toString();
 
   const { data, isLoading } = useGetProductsQuery(query);
+  const pages = Math.ceil(Math.abs(data?.total ?? 0) / parseInt(limit));
 
   const redirectUserDetailsHandler = (items) => {
     if (items) {
@@ -37,7 +47,7 @@ const ProductTable = () => {
       {!isLoading ? (
         <Table
           className="font-normal"
-          tableData={data}
+          tableData={data?.data}
           columns={[
             {
               name: "Images",
@@ -80,7 +90,13 @@ const ProductTable = () => {
             {
               name: "Status",
               render: ({ item }) => {
-                return <UpdateStatus item={item} sellerId={seller?._id} email={seller?.email} />;
+                return (
+                  <UpdateStatus
+                    item={item}
+                    sellerId={seller?._id}
+                    email={seller?.email}
+                  />
+                );
               },
             },
             {
@@ -95,7 +111,11 @@ const ProductTable = () => {
                     >
                       <FaBinoculars />
                     </span>
-                    <DeleteProduct user={seller} id={item?._id} email={item?.email} />
+                    <DeleteProduct
+                      user={seller}
+                      id={item?._id}
+                      email={item?.email}
+                    />
                   </div>
                 );
               },
@@ -105,8 +125,18 @@ const ProductTable = () => {
       ) : (
         <LoadingSpinner />
       )}
+      <Pagination
+        pages={pages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        setLimit={setLimit}
+        key={"product_pagination"}
+      />
     </div>
   );
 };
 
+ProductTable.propTypes = {
+  search: PropTypes.string,
+};
 export default ProductTable;

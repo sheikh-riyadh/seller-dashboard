@@ -34,7 +34,7 @@ const Table = ({ columns, tableData, className }) => {
           </thead>
           <tbody
             className={cn(
-              `text-accent text-sm font-light bg-widget`,
+              `text-white text-sm font-light bg-widget`,
               className
             )}
           >
@@ -67,7 +67,7 @@ const Table = ({ columns, tableData, className }) => {
           </tbody>
         </table>
       ) : (
-        <div className="flex gap-5 flex-col items-center justify-center w-full h-80 bg-widget">
+        <div className="flex gap-5 flex-col items-center justify-center w-full h-screen bg-widget">
           <FaClipboard className="text-8xl text-white"  />
           <span className="font-medium text-xl text-accent capitalize">No data found</span>
         </div>

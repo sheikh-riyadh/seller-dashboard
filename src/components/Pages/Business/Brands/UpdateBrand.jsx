@@ -21,10 +21,9 @@ const UpdateBrand = ({ item,seller }) => {
         {isModalOpen && (
           <Modal
             title={"Add Brand"}
-            className="w-[500px]"
+            className="w-[350px] lg:w-[500px]"
             onClose={setIsModalOpen}
             isOpen={isModalOpen}
-            isOutsideClick={false}
           >
             <BrandForm setIsModalOpen={setIsModalOpen} updateData={item} seller={seller} />
           </Modal>

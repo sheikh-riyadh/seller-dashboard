@@ -99,8 +99,8 @@ const Announcement = () => {
             </div>
             {!announcementData?._id ? (
               <div className="flex gap-5 flex-col items-center justify-center w-full h-60 bg-widget">
-                <FaClipboard className="text-8xl text-slate" />
-                <span className="font-medium text-xl text-danger capitalize">
+                <FaClipboard className="text-8xl text-white" />
+                <span className="font-medium text-xl text-accent capitalize">
                   No data found
                 </span>
               </div>
@@ -128,7 +128,7 @@ const Announcement = () => {
           isOpen={isModalOpen}
           onClose={setIsModalOpen}
           title={"Create announcement"}
-          className="w-[450px]"
+          className="w-[350px] lg:w-[450px]"
         >
           <form
             onSubmit={handleSubmit(handleAnnouncement)}

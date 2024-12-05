@@ -7,22 +7,31 @@ import { useGetReviewQuery } from "../../../../store/service/review/reviewApi";
 import { useGetSeller } from "../../../../hooks/useGetSeller";
 import PropTypes from "prop-types";
 import LoadingSpinner from "../../../Common/LoadingSpinner";
-const ManageReviewTable = ({ selectTabOption }) => {
+import { useState } from "react";
+import Pagination from "../../../Common/Pagination";
+const ManageReviewTable = ({ selectTabOption, search }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+
   const { seller } = useGetSeller();
 
   const query = new URLSearchParams({
     sellerId: seller?._id,
     rating: selectTabOption,
     email: seller?.email,
+    search,
+    limit,
+    page: currentPage,
   }).toString();
   const { data, isLoading } = useGetReviewQuery(query);
+  const pages = Math.ceil(Math.abs(data?.total ?? 0) / parseInt(limit));
 
   return (
     <div className="overflow-hidden">
       {!isLoading ? (
         <Table
           className="font-normal"
-          tableData={data}
+          tableData={data?.data}
           columns={[
             {
               name: "Images",
@@ -55,7 +64,7 @@ const ManageReviewTable = ({ selectTabOption }) => {
                   <div className="flex gap-1 items-center">
                     {[...Array(item?.rating?.rating).keys()].map((rating) => (
                       <div key={rating}>
-                        <FaStar className="text-danger" />
+                        <FaStar className="text-accent" />
                       </div>
                     ))}
                   </div>
@@ -88,12 +97,20 @@ const ManageReviewTable = ({ selectTabOption }) => {
       ) : (
         <LoadingSpinner />
       )}
+      <Pagination
+        pages={pages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        setLimit={setLimit}
+        key={"product_pagination"}
+      />
     </div>
   );
 };
 
 ManageReviewTable.propTypes = {
   selectTabOption: PropTypes.number,
+  search: PropTypes.string,
 };
 
 export default ManageReviewTable;

@@ -4,18 +4,27 @@ import Button from "../../../../components/Common/Button";
 import { useGetSeller } from "../../../../hooks/useGetSeller";
 import { useGetOrderQuery } from "../../../../store/service/order/orderApi";
 import LoadingSpinner from "../../../../components/Common/LoadingSpinner";
+import PropTypes from "prop-types";
+import Pagination from "../../../../components/Common/Pagination";
 
-const ToCustomer = () => {
+const ToCustomer = ({ search }) => {
   const [status, setStatus] = useState("pending");
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+
   const { seller } = useGetSeller();
 
   const query = new URLSearchParams({
     sellerId: seller?._id,
     status,
-    email:seller?.email
+    email: seller?.email,
+    search,
+    page: currentPage,
+    limit,
   }).toString();
 
   const { data, isLoading } = useGetOrderQuery(query);
+  const pages = Math.ceil(Math.abs(data?.total ?? 0) / parseInt(limit));
 
   return (
     <div className="rounded-sm overflow-hidden">
@@ -43,7 +52,17 @@ const ToCustomer = () => {
           ))}
         </div>
         {!isLoading ? (
-          <ToCustomerTable data={data} />
+          <div>
+            <ToCustomerTable data={data?.data} />
+
+            <Pagination
+              pages={pages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              setLimit={setLimit}
+              key={"order_pagination"}
+            />
+          </div>
         ) : (
           <div>
             <LoadingSpinner />
@@ -52,6 +71,10 @@ const ToCustomer = () => {
       </div>
     </div>
   );
+};
+
+ToCustomer.propTypes = {
+  search: PropTypes.string,
 };
 
 export default ToCustomer;
