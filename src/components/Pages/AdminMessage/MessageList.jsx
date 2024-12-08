@@ -26,8 +26,8 @@ const MessageList = ({ messages = [], setIsModalOpen, isModalOpen }) => {
   return (
     <div className="z-50 absolute right-0 top-10" ref={modalRef}>
       <div className="flex flex-col items-center justify-center">
-        <div className="max-w-lg bg-widget rounded-lg shadow-lg w-80 md:w-96">
-          <div className="max-h-[400px] overflow-y-auto custom-bar">
+        <div className="max-w-lg bg-[#1c2822] p-5 rounded-lg shadow-lg w-80 md:w-96">
+          <div className="max-h-[400px] overflow-y-auto bar-hidden flex flex-col gap-4">
             {messages?.map((message) => (
               <div
                 onClick={() => {
@@ -42,9 +42,15 @@ const MessageList = ({ messages = [], setIsModalOpen, isModalOpen }) => {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-white">
-                    {message.title}
+                    {message.title?.length > 30
+                      ? `${message?.title?.slice(0, 30)}...`
+                      : message.title}
                   </p>
-                  <p className="text-sm text-gray-500">{message.message}</p>
+                  <p className="text-sm text-gray-500">
+                    {message.message?.length > 50
+                      ? `${message?.message?.slice(0, 50)}...`
+                      : message.message}
+                  </p>
                   <p className="text-xs text-gray-400">{message.date}</p>
                 </div>
               </div>
@@ -60,7 +66,9 @@ const MessageList = ({ messages = [], setIsModalOpen, isModalOpen }) => {
           title={selectedMessage?.title}
         >
           <div className="bg-widget w-full h-full p-5 rounded-md">
-            <span className="font-medium text-white">{selectedMessage?.message}</span>
+            <span className="font-medium text-white">
+              {selectedMessage?.message}
+            </span>
           </div>
         </Modal>
       )}
