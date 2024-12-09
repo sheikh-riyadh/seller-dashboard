@@ -7,7 +7,10 @@ const PrivateRouter = ({ children }) => {
 
   const location = useLocation();
 
-  if (seller?.role === "seller" && seller?.status == "active") {
+  if (
+    (seller?.role === "seller" && seller?.status == "active") ||
+    seller?.status === "working"
+  ) {
     return children;
   } else if (seller?.role === "seller" && seller?.status === "pending") {
     return <Navigate to="/pending" />;

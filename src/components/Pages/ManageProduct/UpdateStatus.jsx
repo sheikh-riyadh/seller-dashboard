@@ -3,7 +3,7 @@ import { useUpdateProductMutation } from "../../../store/service/product/product
 import SelectInput from "../../Common/SelectInput";
 import PropTypes from "prop-types";
 
-const UpdateStatus = ({ sellerId, item, email }) => {
+const UpdateStatus = ({ sellerId, item, email, sellerStatus }) => {
   const [updateProduct, { isLoading }] = useUpdateProductMutation();
 
   const handleUpdateStatus = async (event) => {
@@ -23,7 +23,15 @@ const UpdateStatus = ({ sellerId, item, email }) => {
     }
   };
   return (
-    <div className={`${item?.status === "blocked" && "hidden"}`}>
+    <div
+      className={`${
+        item?.status === "blocked"
+          ? "hidden"
+          : sellerStatus === "working"
+          ? "hidden"
+          : null
+      }`}
+    >
       <SelectInput
         onChange={handleUpdateStatus}
         className="border bg-widget rounded-full p-0 px-2 capitalize text-white"
@@ -44,6 +52,7 @@ UpdateStatus.propTypes = {
   sellerId: PropTypes.string,
   item: PropTypes.object,
   email: PropTypes.string,
+  sellerStatus: PropTypes.string,
 };
 
 export default UpdateStatus;

@@ -101,6 +101,7 @@ const ProductTable = ({ search }) => {
                     item={item}
                     sellerId={seller?._id}
                     email={seller?.email}
+                    sellerStatus={seller?.status}
                   />
                 );
               },

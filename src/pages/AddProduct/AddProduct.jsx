@@ -54,7 +54,7 @@ const AddProduct = () => {
       description,
       additionalInfo,
       sellerId: seller?._id,
-      status: updateData?.status ? updateData?.status : "active",
+      status: updateData?.status ? updateData?.status : seller?.status,
       email: seller?.email,
     };
 
