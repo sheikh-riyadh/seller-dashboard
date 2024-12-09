@@ -77,7 +77,7 @@ const ToCustomerTable = ({ data }) => {
                         return (total += item?.buyQnt * item?.price);
                       }, 0) +
                         parseInt(
-                          item?.deliveryCharge ? item?.deliveryCharge : 0
+                          item?.deliveryCharge ?? 0
                         )
                     )}
                     TK

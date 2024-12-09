@@ -20,7 +20,7 @@ const OrderView = ({ orderInfo }) => {
     },
     {
       title: "Shipping Fee",
-      value: numberWithCommas(parseInt(Math.round(orderInfo?.deliveryCharge))),
+      value: numberWithCommas(parseInt(Math.round(orderInfo?.deliveryCharge??0))),
     },
   ];
   return (
@@ -168,7 +168,7 @@ const OrderView = ({ orderInfo }) => {
               {numberWithCommas(
                 parseInt(Math.round(totalCost)) +
                   parseInt(
-                    orderInfo?.deliveryCharge ? orderInfo?.deliveryCharge : 0
+                    orderInfo?.deliveryCharge ?? 0
                   )
               )}
             </span>
