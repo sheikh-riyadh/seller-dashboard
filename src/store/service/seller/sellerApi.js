@@ -33,6 +33,9 @@ const sellerApi = baseApi.injectEndpoints({
         url: "jwt",
         method: "POST",
         body: data,
+        headers: {
+          "Content-Type": "application/json",
+        },
       }),
       invalidatesTags: ["seller"],
     }),
