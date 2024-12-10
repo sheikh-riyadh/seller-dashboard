@@ -40,7 +40,10 @@ const UpdateStatus = ({ sellerId, item, email, sellerStatus }) => {
         <option selected={item?.status === "active"} value="active">
           active
         </option>
-        <option selected={item?.status === "draft"} value="draft">
+        <option
+          selected={item?.status === "draft" || item?.status === "working"}
+          value="draft"
+        >
           draft
         </option>
       </SelectInput>
