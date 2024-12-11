@@ -6,11 +6,11 @@ import Button from "../../../../Common/Button";
 
 const OrderView = ({ orderInfo }) => {
   const totalItem = orderInfo?.productsInfo?.reduce((total, item) => {
-    return (total += item?.buyQnt);
+    return (total += parseInt(item?.buyQnt));
   }, 0);
 
   const totalCost = orderInfo?.productsInfo?.reduce((total, item) => {
-    return (total += item?.buyQnt * item?.price);
+    return (total += parseInt(item?.buyQnt) * parseInt(item?.price));
   }, 0);
 
   const orderSummery = [

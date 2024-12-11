@@ -74,7 +74,7 @@ const ToCustomerTable = ({ data }) => {
                   <span className="font-medium">
                     {numberWithCommas(
                       item?.productsInfo?.reduce((total, item) => {
-                        return (total += item?.buyQnt * item?.price);
+                        return (total += parseInt(item?.buyQnt) * parseInt(item?.price));
                       }, 0) +
                         parseInt(
                           item?.deliveryCharge ?? 0
